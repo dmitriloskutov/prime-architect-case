@@ -67,7 +67,9 @@ p{text-wrap:pretty}
 .pill__ico{width:36px;height:36px;margin-top:-2px;border-radius:50%;display:grid;place-items:center;transition:background-color 420ms ease 60ms,color 420ms ease 60ms,transform 500ms var(--ease-out)}
 .pill--line{--inv:var(--ink);border:1px solid var(--ink-line);color:var(--ink)}
 .pill--line .pill__ico{background:rgba(30,33,29,.08)}
-.pill--solid{--inv:var(--ink);background:var(--cream);border:1px solid var(--cream);color:var(--ink)}
+.pill--solid{--inv:var(--ink);background:var(--cream);border:0;color:var(--ink)}
+/* the light ring is drawn ABOVE the dark fill: at fractional zoom the rounded clip of the fill otherwise eats the top edge */
+.pill--solid::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px var(--cream);pointer-events:none}
 .pill--solid .pill__ico{background:var(--ink);color:var(--cream)}
 .pill--ghost{--inv:var(--cream);border:1px solid var(--w-line);color:#fff}
 .pill--ghost .pill__ico{background:rgba(255,255,255,.12)}
