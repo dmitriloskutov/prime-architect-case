@@ -269,6 +269,7 @@ button,.pill,.chip,.filter,.opt,.card,.textlink,.nav a,.logo,.modal__close,.soci
 @media (max-width:1199px) and (hover:none), (max-width:1199px) and (pointer:coarse){
   .bento .cell{perspective:none}
   .tile,.tile__img{transform:none!important}
+  .tile__img{inset:0;width:100%;height:100%}
 }
 
 /* ---------- 04 STEPS ---------- */
@@ -915,7 +916,6 @@ html{scrollbar-color:rgba(30,33,29,.3) var(--cream)}
   .bento .cell--a{min-height:400px}
   .bento .cell--b,.bento .cell--c,.bento .cell--f,.bento .cell--g{grid-column:span 1;min-height:230px}
   .tile{padding:18px}
-  .tile__img{inset:0;width:100%;height:100%}
   .tile h3,.cell--a .tile h3{font-size:24px;margin-top:8px;max-width:none}
   .cell--a .tile h3{font-size:30px}
   .cell--b .tile h3,.cell--c .tile h3,.cell--f .tile h3,.cell--g .tile h3{font-size:19px;line-height:1.08}
@@ -1902,8 +1902,8 @@ steps.forEach(st => stepIO.observe(st));
     let tx = 0, ty = 0, x = 0, y = 0, ta = 0, a = 0, raf = 0;
     const render = () => {
       const k = a;
-      tile.style.transform = `rotateX(${(-y * 3.2 * k).toFixed(3)}deg) rotateY(${(x * 4 * k).toFixed(3)}deg) translate3d(${(x * 5 * k).toFixed(2)}px, ${(y * 5 * k).toFixed(2)}px, 0)`;
-      if (img) img.style.transform = `scale(1.06) translate3d(${(-x * 8 * k).toFixed(2)}px, ${(-y * 8 * k).toFixed(2)}px, 0)`;
+      tile.style.transform = `rotateX(${(-y * 7 * k).toFixed(3)}deg) rotateY(${(x * 9 * k).toFixed(3)}deg) translate3d(${(x * 8 * k).toFixed(2)}px, ${(y * 8 * k).toFixed(2)}px, 0)`;
+      if (img) img.style.transform = `scale(1.1) translate3d(${(-x * 16 * k).toFixed(2)}px, ${(-y * 16 * k).toFixed(2)}px, 0)`;
     };
     const loop = () => {
       x += (tx - x) * 0.07; y += (ty - y) * 0.07;
