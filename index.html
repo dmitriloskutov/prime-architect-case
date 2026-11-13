@@ -60,28 +60,29 @@ p{text-wrap:pretty}
 
 /* ---------- buttons: press feedback on every pressable ---------- */
 .pill{position:relative;overflow:hidden;isolation:isolate;display:inline-flex;align-items:center;gap:12px;height:48px;padding:2px 24px 0 6px;border-radius:999px;font-size:11px;line-height:16px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap;
-  transition:background-color 300ms ease,color 420ms ease 60ms,border-color 420ms ease 60ms,transform 160ms var(--ease-out)}
+  transition:background-color 300ms ease,color 420ms ease 60ms,transform 160ms var(--ease-out)}
+/* every pill's border is a ring drawn ABOVE the hover fill: at fractional page zoom the fill's rounded clip
+   otherwise eats an edge (usually the top one) of a real border while it animates */
+.pill::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px var(--ring,transparent);pointer-events:none;transition:box-shadow 420ms ease 60ms}
 .pill::before{content:"";position:absolute;z-index:-1;left:var(--x,50%);top:var(--y,50%);width:var(--d,480px);height:var(--d,480px);margin:calc(var(--d,480px) / -2) 0 0 calc(var(--d,480px) / -2);border-radius:50%;background:var(--inv,var(--ink));transform:scale(0);transition:transform 480ms cubic-bezier(.45,0,.25,1);pointer-events:none}
 .pill.is-hover::before{transform:scale(1);transition:transform 680ms cubic-bezier(.33,.9,.4,1)}
 .pill:active,.chip:active,.filter:active,.modal__close:active{transform:scale(.97)}
 .pill__ico{width:36px;height:36px;margin-top:-2px;border-radius:50%;display:grid;place-items:center;transition:background-color 420ms ease 60ms,color 420ms ease 60ms,transform 500ms var(--ease-out)}
-.pill--line{--inv:var(--ink);border:1px solid var(--ink-line);color:var(--ink)}
+.pill--line{--inv:var(--ink);--ring:var(--ink-line);color:var(--ink)}
 .pill--line .pill__ico{background:rgba(30,33,29,.08)}
-.pill--solid{--inv:var(--ink);background:var(--cream);border:0;color:var(--ink)}
-/* the light ring is drawn ABOVE the dark fill: at fractional zoom the rounded clip of the fill otherwise eats the top edge */
-.pill--solid::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px var(--cream);pointer-events:none}
+.pill--solid{--inv:var(--ink);--ring:var(--cream);background:var(--cream);color:var(--ink)}
 .pill--solid .pill__ico{background:var(--ink);color:var(--cream)}
-.pill--ghost{--inv:var(--cream);border:1px solid var(--w-line);color:#fff}
+.pill--ghost{--inv:var(--cream);--ring:var(--w-line);color:#fff}
 .pill--ghost .pill__ico{background:rgba(255,255,255,.12)}
-.pill--dark{--inv:var(--cream);background:var(--ink);border:1px solid var(--ink);color:var(--cream)}
+.pill--dark{--inv:var(--cream);--ring:var(--ink);background:var(--ink);color:var(--cream)}
 .pill--dark .pill__ico{background:var(--cream);color:var(--ink)}
 .pill--noico{padding:2px 28px 0}
 .pill.is-hover .pill__ico{transform:translateX(2px)}
-.pill--line.is-hover{color:var(--cream);border-color:var(--ink)}
+.pill--line.is-hover{color:var(--cream);--ring:var(--ink)}
 .pill--line.is-hover .pill__ico{background:rgba(255,255,255,.14)}
 .pill--solid.is-hover{color:var(--cream)}
 .pill--solid.is-hover .pill__ico{background:var(--cream);color:var(--ink)}
-.pill--ghost.is-hover{color:var(--ink);border-color:var(--cream)}
+.pill--ghost.is-hover{color:var(--ink);--ring:var(--cream)}
 .pill--ghost.is-hover .pill__ico{background:rgba(30,33,29,.1)}
 .pill--dark.is-hover{color:var(--ink)}
 .pill--dark.is-hover .pill__ico{background:var(--ink);color:var(--cream)}
