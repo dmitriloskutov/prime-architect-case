@@ -1,0 +1,2423 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="googlebot" content="noindex, nofollow">
+<meta name="yandex" content="noindex, nofollow">
+<title>Prime Architect — каменные дома под ключ</title>
+<meta name="description" content="Проектируем и строим дома из газобетона и тёплой керамики под ключ в Москве и области. Смета и сроки фиксируются в договоре, без предоплаты.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#f1eee7;
+  --paper:#fbfaf6;
+  --ink:#1e211d;
+  --olive:#2c3128;
+  --gold:#cdb98f;
+  --clay:#7a3b26;
+  --ink-70:rgba(30,33,29,.7);
+  --ink-55:rgba(30,33,29,.55);
+  --ink-line:rgba(30,33,29,.14);
+  --w-80:rgba(255,255,255,.8);
+  --w-60:rgba(255,255,255,.6);
+  --w-line:rgba(255,255,255,.22);
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'DM Sans',Arial,sans-serif;
+  /* motion: strong custom curves, never browser defaults */
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  --ease-in-out:cubic-bezier(.77,0,.175,1);
+  --pad:120px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:var(--cream)}
+body{font-family:var(--sans);font-weight:300;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit;color:inherit}
+button{background:none;border:0;cursor:pointer}
+img{display:block;max-width:100%}
+h1,h2,h3{font-weight:300;text-wrap:balance}
+p{text-wrap:pretty}
+.wrap{max-width:1920px;margin:0 auto;padding:0 var(--pad);position:relative}
+:focus-visible{outline:1px solid var(--gold);outline-offset:4px}
+.skip{position:absolute;left:16px;top:-60px;z-index:100;background:var(--ink);color:var(--cream);padding:12px 16px;font-size:12px;letter-spacing:.15em;text-transform:uppercase;transition:transform 200ms var(--ease-out)}
+.skip:focus{transform:translateY(76px)}
+
+/* ---------- type ---------- */
+.label{font-size:11px;line-height:16px;font-weight:500;letter-spacing:.2em;text-transform:uppercase}
+.chapter{display:flex;flex-direction:column;gap:4px}
+.chapter__num{font-family:var(--serif);font-weight:300;font-size:48px;line-height:1;letter-spacing:-.02em}
+.chapter .label{opacity:.6}
+.eyebrow{display:inline-block;align-self:flex-start;padding-bottom:12px;border-bottom:1px solid currentColor;font-size:11px;line-height:16px;font-weight:600;letter-spacing:.22em;text-transform:uppercase}
+.display{font-family:var(--serif);font-weight:300;letter-spacing:-.035em}
+.display em{font-style:italic;font-weight:300}
+.h2{font-size:72px;line-height:.92}
+.lead{font-size:18px;line-height:30px;font-weight:300}
+.num{font-variant-numeric:tabular-nums lining-nums}
+
+/* ---------- buttons: press feedback on every pressable ---------- */
+.pill{position:relative;overflow:hidden;isolation:isolate;display:inline-flex;align-items:center;gap:12px;height:48px;padding:2px 24px 0 6px;border-radius:999px;font-size:11px;line-height:16px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap;
+  transition:background-color 300ms ease,color 420ms ease 60ms,border-color 420ms ease 60ms,transform 160ms var(--ease-out)}
+.pill::before{content:"";position:absolute;z-index:-1;left:var(--x,50%);top:var(--y,50%);width:var(--d,480px);height:var(--d,480px);margin:calc(var(--d,480px) / -2) 0 0 calc(var(--d,480px) / -2);border-radius:50%;background:var(--inv,var(--ink));transform:scale(0);transition:transform 480ms cubic-bezier(.45,0,.25,1);pointer-events:none}
+.pill.is-hover::before{transform:scale(1);transition:transform 680ms cubic-bezier(.33,.9,.4,1)}
+.pill:active,.chip:active,.filter:active,.modal__close:active{transform:scale(.97)}
+.pill__ico{width:36px;height:36px;margin-top:-2px;border-radius:50%;display:grid;place-items:center;transition:background-color 420ms ease 60ms,color 420ms ease 60ms,transform 500ms var(--ease-out)}
+.pill--line{--inv:var(--ink);border:1px solid var(--ink-line);color:var(--ink)}
+.pill--line .pill__ico{background:rgba(30,33,29,.08)}
+.pill--solid{--inv:var(--ink);background:var(--cream);border:1px solid var(--cream);color:var(--ink)}
+.pill--solid .pill__ico{background:var(--ink);color:var(--cream)}
+.pill--ghost{--inv:var(--cream);border:1px solid var(--w-line);color:#fff}
+.pill--ghost .pill__ico{background:rgba(255,255,255,.12)}
+.pill--dark{--inv:var(--cream);background:var(--ink);border:1px solid var(--ink);color:var(--cream)}
+.pill--dark .pill__ico{background:var(--cream);color:var(--ink)}
+.pill--noico{padding:2px 28px 0}
+.pill.is-hover .pill__ico{transform:translateX(2px)}
+.pill--line.is-hover{color:var(--cream);border-color:var(--ink)}
+.pill--line.is-hover .pill__ico{background:rgba(255,255,255,.14)}
+.pill--solid.is-hover{color:var(--cream)}
+.pill--solid.is-hover .pill__ico{background:var(--cream);color:var(--ink)}
+.pill--ghost.is-hover{color:var(--ink);border-color:var(--cream)}
+.pill--ghost.is-hover .pill__ico{background:rgba(30,33,29,.1)}
+.pill--dark.is-hover{color:var(--ink)}
+.pill--dark.is-hover .pill__ico{background:var(--ink);color:var(--cream)}
+.pill:disabled{opacity:.4;pointer-events:none}
+.textlink{display:inline-flex;align-items:center;gap:12px;font-size:11px;line-height:16px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding-bottom:6px;border-bottom:1px solid currentColor;transition:opacity 200ms ease,color 200ms ease}
+.textlink:active{opacity:.6}
+@media (hover:hover) and (pointer:fine){
+  .textlink:hover{opacity:.7}
+}
+
+/* things you press should not get selected on a quick double click */
+button,.pill,.chip,.filter,.opt,.card,.textlink,.nav a,.logo,.modal__close,.social,.video-btn,label.field span{-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+
+/* ---------- reveal: one-time, staggered, ease-out ---------- */
+.reveal{opacity:0;transform:translateY(16px)}
+.reveal.is-in{opacity:1;transform:none;transition:opacity 700ms var(--ease-out),transform 700ms var(--ease-out);transition-delay:calc(var(--i,0) * 60ms)}
+.reveal-img{clip-path:inset(100% 0 0 0 round 4px)}
+.reveal-img img{transform:scale(1.08)}
+.reveal-img.is-in{clip-path:inset(0 0 0 0 round 4px);transition:clip-path 1000ms var(--ease-in-out);transition-delay:calc(var(--i,0) * 60ms)}
+.reveal-img.is-in img{transform:none;transition:transform 1400ms var(--ease-out)}
+
+/* ---------- HEADER ---------- */
+.header{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(241,238,231,.78);backdrop-filter:blur(14px) saturate(1.1);-webkit-backdrop-filter:blur(14px) saturate(1.1);border-bottom:1px solid var(--ink-line);transition:background-color 200ms ease}
+.header.is-solid{background:rgba(241,238,231,.95)}
+.header__in{height:72px;display:flex;align-items:center;justify-content:space-between;gap:32px}
+.logo{font-family:var(--serif);font-weight:400;font-size:26px;line-height:1;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.logo span{margin-left:.5em}
+.nav{display:flex;gap:36px}
+.nav > a{font-size:11px;line-height:16px;font-weight:400;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-70);position:relative;padding:4px 0;transition:color 200ms ease}
+.nav > a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform 200ms var(--ease-out)}
+.nav > a.is-active{color:var(--ink)}
+.nav > a.is-active::after{transform:scaleX(1)}
+@media (hover:hover) and (pointer:fine){ .nav > a:hover{color:var(--ink)} .nav > a:hover::after{transform:scaleX(1)} }
+.header__cta{display:flex;gap:8px}
+
+/* ---------- 01 HERO ---------- */
+/* at least one screen tall, but grows with its content so the bottom padding is never cut off */
+.hero{position:sticky;top:0;z-index:0;height:var(--vh,100vh);color:#fff;overflow:hidden;background:var(--olive);transform-origin:50% 100%;will-change:transform}
+.hero__dim{position:absolute;inset:0;background:#0d0f0c;opacity:0;pointer-events:none;z-index:2}
+/* every section after the hero is an opaque sheet above it (zero specificity, so each section keeps its own colour) */
+:where(main > section:not(.hero)){position:relative;z-index:1;background-color:var(--cream)}
+.cases{border-radius:28px 28px 0 0;box-shadow:0 -24px 60px rgba(13,15,12,.28)}
+/* photo is scaled wider and pinned left so the house sits to the right of the copy */
+.hero__img{position:absolute;max-width:none;width:130%;height:auto;left:-1%;top:calc(50% - 768px);transform-origin:70% 50%;animation:heroImg 1600ms var(--ease-out) both}
+@keyframes heroImg{from{transform:scale(1.04)}to{transform:none}}
+.hero__shade{position:absolute;inset:0;background:
+  linear-gradient(90deg,rgba(19,22,18,.8) 0%,rgba(19,22,18,.6) 30%,rgba(19,22,18,.15) 52%,rgba(19,22,18,0) 66%),
+  linear-gradient(180deg,rgba(19,22,18,0) 55%,rgba(19,22,18,.72) 100%)}
+/* --hk < 1 when the screen is too short for the hero copy: the copy is scaled as a whole, so spacing stays proportional */
+.hero .wrap{zoom:var(--hk,1);max-width:none;width:100%;height:100%;display:flex;flex-direction:column;padding:112px calc(var(--pad) / var(--hk,1)) 72px}
+.hero .chapter{margin-bottom:auto;padding-bottom:32px}
+.hero__body{max-width:760px;margin-bottom:44px}
+.hero .eyebrow{color:var(--w-80);border-color:var(--w-line)}
+.hero__title{font-size:108px;line-height:.88;margin-top:32px}
+.hero__title em{color:var(--gold)}
+.hero__text{margin-top:28px;max-width:660px;color:var(--w-80)}
+.hero__cta{display:flex;align-items:center;gap:32px;margin-top:36px}
+.hero__cta .textlink{color:var(--w-80)}
+.hero__note{display:flex;align-items:center;gap:10px;margin-top:20px;font-size:13px;line-height:20px;color:var(--w-60)}
+.hero__note i{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.stats{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid var(--w-line);padding-top:32px}
+.stat:nth-child(2){justify-self:center}
+.stat:nth-child(3){justify-self:end}
+.stat__num{font-family:var(--serif);font-weight:300;font-size:72px;line-height:.9;letter-spacing:-.03em;font-variant-numeric:tabular-nums lining-nums}
+.stat .label{display:block;margin-top:12px;color:var(--w-60)}
+.hero__caption{position:absolute;right:var(--pad);top:104px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+.hero-in{opacity:0;transform:translateY(16px);animation:rise 900ms var(--ease-out) forwards;animation-delay:calc(var(--i,0) * 80ms + 120ms)}
+@keyframes rise{to{opacity:1;transform:none}}
+
+/* ---------- 02 CASES ---------- */
+.cases{padding:140px 0 120px}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:64px}
+.sec-head__l{display:flex;flex-direction:column;gap:44px}
+.sec-head .lead{color:var(--ink-70);max-width:440px}
+.cases .eyebrow,.approach .eyebrow,.steps .eyebrow,.guar .eyebrow{color:var(--clay)}
+.cases .h2 em,.approach .h2 em,.steps .h2 em,.guar .h2 em{color:var(--clay)}
+.filters{display:flex;gap:40px;margin-top:56px;border-bottom:1px solid var(--ink-line)}
+.filter{position:relative;padding:0 0 20px;font-size:11px;line-height:16px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-55);transition:color 200ms ease,transform 160ms var(--ease-out)}
+.filter sup{font-size:9px;margin-left:4px;letter-spacing:0}
+.filter::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform 250ms var(--ease-out)}
+.filter[aria-selected="true"]{color:var(--ink)}
+.filter[aria-selected="true"]::after{transform:scaleX(1)}
+@media (hover:hover) and (pointer:fine){ .filter:hover{color:var(--ink)} }
+.media{position:relative;overflow:hidden;background:#ddd8cd;clip-path:inset(0 round 4px)}
+.media img{width:100%;height:100%;object-fit:cover;will-change:transform;backface-visibility:hidden}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:56px 32px;margin-top:48px}
+.card{display:flex;flex-direction:column;text-align:left;cursor:pointer;transition:transform 160ms var(--ease-out)}
+.card:active{transform:scale(.99)}
+.card .media{aspect-ratio:3/2}
+.card .media img{transform:scale(1);transition:transform 500ms var(--ease-out)}
+.card__more{position:absolute;left:16px;bottom:16px;display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 14px;border-radius:999px;background:rgba(241,238,231,.92);font-size:10px;line-height:16px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);opacity:0;transform:translateY(6px);transition:opacity 200ms var(--ease-out),transform 200ms var(--ease-out)}
+.card:focus-visible .card__more{opacity:1;transform:none}
+@media (hover:hover) and (pointer:fine){
+  .card:hover .media img{transform:scale(1.03)}
+  .card:hover .card__more{opacity:1;transform:none}
+  .card:hover h3{color:var(--clay)}
+}
+.card__row{display:flex;justify-content:space-between;align-items:baseline;margin-top:20px;gap:16px}
+.meta{font-size:11px;line-height:16px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-55)}
+.card h3{font-family:var(--serif);font-weight:400;font-size:26px;line-height:1.1;letter-spacing:-.015em;margin-top:8px;transition:color 200ms ease}
+.card h3 em{font-style:italic;color:var(--clay)}
+.card__specs{margin-top:10px;font-size:14px;line-height:20px;color:var(--ink-70)}
+.card__foot{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:14px;border-top:1px solid var(--ink-line);font-size:14px;line-height:20px;color:var(--ink-70)}
+.card__foot b{font-family:var(--serif);font-weight:500;font-size:20px;color:var(--ink)}
+.card.is-hidden{display:none}
+.card.is-filtered{animation:fadeUp 300ms var(--ease-out) both;animation-delay:calc(var(--i,0) * 40ms)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.empty{display:none;margin-top:64px;padding:48px 0;border-top:1px solid var(--ink-line);font-family:var(--serif);font-size:28px;color:var(--ink-70)}
+
+/* lead band */
+.band{background:var(--olive);color:var(--cream)}
+.band .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:120px;align-items:center;padding-top:96px;padding-bottom:96px}
+.band h2{font-size:60px;line-height:.95}
+.band h2 em{color:var(--gold)}
+.band p.lead{margin-top:24px;color:rgba(241,238,231,.75);max-width:560px}
+.band__cta{display:flex;align-items:center;gap:24px;margin-top:36px}
+.band__list{list-style:none;border-top:1px solid rgba(241,238,231,.16)}
+.band__list li{display:flex;gap:24px;align-items:baseline;padding:20px 0;border-bottom:1px solid rgba(241,238,231,.16)}
+.band__list span{font-family:var(--serif);font-style:normal;font-variant-numeric:lining-nums;font-size:24px;color:var(--gold);min-width:40px}
+.band__list b{display:block;font-family:var(--serif);font-weight:400;font-size:26px;line-height:1.15}
+.band__list p{margin-top:4px;font-size:14px;line-height:22px;color:rgba(241,238,231,.65)}
+
+/* ---------- 03 APPROACH ---------- */
+.approach{padding:160px 0}
+.approach__grid{display:grid;grid-template-columns:1fr 1fr;gap:120px;align-items:start}
+.approach__head{display:flex;flex-direction:column;gap:44px}
+.approach .lead{color:var(--ink-70);max-width:560px}
+.benefits{list-style:none;margin-top:16px;border-top:1px solid var(--ink-line)}
+.benefit{display:grid;grid-template-columns:72px 1fr 1.2fr;gap:24px;padding:26px 0;border-bottom:1px solid var(--ink-line);align-items:baseline}
+.benefit__n{font-family:var(--serif);font-variant-numeric:lining-nums;font-size:20px;color:var(--ink-55)}
+.benefit h3{font-family:var(--serif);font-weight:400;font-size:28px;line-height:1.1;letter-spacing:-.01em}
+.benefit p{font-size:15px;line-height:24px;color:var(--ink-70)}
+.approach__media{position:sticky;top:120px}
+.approach__media .media{height:740px}
+.caption{display:flex;justify-content:space-between;margin-top:16px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-55)}
+
+/* ---------- LIFE (imagine) ---------- */
+.life{background:var(--ink);color:var(--cream);padding:160px 0 0;overflow:hidden}
+.life .eyebrow{color:var(--gold);border-color:rgba(205,185,143,.45)}
+.life .h2 em{color:var(--gold)}
+.life .sec-head .lead{color:rgba(241,238,231,.72)}
+.bento{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:220px;gap:16px;margin-top:72px}
+/* the grid cell handles the scroll reveal; the tile inside is free to follow the cursor */
+.cell{perspective:1200px}
+.cell--a{grid-column:1/8;grid-row:1/3}
+.cell--b{grid-column:8/11;grid-row:1/2}
+.cell--c{grid-column:11/13;grid-row:1/2}
+.cell--d{grid-column:8/13;grid-row:2/4}
+.cell--e{grid-column:1/5;grid-row:3/5}
+.cell--f{grid-column:5/8;grid-row:3/4}
+.cell--g{grid-column:5/8;grid-row:4/5}
+.cell--h{grid-column:8/13;grid-row:4/5}
+.tile{position:relative;height:100%;overflow:hidden;border-radius:4px;isolation:isolate;will-change:transform;
+  background:rgba(241,238,231,.05);border:1px solid rgba(241,238,231,.1);display:flex;flex-direction:column;justify-content:flex-end;padding:28px}
+.tile--gold{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+/* photo + legibility shade */
+.tile__img{position:absolute;inset:-12px;z-index:-2;width:calc(100% + 24px);height:calc(100% + 24px);object-fit:cover;transform:scale(1.06);will-change:transform;backface-visibility:hidden}
+.tile--photo{border-color:transparent}
+.tile--photo::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(19,22,18,0) 25%,rgba(19,22,18,.45) 55%,rgba(19,22,18,.88) 100%)}
+/* light that follows the cursor */
+.tile::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity 500ms ease;
+  background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(205,185,143,.13),rgba(205,185,143,.05) 45%,rgba(205,185,143,0) 75%)}
+.tile--photo::before{display:none}
+.tile--gold::before{background:radial-gradient(300px circle at var(--mx,50%) var(--my,50%),rgba(255,248,232,.55),rgba(255,248,232,.18) 45%,rgba(255,248,232,0) 75%)}
+.tile.is-hot::before{opacity:1}
+.tile > *:not(.tile__img){position:relative;z-index:1}
+.tile .label{color:rgba(241,238,231,.62)}
+.tile--gold .label{color:rgba(30,33,29,.6)}
+.tile h3{font-family:var(--serif);font-weight:400;font-size:32px;line-height:1.02;letter-spacing:-.02em;margin-top:10px;max-width:440px}
+.tile--a h3{font-size:48px;max-width:560px}
+.tile p{margin-top:10px;font-size:14px;line-height:22px;color:rgba(241,238,231,.75);max-width:420px}
+.tile--gold p{color:rgba(30,33,29,.72)}
+.tile__big{font-family:var(--serif);font-weight:300;font-size:96px;line-height:.8;letter-spacing:-.04em;color:var(--gold);margin-bottom:auto}
+.tile--gold .tile__big{color:var(--clay)}
+.cell--c .tile h3,.cell--b .tile h3,.cell--f .tile h3{font-size:26px}
+.cell--a .tile h3{font-size:48px;max-width:560px}
+
+.life__end{display:flex;justify-content:space-between;align-items:flex-end;gap:64px;padding-top:120px;padding-bottom:140px}
+.life__end h3{font-family:var(--serif);font-weight:300;font-size:64px;line-height:.95;letter-spacing:-.035em}
+.life__end h3 em{font-style:italic;color:var(--gold)}
+.life__end p{margin-top:20px;font-size:16px;line-height:26px;color:rgba(241,238,231,.65)}
+@media (prefers-reduced-motion:reduce){ .tile,.tile__img{transform:none!important} }
+
+/* ---------- 04 STEPS ---------- */
+.steps{background:var(--paper);padding:160px 0}
+.steps__grid{display:grid;grid-template-columns:5fr 7fr;gap:120px;align-items:start}
+.steps__aside{position:sticky;top:112px;display:flex;flex-direction:column;gap:40px}
+.steps__frame{position:relative;height:440px;overflow:hidden;background:#ddd8cd}
+/* diagonal wipe: on-screen movement -> ease-in-out; transitions stay interruptible */
+.steps__frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;clip-path:inset(0 100% 0 0);transform:translateZ(0);backface-visibility:hidden;transition:clip-path 450ms var(--ease-in-out)}
+.steps__frame img.is-shown{clip-path:inset(0 0 0 0)}
+.steps__frame.reveal-img img,.steps__frame.reveal-img.is-in img{transform:translateZ(0);transition:clip-path 450ms var(--ease-in-out)}
+.steps__cap{transition:opacity 200ms ease}
+.steps__aside .caption{margin-top:-24px}
+.step-list{list-style:none}
+.step{position:relative;isolation:isolate;display:grid;grid-template-columns:120px 1fr;gap:32px;padding:36px 40px 36px 32px;border-top:1px solid var(--ink-line);cursor:default;outline:none}
+.step:last-child{border-bottom:1px solid var(--ink-line)}
+/* selected background #CDB98F: slower in (in-out), snappy out (ease-out) */
+.step::before{content:"";position:absolute;left:0;right:0;top:-1px;height:2px;background:var(--clay);transform:scaleX(0);transform-origin:left center;transition:transform 250ms var(--ease-out)}
+.step.is-active::before{transform:scaleX(1);transition:transform 450ms var(--ease-in-out)}
+.step > span,.step > div{transition:opacity 250ms ease,transform 450ms var(--ease-in-out)}
+.step:not(.is-active) > span,.step:not(.is-active) > div{opacity:.42}
+.step.is-active > div{transform:translateX(8px)}
+.step__n{font-family:var(--serif);font-style:normal;font-variant-numeric:lining-nums;font-weight:300;font-size:64px;line-height:.85;color:var(--ink-55);transition:color 200ms ease}
+.step h3{font-family:var(--serif);font-weight:400;font-size:34px;line-height:1.05;letter-spacing:-.02em}
+.step p{margin-top:10px;font-size:16px;line-height:26px;color:var(--ink-70);max-width:560px;transition:color 200ms ease}
+.step ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:6px 28px;margin-top:14px;max-width:620px}
+.step li{display:flex;gap:10px;font-size:14px;line-height:20px;color:var(--ink-70)}
+.step li::before{content:"";flex:none;width:5px;height:5px;margin-top:8px;border-radius:50%;background:var(--clay)}
+.step__res{display:block;margin-top:14px;font-size:13px;line-height:20px;color:var(--ink-55);transition:color 200ms ease}
+.step__res b{font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:10px;margin-right:8px;color:var(--clay)}
+.step.is-active .step__n{color:var(--clay)}
+.step.is-active p{color:rgba(30,33,29,.82)}
+.step.is-active .step__res{color:var(--ink)}
+.step:focus-visible{outline:1px solid var(--clay);outline-offset:-1px}
+
+/* ---------- 05 MATERIALS ---------- */
+.cine{position:relative;color:#fff;overflow:hidden;background:var(--olive)}
+.cine__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cine__shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(19,22,18,.86) 0%,rgba(19,22,18,.7) 45%,rgba(19,22,18,.35) 100%)}
+.cine .wrap{padding-top:140px;padding-bottom:140px;display:grid;gap:88px}
+.cine__head{display:flex;flex-direction:column;gap:44px;max-width:900px}
+.cine .eyebrow{color:var(--gold);border-color:rgba(205,185,143,.45)}
+.cine .h2 em{color:var(--gold)}
+.cine .lead{color:var(--w-80);max-width:620px}
+.materials{display:grid;grid-template-columns:1fr 1fr;gap:64px;max-width:1100px}
+.material{border-top:1px solid var(--w-line);padding-top:32px}
+.material h3{font-family:var(--serif);font-size:44px;line-height:1;letter-spacing:-.02em}
+.material h3 em{font-style:italic;color:var(--gold)}
+.material p{margin-top:20px;font-size:16px;line-height:26px;color:var(--w-80);max-width:500px}
+
+/* ---------- 06 GUARANTEES ---------- */
+.guar{padding:160px 0}
+.guar__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:72px}
+.g{border-top:1px solid var(--ink);padding-top:28px}
+.g__n{font-family:var(--serif);font-weight:300;font-size:64px;line-height:1;color:var(--clay)}
+.g h3{font-family:var(--serif);font-weight:400;font-size:30px;line-height:1.08;letter-spacing:-.015em;margin-top:28px}
+.g p{margin-top:14px;font-size:15px;line-height:24px;color:var(--ink-70)}
+
+
+/* ---------- TECH BOOK ---------- */
+.band--book .wrap{grid-template-columns:1fr 1fr;padding-top:88px;padding-bottom:88px}
+.band__note{font-size:13px;line-height:20px;color:rgba(241,238,231,.55)}
+.book-side{display:flex;justify-content:center;align-items:center;min-height:580px;transform:translateX(-96px)}
+.ob-tilt{will-change:transform}
+
+/* ---------- 3D book (shared by the block and the popup) ---------- */
+.ob-stage{--pw:380px;position:relative;width:calc(var(--pw) * 2);height:calc(var(--pw) * 4 / 3);perspective:2200px}
+.ob-stage--modal{--pw:210px;flex:none}
+.ob-stage--modal .ob-float{transform:rotate(-4deg)}
+.ob-float{position:absolute;inset:0;transform-style:preserve-3d}
+.ob-book{position:absolute;inset:0;transform-style:preserve-3d;transform:none}
+.ob-shadow{position:absolute;left:3%;right:3%;bottom:-16px;height:26px;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.34),rgba(0,0,0,0));filter:blur(6px);transform:translateZ(-1px)}
+.ob-stage--modal .ob-shadow{display:none}
+.ob-right{position:absolute;left:50%;top:0;width:50%;height:100%;transform-style:preserve-3d}
+.ob-base{position:absolute;inset:0;transform:translateZ(0);box-shadow:3px 3px 0 -1px #e9e4d8,6px 6px 0 -2px #d9d3c3;outline:1px solid transparent}
+
+
+.ob-leaf{position:absolute;inset:0;transform-origin:left center;transform-style:preserve-3d;transform:translateZ(var(--zc)) rotateY(0deg)}
+/* transparent outline: forces Chrome to anti-alias the edges of 3D-transformed layers (no jagged edges).
+   The corner that folds (bottom-right on fronts, bottom-left on backs) is square, so no background shows through the dog-ear. */
+.ob-face{position:absolute;inset:0;-webkit-backface-visibility:hidden;backface-visibility:hidden;overflow:hidden;border-radius:2px 4px 0 2px;outline:1px solid transparent}
+.ob-back{transform:rotateY(180deg);border-radius:4px 2px 2px 0}
+/* pages */
+.pg{container-type:inline-size;display:flex;flex-direction:column;gap:calc(var(--pw) * .032);padding:11% 10% 9%;background:#f6f2ea;color:var(--ink)}
+.pg::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(30,33,29,.16),rgba(30,33,29,0) 14%)}
+.ob-back.pg::after{background:linear-gradient(270deg,rgba(30,33,29,.16),rgba(30,33,29,0) 14%)}
+.pg__label{font-size:3.8cqw;line-height:1.3;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--clay)}
+.pg__h{font-family:var(--serif);font-size:11cqw;line-height:.98;letter-spacing:-.02em}
+.pg__h em{display:block;font-style:italic;color:var(--clay)}
+.pg p,.pg li{font-size:4.6cqw;line-height:1.5;color:rgba(30,33,29,.72)}
+.pg ul,.pg ol{margin:0;padding:0 0 0 5cqw;display:flex;flex-direction:column;gap:1.4cqw}
+.pg__toc{list-style:decimal-leading-zero;border-top:1px solid rgba(30,33,29,.12);padding-top:3cqw!important}
+.pg__toc li{padding-left:1cqw;font-family:var(--serif);font-size:5.6cqw;color:var(--ink)}
+.pg__toc li::marker{color:var(--clay);font-family:var(--serif)}
+.pg__sub{font-family:var(--serif);font-size:6.6cqw;line-height:1.1;margin-top:1.5cqw}
+.pg__num{margin-top:auto;font-family:var(--serif);font-size:3.8cqw;color:rgba(30,33,29,.45)}
+.ob-back .pg__num{align-self:flex-start}
+.ob-face:not(.ob-back) .pg__num,.ob-base .pg__num{align-self:flex-end}
+.pg--inside{background:#ebe4d5;color:var(--ink);align-items:center;justify-content:center;text-align:center}
+.pg--inside::after{display:none}
+.pg__brand{font-size:3.8cqw;letter-spacing:.3em;text-transform:uppercase;color:rgba(30,33,29,.7)}
+.pg__rule{width:18cqw;height:1px;background:var(--clay)}
+.pg__small{font-size:3cqw;letter-spacing:.18em;text-transform:uppercase;color:rgba(30,33,29,.5)}
+.pg__lines{flex:1;background:repeating-linear-gradient(180deg,transparent 0 6.5cqw,rgba(30,33,29,.1) 6.5cqw calc(6.5cqw + 1px))}
+/* cover: text kept away from the edges, tighter title, smaller kicker */
+.bookcov{container-type:inline-size;display:flex;flex-direction:column;padding:14% 13% 12%;background:var(--ink);color:var(--cream)}
+.bookcov::before{content:"";position:absolute;left:5%;top:0;bottom:0;width:1px;background:rgba(241,238,231,.1)}
+.bookcov__brand{font-size:3.6cqw;line-height:1.3;letter-spacing:.24em;text-transform:uppercase;color:rgba(241,238,231,.72)}
+.bookcov__line{width:20cqw;height:1px;background:var(--gold);margin-top:3.5cqw}
+.bookcov__kind{margin-top:auto;font-size:2.8cqw;line-height:1.3;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.bookcov__title{margin-top:3.5cqw;font-family:var(--serif);font-size:10cqw;line-height:.96;letter-spacing:-.015em}
+.bookcov__title em{display:block;margin-top:1cqw;font-style:italic;color:var(--gold)}
+.bookcov__foot{margin-top:7cqw;font-size:3cqw;letter-spacing:.2em;text-transform:uppercase;color:rgba(241,238,231,.5)}
+
+/* block: the book opens on its own, then the reader turns pages (click the right page = next, left page = back) */
+.ob-stage--band .ob-leaf{transition:transform 850ms var(--ease-in-out)}
+.ob-stage--band .ob-book{transition:transform 850ms var(--ease-in-out)}
+.ob-stage--band.is-closed .ob-book{transform:translateX(-25%)}
+.ob-stage--band .ob-shadow{transition:left 850ms var(--ease-in-out)}
+.ob-stage--band.is-closed .ob-shadow{left:52%}
+.ob-stage--band .ob-leaf.is-flipped{transform:translateZ(var(--zo)) rotateY(-180deg)}
+.ob-stage--band.can-next.hover-right .ob-book,.ob-stage--band.can-prev.hover-left .ob-book{cursor:pointer}
+/* dog-ear with a quiet arrow on the page you can turn */
+.ob-turn{--under:#e9e3d6;position:absolute;right:-1px;bottom:-1px;z-index:2;width:52px;height:52px;display:flex;align-items:flex-start;justify-content:flex-start;padding:9px 0 0 10px;font-size:13px;line-height:1;color:rgba(30,33,29,.4);
+  /* lower-right: the page underneath; diagonal: fold shadow; upper-left: back of the folded corner */
+  background:linear-gradient(315deg,var(--under) 0 49%,rgba(30,33,29,.16) 50%,#e3dccd 51.5%,#f1ece2 100%);
+  opacity:0;transform:scale(.3);transform-origin:100% 100%;transition:opacity 220ms ease,transform 380ms var(--ease-out);pointer-events:none}
+.ob-back .ob-turn{right:auto;left:-1px;justify-content:flex-end;padding:9px 10px 0 0;transform-origin:0 100%;
+  background:linear-gradient(45deg,var(--under) 0 49%,rgba(30,33,29,.16) 50%,#e3dccd 51.5%,#f1ece2 100%)}
+/* the first page after the cover lies on the inside of the cover */
+.ob-right > .ob-leaf:nth-child(3) .ob-back .ob-turn{--under:#ebe4d5}
+/* the cover itself: a corner flip on the front (open), just an arrow on the inside (close) */
+.bookcov .ob-turn{--under:#f6f2ea;color:rgba(241,238,231,.55);background:linear-gradient(315deg,var(--under) 0 49%,rgba(0,0,0,.3) 50%,#ddd5c4 51.5%,#ebe4d5 100%)}
+.pg--inside .ob-turn{background:none;color:rgba(30,33,29,.45)}
+.ob-stage--band.hover-right .ob-leaf.is-next > .ob-face:not(.ob-back) .ob-turn,
+.ob-stage--band.hover-left .ob-leaf.is-prev > .ob-back .ob-turn{opacity:1;transform:none}
+@keyframes levitate{0%,100%{transform:translateY(0) rotateZ(-.3deg)}50%{transform:translateY(-5px) rotateZ(.2deg)}}
+@keyframes levitateShadow{0%,100%{opacity:1;transform:translateZ(-1px) scale(1)}50%{opacity:.8;transform:translateZ(-1px) scale(.96)}}
+
+/* ---- smooth edges on 3D layers ----
+   Chrome does not anti-alias the outer edge of a transformed layer. A transparent 1px frame (background clipped inside it)
+   moves the visible edge inside the layer, where texture filtering smooths it. The page-stack edges are painted as
+   backgrounds inside the base page (not box-shadows, which would end exactly on the layer edge). */
+.ob-face{border:1px solid transparent;background-clip:padding-box!important}
+.ob-stage .ob-right > .ob-base{inset:0 -8px -8px 0;border:solid transparent;border-width:1px 8px 8px 1px;box-shadow:none;
+  background:linear-gradient(#f6f2ea,#f6f2ea) padding-box,
+             linear-gradient(#e9e4d8,#e9e4d8) 3px 3px / calc(100% - 9px) calc(100% - 9px) no-repeat border-box,
+             linear-gradient(#d9d3c3,#d9d3c3) 6px 6px / calc(100% - 9px) calc(100% - 9px) no-repeat border-box}
+.ob-stage--modal .ob-right > .ob-base{box-shadow:18px 28px 40px -14px rgba(0,0,0,.5)}
+/* popup (tilted -4deg while it animates in 3D): a wider 4px transparent frame, so the filtered edge has room to fade
+   even when the page scale shrinks a CSS pixel below one screen pixel; the visible page size is unchanged */
+.ob-stage--modal .ob-face{inset:-4px;border-width:4px}
+.ob-stage--modal .ob-right > .ob-base{inset:-3px -8px -8px -3px;border-width:4px 8px 8px 4px;
+  background:linear-gradient(#f6f2ea,#f6f2ea) padding-box,
+             linear-gradient(#e9e4d8,#e9e4d8) 6px 6px / calc(100% - 12px) calc(100% - 12px) no-repeat border-box,
+             linear-gradient(#d9d3c3,#d9d3c3) 9px 9px / calc(100% - 12px) calc(100% - 12px) no-repeat border-box}
+.ob-stage::after{content:"";position:absolute;inset:-24px;pointer-events:none}
+
+/* popup: pages riffle shut, the cover closes; the book starts smaller so the open spread never touches the edges */
+.ob-stage--modal .ob-leaf{transform:translateZ(var(--zc)) rotateY(0deg)}
+.bookm[open] .ob-stage--modal .ob-leaf{animation:shut 460ms var(--ease-in-out) both;animation-delay:calc(520ms - var(--k) * 120ms)}
+.bookm[open] .ob-stage--modal .ob-leaf:nth-child(2){animation-duration:720ms;animation-delay:560ms}
+@keyframes shut{from{transform:translateZ(var(--zo)) rotateY(-180deg)}to{transform:translateZ(var(--zc)) rotateY(0deg)}}
+.bookm[open] .ob-stage--modal .ob-book{animation:toCenter 900ms var(--ease-in-out) 420ms both}
+@keyframes toCenter{from{transform:translateX(0) scale(.78)}to{transform:translateX(-25%) scale(1)}}
+.ob-stage--modal .ob-book{transform:none}
+/* once the book has shut, it is redrawn as a flat picture: no 3D layers, so the tilted edges are painted with
+   anti-aliasing (a GPU-composited 3D layer would keep a jagged, stair-stepped edge) */
+.ob-stage--modal.is-flat .ob-float,.ob-stage--modal.is-flat .ob-book,.ob-stage--modal.is-flat .ob-right,.ob-stage--modal.is-flat .ob-leaf{transform-style:flat}
+.bookm[open] .ob-stage--modal.is-flat .ob-book{animation:none;transform:translateX(-25%)}
+.bookm[open] .ob-stage--modal.is-flat .ob-leaf{animation:none;transform:none}
+.ob-stage--modal.is-flat .ob-leaf:not(:nth-child(2)),.ob-stage--modal.is-flat .ob-back{display:none}
+.ob-stage--modal.is-flat .ob-base{transform:none;outline:0}
+.ob-stage--modal.is-flat .ob-face{-webkit-backface-visibility:visible;backface-visibility:visible;outline:0}
+/* the flat book is rasterised upright into one GPU texture with a transparent 40px margin all round;
+   the texture is then turned -4deg and filtered, so every edge (cover, page stack) comes out smooth */
+.ob-stage--modal.is-flat .ob-float{inset:-40px;will-change:transform}
+.ob-stage--modal.is-flat .ob-book{inset:40px}
+@media (prefers-reduced-motion:reduce){
+  .ob-stage--band .ob-leaf{transition:none}
+  .ob-stage--band .ob-float,.ob-stage--band .ob-shadow{animation:none}
+  .bookm[open] .ob-stage--modal .ob-leaf{animation:none}
+  .bookm[open] .ob-stage--modal .ob-book{animation:none;transform:translateX(-25%)}
+}
+.modal.bookm{width:min(980px,calc(var(--vw,100vw) * .9))}
+.bookm__grid{display:grid;grid-template-columns:420px 1fr}
+.bookm__side{display:flex;align-items:center;justify-content:center;background:var(--olive);padding:48px 0;overflow:hidden}
+.bookm__main{position:relative;padding:56px 48px 44px}
+.bookm__label{color:var(--clay)}
+.bookm__title{font-size:48px;line-height:.95;margin-top:16px}
+.bookm__title em{color:var(--clay)}
+.bookm__text{margin-top:16px;font-size:15px;line-height:24px;color:var(--ink-70)}
+.bookm .field{margin-top:24px}
+.bookm .field span{color:var(--ink-55)}
+.bookm .field input{color:var(--ink);border-bottom-color:rgba(30,33,29,.25)}
+.bookm .field input:focus{border-color:var(--clay)}
+.bookm .field.has-error input{border-color:#b4563a}
+.bookm .field__err{color:#a5452a}
+.bookm form .pill{margin-top:12px}
+.bookm__note{margin-top:14px;font-size:12px;line-height:18px;color:var(--ink-55)}
+.bookm__ok{display:none}
+.bookm__ok .pill{margin-top:28px}
+.bookm.is-sent form{display:none}
+.bookm.is-sent .bookm__ok{display:block;animation:fadeUp 400ms var(--ease-out)}
+
+/* ---------- 09 FAQ ---------- */
+.faq{padding:160px 0}
+.faq__grid{display:grid;grid-template-columns:5fr 7fr;gap:120px;align-items:start}
+.faq__head{position:sticky;top:120px;display:flex;flex-direction:column;align-items:flex-start;gap:40px}
+.faq .eyebrow{color:var(--clay)}
+.faq .h2 em{color:var(--clay)}
+.faq .lead{color:var(--ink-70);max-width:440px}
+.faq__list{border-top:1px solid var(--ink-line)}
+.qa{border-bottom:1px solid var(--ink-line)}
+.qa__q{display:flex;justify-content:space-between;align-items:center;gap:32px;width:100%;padding:28px 0;text-align:left;font-family:var(--serif);font-weight:400;font-size:28px;line-height:1.15;letter-spacing:-.01em;color:var(--ink);transition:color 200ms ease}
+@media (hover:hover) and (pointer:fine){ .qa__q:hover{color:var(--clay)} }
+.qa__ico{position:relative;flex:none;width:40px;height:40px;border-radius:50%;border:1px solid var(--ink-line);transition:background-color 300ms ease,border-color 300ms ease,transform 450ms var(--ease-in-out)}
+.qa__ico::before,.qa__ico::after{content:"";position:absolute;left:50%;top:50%;width:14px;height:1px;margin:-.5px 0 0 -7px;background:currentColor}
+.qa__ico::after{transform:rotate(90deg)}
+.qa.is-open .qa__ico{transform:rotate(45deg);background:var(--ink);border-color:var(--ink);color:var(--cream)}
+.qa__a{display:grid;grid-template-rows:0fr;transition:grid-template-rows 450ms var(--ease-in-out)}
+.qa.is-open .qa__a{grid-template-rows:1fr}
+.qa__in{overflow:hidden}
+.qa__in p{padding:0 72px 28px 0;font-size:16px;line-height:26px;color:var(--ink-70);opacity:0;transform:translateY(-6px);transition:opacity 250ms ease,transform 350ms var(--ease-out)}
+.qa.is-open .qa__in p{opacity:1;transform:none;transition:opacity 400ms ease 120ms,transform 450ms var(--ease-out) 120ms}
+@media (prefers-reduced-motion:reduce){ .qa__a,.qa__in p,.qa__ico{transition:none} }
+
+/* ---------- 08 TEAM ---------- */
+.team{background:var(--paper);padding:160px 0}
+.team .eyebrow{color:var(--clay)}
+.team .h2 em{color:var(--clay)}
+.team__grid{display:grid;grid-template-columns:repeat(5,1fr);gap:32px;margin-top:72px}
+.person .media{aspect-ratio:3/4}
+.person .media img{transition:transform 700ms var(--ease-out)}
+@media (hover:hover) and (pointer:fine){ .person:hover .media img{transform:scale(1.03)} }
+.person__role{margin-top:20px;font-size:11px;line-height:16px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--clay)}
+.person h3{margin-top:8px;font-family:var(--serif);font-weight:400;font-size:28px;line-height:1.1;letter-spacing:-.015em}
+.person__text{margin-top:10px;font-size:14px;line-height:22px;color:var(--ink-70)}
+
+/* ---------- 07 CONTACT ---------- */
+.contact{position:relative;color:#fff;overflow:hidden;background:var(--ink)}
+.contact__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 70%}
+.contact__shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(19,22,18,.82) 0%,rgba(19,22,18,.55) 55%,rgba(19,22,18,.35) 100%)}
+.contact .wrap{display:grid;grid-template-columns:1fr 520px;gap:120px;padding-top:160px;padding-bottom:160px;align-items:center}
+.contact__l{display:flex;flex-direction:column;gap:44px}
+.contact .eyebrow{color:var(--gold);border-color:rgba(205,185,143,.45)}
+.contact .h2 em{color:var(--gold)}
+.contact .lead{color:var(--w-80);max-width:540px}
+.details{display:grid;grid-template-columns:auto auto;gap:24px 80px;justify-content:start;border-top:1px solid var(--w-line);padding-top:32px;max-width:640px}
+.details .label{color:var(--w-60);display:block;margin-bottom:8px}
+.details a,.details p{font-family:var(--serif);font-size:26px;line-height:1.15;transition:color 200ms ease}
+@media (hover:hover) and (pointer:fine){ .details a:hover{color:var(--gold)} }
+.socials{display:flex;gap:20px;margin-top:2px}
+.social{display:grid;place-items:center;width:32px;height:32px;color:#fff;transition:color 200ms ease,transform 160ms var(--ease-out)}
+.social:active{transform:scale(.94)}
+.details .social{font-size:0}
+.panel{background:rgba(30,33,29,.94);padding:48px 40px 40px;backdrop-filter:blur(8px);border-radius:4px}
+.panel__title{font-size:11px;line-height:16px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;padding-bottom:16px;border-bottom:1px solid var(--w-line)}
+.panel__text{margin-top:20px;font-size:15px;line-height:24px;color:var(--w-80)}
+.field{display:block;margin-top:32px}
+.field span{font-size:10px;line-height:16px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--w-60)}
+.field input{display:block;width:100%;margin-top:8px;padding:8px 0 12px;background:none;border:0;border-bottom:1px solid var(--w-line);font-size:18px;color:#fff;outline:none;transition:border-color 200ms ease}
+.field input:focus{border-color:var(--gold)}
+.field.has-error input{border-color:#d98b6f}
+.field__err{display:block;min-height:20px;margin-top:6px;font-size:12px;line-height:16px;color:#e4a58c;font-style:normal}
+.panel__actions{display:flex;flex-direction:column;gap:12px;margin-top:24px}
+.panel__actions .pill{justify-content:center;width:100%;padding:0 24px}
+.panel__note{margin-top:20px;font-size:12px;line-height:18px;color:rgba(255,255,255,.45);text-align:center}
+.panel__ok{display:none;margin-top:32px;font-family:var(--serif);font-size:26px;line-height:1.25}
+.panel.is-sent form{display:none}
+.panel.is-sent .panel__ok{display:block;animation:fadeUp 300ms var(--ease-out)}
+
+.footer{background:var(--ink);color:var(--w-60);padding:48px 0}
+.footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:32px;font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+.footer .logo{color:var(--cream);font-size:22px}
+.footer nav{display:flex;gap:32px}
+.footer a{transition:color 200ms ease}
+@media (hover:hover) and (pointer:fine){ .footer a:hover{color:#fff} }
+
+
+/* ---------- PRELOADER ---------- */
+html.is-loading .hero-in,html.is-loading .hero__img{animation-play-state:paused}
+.preloader{position:fixed;inset:-2px 0;z-index:300;display:grid;place-items:center;background:var(--ink);color:var(--cream);will-change:transform;backface-visibility:hidden}
+.preloader.is-done{transform:translate3d(0,-101%,0);transition:transform 850ms var(--ease-in-out) 100ms;pointer-events:none}
+.preloader__in{display:flex;align-items:center;font-family:var(--serif);font-weight:400;font-size:56px;line-height:1;letter-spacing:.08em;text-transform:uppercase;white-space:pre;transition:opacity 300ms ease,transform 400ms var(--ease-out)}
+.preloader.is-done .preloader__in{opacity:0;transform:translateY(-12px)}
+.preloader__caret{display:block;width:2px;height:.82em;margin-left:8px;background:var(--gold);animation:caret 900ms steps(1) infinite}
+@keyframes caret{50%{opacity:0}}
+.preloader__line{position:absolute;left:50%;top:calc(50% + 56px);width:220px;height:1px;margin-left:-110px;background:rgba(241,238,231,.14);overflow:hidden}
+.preloader__line::after{content:"";position:absolute;inset:0;background:var(--gold);transform:scaleX(var(--p,0));transform-origin:left;transition:transform 120ms linear}
+@media (prefers-reduced-motion:reduce){ .preloader.is-done{transform:none;opacity:0;transition:opacity 300ms ease} .preloader__caret{animation:none} }
+
+
+/* ---------- VIDEO ---------- */
+.hero .wrap{position:relative}
+.video-wrap{position:absolute;right:calc(var(--pad) / var(--hk,1));bottom:250px;perspective:1000px}
+.video-btn{position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;gap:20px;width:440px;padding:20px 28px 20px 20px;border-radius:4px;text-align:left;color:#fff;cursor:pointer;
+  background:rgba(44,49,40,.94);border:1px solid rgba(241,238,231,.12);-webkit-backdrop-filter:blur(16px) saturate(1.1);backdrop-filter:blur(16px) saturate(1.1);will-change:transform}
+/* waves start at the play button and roll out to the plaque's edges */
+.video-btn__waves{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;overflow:visible}
+.video-btn__waves circle{fill:none;stroke:rgba(205,185,143,.55);stroke-width:1;animation:wave 7000ms cubic-bezier(.25,.6,.35,1) infinite}
+.video-btn__waves circle:nth-child(2){animation-delay:3500ms}
+@keyframes wave{0%{r:24px;opacity:.9}50%{r:420px;opacity:0}100%{r:420px;opacity:0}}
+.video-btn__ring{flex:none;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(255,255,255,.6);transition:background-color 400ms ease,color 400ms ease,border-color 400ms ease,transform 400ms var(--ease-out)}
+.video-btn__txt{display:flex;flex-direction:column;gap:6px;font-size:14px;line-height:21px;color:var(--w-80);transition:color 300ms ease}
+.video-btn__txt .label{color:var(--gold);font-size:10px}
+.video-btn:active .video-btn__ring{transform:scale(.94)}
+@media (hover:hover) and (pointer:fine){
+  .video-btn:hover .video-btn__ring{background:var(--cream);color:var(--ink);border-color:var(--cream)}
+  .video-btn:hover .video-btn__txt{color:#fff}
+}
+@media (prefers-reduced-motion:reduce){ .video-btn__waves{display:none} }
+
+/* video popup: just the frame and a caption bar */
+.modal.vmodal{width:min(1100px,calc(var(--vw,100vw) * .9));background:#181818;color:var(--cream)}
+.vmodal__frame{aspect-ratio:16/9;display:grid;place-items:center;background:#000;font-size:14px;line-height:20px;color:rgba(241,238,231,.4)}
+.vmodal__frame video,.vmodal__frame iframe{width:100%;height:100%;border:0;display:block}
+.vmodal__bar{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:16px 16px 16px 24px;font-size:14px;line-height:20px;color:rgba(241,238,231,.75)}
+.vmodal__bar .pill{height:44px}
+.vmodal .modal__close{top:16px;right:16px}
+
+/* ---------- TOAST ---------- */
+.toast{position:fixed;left:50%;bottom:32px;z-index:400;display:flex;align-items:center;gap:12px;padding:14px 24px 14px 20px;border-radius:999px;background:var(--ink);color:var(--cream);font-size:14px;line-height:20px;box-shadow:0 12px 32px rgba(19,22,18,.22);opacity:0;transform:translate(-50%,16px);pointer-events:none;transition:opacity 200ms ease,transform 200ms var(--ease-out)}
+.toast.is-on{opacity:1;transform:translate(-50%,0);transition:opacity 300ms ease,transform 300ms var(--ease-out)}
+.toast i{flex:none;width:8px;height:8px;border-radius:50%;background:#cdb98f}
+
+/* ---------- MODALS (centered, so origin stays center) ---------- */
+/* scroll lock without layout shift: the removed scrollbar width is given back as padding */
+html.has-modal{overflow:hidden;padding-right:var(--sbw,0px)}
+html.has-modal .header{right:var(--sbw,0px)}
+.modal{margin:auto;padding:0;border:0;border-radius:4px;clip-path:inset(0 round 4px);background:var(--cream);color:var(--ink);max-width:none;max-height:none;overflow:hidden}
+.modal::backdrop{background:rgba(19,22,18,.62);backdrop-filter:blur(6px)}
+.modal[open]{animation:modalIn 320ms var(--ease-out)}
+.modal[open]::backdrop{animation:fadeIn 320ms var(--ease-out)}
+.modal.is-closing{opacity:0;transform:scale(.97);transition:opacity 180ms var(--ease-out),transform 180ms var(--ease-out)}
+.modal.is-closing::backdrop{opacity:0;transition:opacity 180ms var(--ease-out)}
+@keyframes modalIn{from{opacity:0;transform:scale(.96) translateY(12px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal__close{position:absolute;top:24px;right:24px;z-index:5;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;transition:background-color 200ms ease,transform 160ms var(--ease-out)}
+.modal__close--light{background:rgba(255,255,255,.12);color:var(--cream)}
+.modal__close--dark{background:rgba(30,33,29,.08);color:var(--ink)}
+@media (hover:hover) and (pointer:fine){ .modal__close--light:hover{background:rgba(255,255,255,.2)} .modal__close--dark:hover{background:rgba(30,33,29,.14)} }
+
+/* calculator */
+.calc{width:min(1360px,calc(var(--vw,100vw) * .94));height:min(860px,calc(var(--vh,100vh) * .94))}
+.calc__grid{position:relative;height:100%}
+.calc__main{display:flex;flex-direction:column;height:100%;min-height:0;margin-right:420px;padding:40px 56px 32px}
+.calc.is-result .calc__main{margin-right:560px}
+.calc__top{display:flex;justify-content:space-between;align-items:center}
+.calc__top .label{color:var(--ink-55)}
+.calc__bar{height:1px;background:var(--ink-line);margin-top:20px;position:relative}
+.calc__bar i{position:absolute;left:0;top:-1px;height:3px;width:100%;background:var(--clay);transform-origin:left;transform:scaleX(0);transition:transform 300ms var(--ease-out)}
+.calc__body{flex:1;min-height:0;overflow:auto;padding:48px 16px 24px 0}
+.calc.is-result .calc__body{padding-top:32px}
+.calc__qlabel{color:var(--clay)}
+.calc__q{font-size:56px;line-height:.95;margin-top:16px}
+.calc__q em{color:var(--clay)}
+.calc__hint{margin-top:16px;font-size:16px;line-height:26px;color:var(--ink-70);max-width:620px}
+.calc__nav{display:flex;justify-content:space-between;align-items:center;padding-top:24px;border-top:1px solid var(--ink-line)}
+.calc__nav .textlink{color:var(--ink-70)}
+.calc__nav .textlink[hidden]{display:inline-flex;visibility:hidden}
+.calc__next{min-width:252px}
+.calc__next-t{flex:1;text-align:center;padding-right:12px}
+.calc__next[hidden]{display:none}
+.calc__params div.is-new{animation:fadeUp 360ms var(--ease-out) both}
+.calc__empty{margin-top:24px;font-size:13px;line-height:20px;color:rgba(241,238,231,.45)}
+.opts{display:grid;gap:16px;margin-top:40px}
+.opts--2,.opts--4{grid-template-columns:repeat(2,1fr)}
+.opts--3,.opts--5{grid-template-columns:repeat(3,1fr)}
+.opt{position:relative;display:flex;flex-direction:column;gap:8px;padding:24px 24px 24px 64px;border:1px solid var(--ink-line);cursor:pointer;transition:border-color 200ms ease,background-color 200ms ease,transform 160ms var(--ease-out)}
+.opt:active{transform:scale(.99)}
+@media (hover:hover) and (pointer:fine){ .opt:hover{border-color:rgba(30,33,29,.4)} .chip:hover{border-color:var(--ink)} }
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt__mark{position:absolute;left:24px;top:28px;width:20px;height:20px;border:1px solid rgba(30,33,29,.35);border-radius:50%;transition:border-color 200ms ease}
+.opt__mark::after{content:"";position:absolute;inset:4px;border-radius:50%;background:var(--clay);opacity:0;transform:scale(.6);transition:opacity 160ms var(--ease-out),transform 200ms var(--ease-out)}
+.opt--check .opt__mark,.opt--check .opt__mark::after{border-radius:2px}
+.opt__t{font-family:var(--serif);font-size:26px;line-height:1.1}
+.opt__s{font-size:14px;line-height:22px;color:var(--ink-70)}
+.opt__p{margin-top:4px;font-size:11px;line-height:16px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--clay)}
+.opt:has(input:checked){border-color:var(--clay);background:rgba(122,59,38,.05)}
+.opt:has(input:checked) .opt__mark{border-color:var(--clay)}
+.opt:has(input:checked) .opt__mark::after{opacity:1;transform:none}
+.opt:has(input:focus-visible){outline:1px solid var(--clay);outline-offset:3px}
+.area{margin-top:40px;max-width:760px}
+.area__val{display:block;font-family:var(--serif);font-weight:300;font-size:120px;line-height:.9;letter-spacing:-.04em;font-variant-numeric:tabular-nums lining-nums}
+.area__val small{font-size:40px;letter-spacing:0;margin-left:8px;color:var(--ink-55)}
+.range{-webkit-appearance:none;appearance:none;width:100%;height:24px;margin-top:32px;background:transparent;cursor:pointer}
+.range::-webkit-slider-runnable-track{height:1px;background:linear-gradient(90deg,var(--clay) var(--p,30%),rgba(30,33,29,.25) var(--p,30%))}
+.range::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;margin-top:-11px;border-radius:50%;background:var(--clay);box-shadow:0 0 0 6px rgba(122,59,38,.12);transition:box-shadow 160ms var(--ease-out),transform 160ms var(--ease-out)}
+.range:active::-webkit-slider-thumb{transform:scale(1.1);box-shadow:0 0 0 10px rgba(122,59,38,.16)}
+.range::-moz-range-track{height:1px;background:rgba(30,33,29,.25)}
+.range::-moz-range-progress{height:1px;background:var(--clay)}
+.range::-moz-range-thumb{width:22px;height:22px;border:0;border-radius:50%;background:var(--clay)}
+.area__scale{display:flex;justify-content:space-between;margin-top:8px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-55)}
+.chips{display:flex;gap:8px;margin-top:32px}
+.chip{height:40px;padding:0 18px;border-radius:999px;border:1px solid var(--ink-line);font-size:13px;line-height:20px;transition:background-color 200ms ease,border-color 200ms ease,color 200ms ease,transform 160ms var(--ease-out)}
+.chip.is-on{background:var(--ink);border-color:var(--ink);color:var(--cream)}
+
+/* dark side: summary during the quiz, expands into the form on the result.
+   The panel is always 560px wide; clip-path reveals 420px of it, then the full width (GPU-friendly, no layout). */
+.calc__side{position:absolute;top:0;right:0;bottom:0;width:560px;background:var(--olive);color:var(--cream);clip-path:inset(0 0 0 140px);transition:clip-path 260ms var(--ease-out)}
+.calc.is-result .calc__side{clip-path:inset(0 0 0 0);transition:clip-path 750ms var(--ease-in-out)}
+.calc__side .modal__close{z-index:3}
+.side__sum{position:absolute;top:0;right:0;bottom:0;left:140px;padding:96px 40px 40px;display:flex;flex-direction:column;overflow:auto;transition:opacity 200ms ease,transform 260ms var(--ease-out)}
+.calc.is-result .side__sum{opacity:0;transform:translateX(-16px);pointer-events:none;transition:opacity 150ms ease,transform 200ms var(--ease-out)}
+.side__sum .label{color:rgba(241,238,231,.6)}
+.calc__total{font-family:var(--serif);font-weight:300;font-size:64px;line-height:1;letter-spacing:-.03em;margin-top:16px;font-variant-numeric:tabular-nums lining-nums}
+.calc__total small{font-size:28px;letter-spacing:0;margin-left:6px}
+.calc__range{margin-top:12px;font-size:14px;line-height:20px;color:rgba(241,238,231,.7)}
+.calc__sqm{margin-top:4px;font-size:14px;line-height:20px;color:var(--gold)}
+.calc__params{margin-top:32px;border-top:1px solid rgba(241,238,231,.16)}
+.calc__params div{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid rgba(241,238,231,.16);font-size:13px;line-height:20px}
+.calc__params dt{color:rgba(241,238,231,.55)}
+.calc__params dd{text-align:right}
+.calc__note{margin-top:auto;padding-top:24px;font-size:12px;line-height:18px;color:rgba(241,238,231,.45)}
+
+.side__form{position:absolute;inset:0;padding:96px 56px 48px;display:flex;flex-direction:column;justify-content:center;opacity:0;visibility:hidden;overflow:hidden}
+.calc.is-result .side__form{opacity:1;visibility:visible}
+.stg{opacity:0;transform:translateY(14px)}
+.calc.is-result .stg{opacity:1;transform:none;transition:opacity 500ms var(--ease-out),transform 600ms var(--ease-out);transition-delay:calc(380ms + var(--i,0) * 60ms)}
+.side__form .label{color:var(--gold)}
+.side__title{font-family:var(--serif);font-weight:300;font-size:48px;line-height:.98;letter-spacing:-.03em;margin-top:16px}
+.side__title em{font-style:italic;color:var(--gold)}
+.side__text{margin-top:16px;font-size:15px;line-height:24px;color:rgba(241,238,231,.75)}
+.side__perks{list-style:none;margin-top:24px;display:flex;flex-direction:column;gap:10px}
+.side__perks li{display:flex;gap:12px;align-items:baseline;font-size:14px;line-height:20px;color:rgba(241,238,231,.85)}
+.side__perks li::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--gold);transform:translateY(-2px)}
+.side__form .field{margin-top:24px}
+.side__form .pill{width:100%;justify-content:center;margin-top:20px;padding:0 24px}
+.side__note{margin-top:16px;font-size:12px;line-height:18px;color:rgba(241,238,231,.45)}
+.side__ok{display:none;font-family:var(--serif);font-size:30px;line-height:1.25}
+.side__ok em{font-style:italic;color:var(--gold)}
+.side__form.is-sent form{display:none}
+.side__form.is-sent .side__ok{display:block;animation:fadeUp 400ms var(--ease-out)}
+
+/* result: everything important on the left, grouped */
+.res__title{font-size:42px;line-height:.95;margin-top:10px}
+.res__title em{color:var(--clay)}
+.kpi{display:grid;grid-template-columns:1.7fr 1fr 1fr .8fr;margin-top:24px;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink-line)}
+.kpi > div{padding:18px 16px 18px 0;min-width:0}
+.kpi > div + div{padding-left:16px;border-left:1px solid var(--ink-line);display:flex;flex-direction:column;justify-content:flex-end}
+.kpi .label{display:block;color:var(--ink-55);font-size:10px;letter-spacing:.16em;white-space:nowrap}
+.kpi b{display:block;margin-top:8px;font-family:var(--serif);font-weight:400;font-size:24px;line-height:1;white-space:nowrap;font-variant-numeric:tabular-nums lining-nums}
+.kpi__total{font-weight:300!important;font-size:56px!important;letter-spacing:-.03em;color:var(--clay)}
+.kpi__total small{font-size:24px;margin-left:6px}
+.kpi__range{display:block;margin-top:8px;font-size:12px;line-height:16px;color:var(--ink-55)}
+.res__groups{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:32px;margin-top:28px}
+.res__group h4{font-size:10px;line-height:16px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--clay);padding-bottom:8px;border-bottom:1px solid var(--ink-line)}
+.res__group dl div{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid var(--ink-line);font-size:13px;line-height:18px}
+.res__group dt{color:var(--ink-55)}
+.res__group dd{text-align:right}
+.res__est{margin-top:32px}
+.res__est > h4{display:flex;justify-content:space-between;font-size:10px;line-height:16px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--clay)}
+.res__est > h4 span{color:var(--ink-55);font-weight:500}
+.packs{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;margin-top:12px}
+.pack{border-top:1px solid var(--ink);padding-top:10px}
+.pack__head{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--serif);font-size:20px;line-height:1.2}
+.pack__head b{font-weight:400;font-variant-numeric:tabular-nums}
+.pack ul{list-style:none;margin-top:4px}
+.pack li{display:flex;justify-content:space-between;gap:12px;padding:5px 0;font-size:12px;line-height:18px;color:var(--ink-70);border-bottom:1px dashed var(--ink-line)}
+.pack li span:last-child{font-variant-numeric:tabular-nums;white-space:nowrap}
+.pack.is-off{border-top-color:var(--ink-line)}
+.pack.is-off .pack__head{color:rgba(30,33,29,.38)}
+.pack.is-off .pack__add{display:block;margin-top:6px;font-size:12px;line-height:18px;color:var(--ink-55)}
+.pack__add{display:none}
+.res__note{margin-top:20px;font-size:12px;line-height:18px;color:var(--ink-55)}
+
+/* scrollbars in the site's palette */
+html{scrollbar-color:rgba(30,33,29,.3) var(--cream)}
+.calc__body,.case__body{scrollbar-width:auto;scrollbar-color:auto}
+.calc__body::-webkit-scrollbar,.case__body::-webkit-scrollbar{width:12px}
+.calc__body::-webkit-scrollbar-track,.case__body::-webkit-scrollbar-track{margin:28px 0;background:transparent}
+.calc__body::-webkit-scrollbar-thumb,.case__body::-webkit-scrollbar-thumb{background:#dbdad2;border:4px solid transparent;border-radius:12px;background-clip:padding-box;min-height:48px}
+.calc__body::-webkit-scrollbar-thumb:hover,.case__body::-webkit-scrollbar-thumb:hover{background-color:#c9c7bd}
+@supports not selector(::-webkit-scrollbar){ .calc__body,.case__body{scrollbar-width:thin;scrollbar-color:#dbdad2 transparent} }
+.side__sum{scrollbar-width:thin;scrollbar-color:rgba(205,185,143,.35) transparent}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(30,33,29,.25);border-radius:10px;border:3px solid transparent;background-clip:content-box}
+::-webkit-scrollbar-thumb:hover{background-color:rgba(122,59,38,.5)}
+@media (prefers-reduced-motion:reduce){
+  .calc__side,.calc.is-result .calc__side{transition:none}
+  .stg,.calc.is-result .stg,.side__sum,.calc.is-result .side__sum{transform:none}
+}
+
+/* case modal */
+.case{width:min(1400px,calc(var(--vw,100vw) * .94));height:min(860px,calc(var(--vh,100vh) * .94))}
+.case__grid{display:grid;grid-template-columns:7fr 6fr;height:100%}
+.case__media{position:relative;overflow:hidden;background:#ddd8cd}
+.case__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform;backface-visibility:hidden;animation:caseImg 900ms var(--ease-out)}
+@keyframes caseImg{from{transform:scale(1.04)}to{transform:none}}
+.case__media .caption{position:absolute;left:24px;right:24px;bottom:16px;color:rgba(255,255,255,.75)}
+.case__body{overflow:auto;padding:72px 56px 48px}
+.case__kicker{color:var(--clay)}
+.case__title{font-size:64px;line-height:.92;margin-top:20px}
+.case__title em{color:var(--clay)}
+.case__place{margin-top:20px}
+.case__lead{margin-top:28px;font-size:18px;line-height:30px;color:var(--ink-70)}
+.case__specs{display:grid;grid-template-columns:1fr 1fr;column-gap:32px;margin-top:36px;border-top:1px solid var(--ink-line)}
+.case__specs div{padding:14px 0;border-bottom:1px solid var(--ink-line)}
+.case__specs dt{font-size:10px;line-height:16px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-55)}
+.case__specs dd{font-family:var(--serif);font-size:22px;line-height:1.2;margin-top:4px}
+.case__specs .hl dd{color:var(--clay)}
+.case__blocks{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:36px}
+.case__blocks .label{color:var(--clay)}
+.case__blocks p:not(.label){margin-top:10px;font-size:15px;line-height:24px;color:var(--ink-70)}
+.case__quote{margin-top:36px;padding:28px 32px;background:var(--paper);font-family:var(--serif);font-style:italic;font-size:24px;line-height:1.35}
+.case__quote footer{margin-top:16px;font-family:var(--sans);font-style:normal;font-size:11px;line-height:16px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-55)}
+.case__actions{display:flex;align-items:center;gap:32px;margin-top:36px}
+
+/* reduced motion: fewer and gentler — keep opacity/colour, drop movement */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal,.reveal.is-in,.hero-in,.hero__img,.card.is-filtered{transform:none!important}
+  .reveal.is-in{transition:opacity 300ms ease}
+  .hero-in{animation:fade 300ms ease forwards}
+  @keyframes fade{to{opacity:1}}
+  .hero__img{animation:none}
+  .reveal-img,.reveal-img.is-in{clip-path:inset(0 round 4px)}
+  .reveal-img img,.reveal-img.is-in img{transform:none}
+  .steps__frame img{transition:opacity 300ms ease;clip-path:none;transform:none;opacity:0}
+  .steps__frame img.is-shown{opacity:1}
+  .step::before,.step.is-active::before{transform:none;opacity:0;transition:opacity 200ms ease}
+  .step.is-active::before{opacity:1}
+  .modal[open],.modal[open]::backdrop,.case__media img{animation:fadeIn 200ms ease}
+  .modal.is-closing{transform:none}
+}
+/* =====================================================================
+   MOBILE + TABLET (< 1200px): real responsive layout, no canvas scaling.
+   Story order on a phone: promise -> houses -> price -> approach -> life -> steps -> materials
+   -> guarantees -> tech book -> team -> questions -> contact.
+   ===================================================================== */
+.burger,.nav__extra,.step__ph{display:none}
+@media (max-width:1199px){
+  :root{--pad:20px}
+  html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+  body{overflow-x:hidden}
+  /* line breaks written for the wide layout would leave ragged lines on a phone */
+  p br,.video-btn__txt br{display:none}
+  .h2{font-size:clamp(36px,10.4vw,60px);line-height:.95}
+  .lead{font-size:16px;line-height:26px}
+  .chapter__num{font-size:32px}
+  .eyebrow{padding-bottom:10px}
+  .sec-head{flex-direction:column;align-items:flex-start;gap:20px}
+  .sec-head__l{gap:20px}
+  .sec-head .lead{max-width:none}
+  /* heavy GPU hints are a desktop luxury: on phones they only cost memory */
+  .media img,.tile,.tile__img,.hero,.video-btn{will-change:auto}
+
+  /* ---------- header + menu ---------- */
+  .header__in{height:64px;gap:10px}
+  .logo{font-size:19px}
+  .header__cta{gap:8px;margin-left:auto}
+  .header__cta > .pill{display:none}
+  .header__cta > .pill:first-child{display:inline-flex;width:44px;height:44px;padding:0;gap:0;justify-content:center;font-size:0}
+  .header__cta > .pill:first-child .pill__ico{width:42px;height:42px;margin:0;background:none}
+  .burger{display:grid;position:relative;width:44px;height:44px;border-radius:50%;border:1px solid var(--ink-line);-webkit-tap-highlight-color:transparent}
+  .burger span{position:absolute;left:14px;right:14px;height:1.5px;background:var(--ink);border-radius:1px;transition:transform 300ms var(--ease-out)}
+  .burger span:first-child{top:18px}
+  .burger span:last-child{top:24px}
+  html.menu-open .burger span:first-child{transform:translateY(3px) rotate(45deg)}
+  html.menu-open .burger span:last-child{transform:translateY(-3px) rotate(-45deg)}
+  html.menu-open{overflow:hidden}
+  html.menu-open .header{background:var(--cream)}
+  .nav{position:fixed;left:0;right:0;top:64px;height:calc(100vh - 64px);height:calc(100dvh - 64px);flex-direction:column;gap:0;padding:8px var(--pad) calc(24px + env(safe-area-inset-bottom));background:var(--cream);overflow-y:auto;overscroll-behavior:contain;
+    opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity 180ms ease,transform 240ms var(--ease-out),visibility 0s linear 240ms}
+  html.menu-open .nav{opacity:1;visibility:visible;transform:none;transition:opacity 220ms ease,transform 360ms var(--ease-out)}
+  .nav > a{font-family:var(--serif);font-size:30px;line-height:1.1;font-weight:400;letter-spacing:-.01em;text-transform:none;color:var(--ink);padding:14px 0;border-bottom:1px solid var(--ink-line)}
+  .nav > a::after{display:none}
+  .nav > a.is-active{color:var(--clay)}
+  .nav__extra{display:flex;flex-direction:column;align-items:stretch;gap:14px;margin-top:auto;padding-top:28px}
+  .nav__extra .pill{justify-content:center;height:52px}
+  .nav__tel{font-family:var(--serif);font-size:26px;line-height:1.2;text-align:center;color:var(--ink)}
+  .nav__note{font-size:12px;line-height:18px;letter-spacing:.14em;text-transform:uppercase;text-align:center;color:var(--ink-55)}
+
+  /* ---------- hero: a full screen that scrolls away ---------- */
+  .hero{position:relative;height:auto;min-height:100vh;min-height:100svh;transform:none!important}
+  .hero__img{width:100%;height:100%;left:0;top:0;object-fit:cover;object-position:68% 50%;transform-origin:50% 50%}
+  .hero__shade{background:linear-gradient(180deg,rgba(19,22,18,.62) 0%,rgba(19,22,18,.38) 28%,rgba(19,22,18,.62) 58%,rgba(19,22,18,.92) 100%)}
+  .hero .wrap{zoom:1;min-height:100vh;min-height:100svh;height:auto;padding:92px var(--pad) 56px;opacity:1!important;transform:none!important}
+  .hero .chapter{padding-bottom:28px}
+  .hero__body{max-width:640px;margin-bottom:28px}
+  .hero__title{font-size:clamp(42px,12.6vw,86px);margin-top:20px}
+  .hero__text{margin-top:18px;max-width:none}
+  .hero__cta{flex-direction:column;align-items:flex-start;gap:18px;margin-top:28px}
+  .hero__cta .pill{align-self:stretch;justify-content:center}
+  .hero__note{margin-top:16px}
+  .video-wrap{position:static;margin-bottom:28px;perspective:none;max-width:640px}
+  .video-btn{width:100%;padding:14px 18px 14px 14px;gap:14px;transform:none!important}
+  .video-btn__ring{width:44px;height:44px}
+  .video-btn__txt{font-size:13px;line-height:19px;gap:4px}
+  .stats{gap:12px;padding-top:20px}
+  .stat__num{font-size:clamp(38px,10.5vw,64px)}
+  .stat .label{margin-top:8px;font-size:9px;line-height:13px;letter-spacing:.14em}
+  .hero__caption{display:none}
+
+  /* ---------- cases: the sheet slides over the bottom of the hero ---------- */
+  .cases{margin-top:-24px;padding:64px 0 72px;border-radius:24px 24px 0 0}
+  .filters{gap:24px;margin:32px calc(var(--pad) * -1) 0;padding:0 var(--pad);overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .filters::-webkit-scrollbar{display:none}
+  .filter{flex:none;white-space:nowrap;padding-bottom:16px}
+  .filter::after{bottom:0}
+  .grid{grid-template-columns:1fr;gap:40px;margin-top:28px}
+  .card__more{opacity:1;transform:none;left:12px;bottom:12px}
+  .card h3{font-size:24px}
+  .empty{font-size:22px;margin-top:40px;padding:32px 0}
+
+  /* ---------- bands (calculator, tech book) ---------- */
+  .band .wrap{grid-template-columns:1fr;gap:40px;padding-top:64px;padding-bottom:64px}
+  .band h2{font-size:clamp(34px,9.6vw,56px)}
+  .band p.lead{margin-top:18px;max-width:none}
+  .band__cta{flex-direction:column;align-items:stretch;gap:12px;margin-top:28px}
+  .band__cta .pill{justify-content:center}
+  .band__note{text-align:center}
+  .band__list li{gap:16px;padding:18px 0}
+  .band__list span{font-size:20px;min-width:30px}
+  .band__list b{font-size:22px}
+  .band--book .wrap{grid-template-columns:1fr;gap:32px;padding-top:64px;padding-bottom:56px}
+  .band--book{overflow:hidden} /* the page stack and the stage's anti-alias frame stick out a few px */
+  .book-side{transform:none;min-height:0;padding:4px 0 8px}
+  .ob-stage--band{--pw:min(calc((var(--vw,100vw) - 2 * var(--pad)) / 2), 280px)}
+  .ob-turn{width:32px;height:32px;padding:5px 0 0 6px;font-size:10px}
+  .ob-back .ob-turn{padding:5px 6px 0 0}
+  /* on touch there is no hover: the corner of the page you can turn is always folded */
+  .ob-stage--band.can-next .ob-leaf.is-next > .ob-face:not(.ob-back) .ob-turn{opacity:1;transform:none}
+
+  /* ---------- approach: heading -> photo -> benefits ---------- */
+  .approach{padding:72px 0}
+  .approach__grid{display:flex;flex-direction:column;gap:20px}
+  .approach__head{display:contents}
+  .approach .lead{max-width:none}
+  .approach__media{position:static;order:1;margin:12px 0 0}
+  .approach__media .media{height:auto;aspect-ratio:1/1}
+  .benefits{order:2;margin-top:12px}
+  .benefit{grid-template-columns:40px 1fr;gap:6px 12px;padding:20px 0}
+  .benefit p{grid-column:2}
+  .benefit__n{font-size:17px}
+  .benefit h3{font-size:24px}
+
+  /* ---------- life: two-column mosaic ---------- */
+  .life{padding:72px 0 0}
+  .bento{grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:10px;margin-top:40px}
+  .bento .cell{grid-column:span 2;grid-row:auto;min-height:260px;perspective:none}
+  .bento .cell--a{min-height:400px}
+  .bento .cell--b,.bento .cell--c,.bento .cell--f,.bento .cell--g{grid-column:span 1;min-height:230px}
+  .tile{padding:18px;transform:none!important}
+  .tile__img{transform:none!important;inset:0;width:100%;height:100%}
+  .tile h3,.cell--a .tile h3{font-size:24px;margin-top:8px;max-width:none}
+  .cell--a .tile h3{font-size:30px}
+  .cell--b .tile h3,.cell--c .tile h3,.cell--f .tile h3,.cell--g .tile h3{font-size:19px;line-height:1.08}
+  .tile p{font-size:13px;line-height:19px;margin-top:8px}
+  .tile__big{font-size:60px}
+  .life__end{flex-direction:column;align-items:flex-start;gap:28px;padding-top:56px;padding-bottom:72px}
+  .life__end h3{font-size:clamp(32px,9vw,56px)}
+  .life__end p{font-size:15px;line-height:24px}
+  .life__end .pill{align-self:stretch;justify-content:center}
+
+  /* ---------- steps: every step with its own photo ---------- */
+  .steps{padding:72px 0}
+  .steps__grid{grid-template-columns:1fr;gap:28px}
+  .steps__aside{position:static;gap:20px}
+  .steps__frame,.steps__aside .caption{display:none}
+  .step{display:flex;flex-direction:column;gap:0;padding:28px 0 32px}
+  .step > div{display:contents}
+  .step__ph{display:block;order:-1;aspect-ratio:3/2;margin-bottom:20px}
+  .step__ph img{will-change:auto}
+  .step:not(.is-active) > span{opacity:1}
+  .step__n{font-size:30px;margin-bottom:10px}
+  .step h3{font-size:26px}
+  .step p{font-size:15px;line-height:24px;max-width:none}
+  .step ul{grid-template-columns:1fr;max-width:none}
+
+  /* ---------- materials ---------- */
+  .cine__shade{background:linear-gradient(180deg,rgba(19,22,18,.7),rgba(19,22,18,.86))}
+  .cine .wrap{padding-top:72px;padding-bottom:72px;gap:40px}
+  .cine__head{gap:20px}
+  .materials{grid-template-columns:1fr;gap:32px}
+  .material{padding-top:24px}
+  .material h3{font-size:32px}
+  .material p{margin-top:14px;font-size:15px;line-height:24px}
+
+  /* ---------- guarantees ---------- */
+  .guar{padding:72px 0}
+  .guar__grid{grid-template-columns:1fr;gap:32px;margin-top:40px}
+  .g{padding-top:20px}
+  .g__n{font-size:44px}
+  .g h3{font-size:26px;margin-top:14px}
+
+  /* ---------- team: swipe carousel, the next card peeks in ---------- */
+  .team{padding:72px 0}
+  .team__grid{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:74%;gap:14px;margin:40px calc(var(--pad) * -1) 0;padding:0 var(--pad) 4px;
+    overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 var(--pad);scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+  .team__grid::-webkit-scrollbar{display:none}
+  .person{scroll-snap-align:start}
+  .person h3{font-size:24px}
+
+  /* ---------- FAQ ---------- */
+  .faq{padding:72px 0}
+  .faq__grid{grid-template-columns:1fr;gap:36px}
+  .faq__head{position:static;gap:20px}
+  .faq .lead{max-width:none}
+  .qa__q{font-size:20px;line-height:1.2;gap:16px;padding:20px 0}
+  .qa__ico{width:36px;height:36px}
+  .qa__in p{padding:0 0 22px;font-size:15px;line-height:24px}
+
+  /* ---------- contact: heading -> form -> details ---------- */
+  .contact__shade{background:linear-gradient(180deg,rgba(19,22,18,.72),rgba(19,22,18,.86))}
+  .contact .wrap{display:flex;flex-direction:column;align-items:stretch;gap:20px;padding-top:72px;padding-bottom:72px}
+  .contact__l{display:contents}
+  .contact .lead{max-width:none}
+  .panel{order:1;margin-top:12px;padding:32px 20px 28px}
+  .details{order:2;grid-template-columns:1fr;gap:20px;margin-top:20px;padding-top:28px}
+  .details a,.details p{font-size:22px}
+  .footer{padding:40px 0 calc(40px + env(safe-area-inset-bottom))}
+  .footer .wrap{flex-direction:column;align-items:flex-start;gap:18px;letter-spacing:.12em;line-height:18px}
+  .footer nav{flex-wrap:wrap;gap:10px 24px}
+
+  /* ---------- small things ---------- */
+  .toast{left:16px;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));justify-content:center;text-align:center;transform:translateY(16px)}
+  .toast.is-on{transform:none}
+  .preloader__in{font-size:clamp(22px,7.4vw,44px)}
+  .preloader__caret{width:1.5px;margin-left:6px}
+  .preloader__line{top:calc(50% + 36px);width:160px;margin-left:-80px}
+
+  /* ---------- popups: full-screen sheets that scroll as a whole ---------- */
+  .modal,.modal.calc,.modal.case,.modal.bookm{width:100%;height:100%;max-width:100%;max-height:100%;border-radius:0;clip-path:none;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+  .modal__close{position:fixed;top:calc(12px + env(safe-area-inset-top));right:12px}
+  .modal__close--dark{background:rgba(241,238,231,.92);box-shadow:0 2px 10px rgba(19,22,18,.12)}
+  .modal.vmodal{width:100%;height:fit-content;max-height:100%;margin:auto 0;overflow:visible}
+  .vmodal .modal__close{top:calc(12px + env(safe-area-inset-top));right:12px}
+  .vmodal__bar{flex-direction:column;align-items:stretch;gap:14px;padding:16px var(--pad) 20px}
+  .vmodal__bar .pill{justify-content:center}
+
+  /* case */
+  .case__grid{grid-template-columns:1fr;height:auto}
+  .case__media{height:44vh;min-height:240px;max-height:420px}
+  .case__body{overflow:visible;padding:28px var(--pad) calc(48px + env(safe-area-inset-bottom))}
+  .case__title{font-size:clamp(32px,9vw,52px);margin-top:14px}
+  .case__lead{margin-top:20px;font-size:16px;line-height:26px}
+  .case__specs{column-gap:20px;margin-top:28px}
+  .case__specs dd{font-size:18px}
+  .case__blocks{grid-template-columns:1fr;gap:20px;margin-top:28px}
+  .case__quote{margin-top:28px;padding:20px;font-size:20px}
+  .case__actions{flex-direction:column;align-items:stretch;gap:20px;margin-top:28px}
+  .case__actions .pill{justify-content:center}
+  .case__actions .textlink{align-self:center}
+
+  /* book */
+  .bookm__grid{grid-template-columns:1fr}
+  .bookm__side{padding:56px 0 36px}
+  .ob-stage--modal{--pw:min(150px,38vw)}
+  .bookm__main{padding:32px var(--pad) calc(40px + env(safe-area-inset-bottom))}
+  .bookm__title{font-size:clamp(32px,9vw,48px)}
+  .bookm form .pill{width:100%;justify-content:center}
+
+  /* calculator: questions fill the screen, the answer bar stays at the bottom */
+  .calc__grid{height:100%}
+  .calc__main,.calc.is-result .calc__main{margin-right:0;height:100%;padding:18px var(--pad) calc(14px + env(safe-area-inset-bottom))}
+  .calc__top{padding-right:52px;min-height:44px;gap:12px}
+  .calc__body{padding:28px 0 20px}
+  .calc__q{font-size:clamp(30px,8.6vw,48px)}
+  .calc__hint{font-size:15px;line-height:24px}
+  .opts,.opts--2,.opts--3,.opts--4,.opts--5{grid-template-columns:1fr;gap:10px;margin-top:24px}
+  .opt{padding:16px 16px 16px 50px;gap:4px}
+  .opt__mark{left:17px;top:19px}
+  .opt__t{font-size:21px}
+  .opt__s{font-size:13px;line-height:19px}
+  .area{margin-top:28px}
+  .area__val{font-size:clamp(64px,19vw,100px)}
+  .area__val small{font-size:26px}
+  .chips{flex-wrap:wrap;margin-top:24px}
+  .calc__nav{padding-top:14px;gap:12px}
+  .calc__next{min-width:0}
+  .calc__side{position:static;width:auto;background:none;clip-path:none!important;transition:none}
+  .calc__side .modal__close{background:rgba(30,33,29,.08);color:var(--ink)}
+  .side__sum,.side__form{display:none}
+  /* result: the whole sheet scrolls; the dark form follows the estimate */
+  .calc.is-result .calc__grid,.calc.is-result .calc__main{height:auto}
+  .calc.is-result .calc__body{flex:none;overflow:visible;padding-top:24px}
+  .calc.is-result .calc__nav{padding-bottom:8px}
+  .calc.is-result .calc__side{background:var(--olive);color:var(--cream)}
+  .calc.is-result .calc__side .modal__close{background:rgba(241,238,231,.94);box-shadow:0 2px 10px rgba(19,22,18,.14)}
+  .calc.is-result .side__form{display:block;position:static;padding:40px var(--pad) calc(48px + env(safe-area-inset-bottom))}
+  .side__title{font-size:clamp(32px,9vw,44px)}
+  .res__title{font-size:clamp(30px,8.4vw,42px)}
+  .kpi{grid-template-columns:repeat(3,1fr)}
+  .kpi > div:first-child{grid-column:1/-1;padding-right:0}
+  .kpi > div + div{padding-left:12px;border-top:1px solid var(--ink-line)}
+  .kpi > div:nth-child(2){padding-left:0;border-left:0}
+  .kpi .label{white-space:normal;letter-spacing:.12em}
+  .kpi b{font-size:19px;white-space:normal}
+  .kpi__total{font-size:48px!important}
+  .res__groups{grid-template-columns:1fr;gap:20px}
+  .packs{grid-template-columns:1fr}
+}
+/* larger phones in landscape and tablets */
+@media (min-width:640px) and (max-width:1199px){
+  :root{--pad:40px}
+  .grid{grid-template-columns:1fr 1fr;gap:48px 24px}
+  .guar__grid{grid-template-columns:1fr 1fr;gap:40px 32px}
+  .materials{grid-template-columns:1fr 1fr}
+  .team__grid{grid-auto-columns:40%}
+  .bento .cell{min-height:320px}
+  .bento .cell--a{min-height:480px}
+  .bento .cell--b,.bento .cell--c,.bento .cell--f,.bento .cell--g{min-height:260px}
+  .approach__media .media{aspect-ratio:4/3}
+  .panel{max-width:560px}
+  .modal.vmodal{width:min(100%,900px)}
+  .stat .label{font-size:10px}
+  /* wide enough for buttons in a row: no stretched full-width pills */
+  .hero__cta{flex-direction:row;align-items:center;gap:28px}
+  .hero__cta .pill,.life__end .pill{align-self:auto}
+  .life__end .pill{align-self:flex-start}
+  .band__cta{flex-direction:row;align-items:center;flex-wrap:wrap}
+  .band__note{text-align:left}
+}
+@media (min-width:900px) and (max-width:1199px){
+  .team__grid{grid-auto-columns:30%}
+  .benefits{columns:2;column-gap:40px}
+  .benefit{break-inside:avoid}
+}
+/* phones turned sideways: the screen is short, so headings follow the height, not the width */
+@media (max-width:1199px) and (max-height:520px) and (orientation:landscape){
+  .hero__title{font-size:52px}
+  .hero .wrap{padding-top:84px}
+  .h2,.band h2{font-size:42px}
+  .calc__q{font-size:30px}
+  .calc__body{padding-top:16px}
+  .area__val{font-size:56px}
+  .bookm__side{padding:28px 0 20px}
+  .case__media{height:70vh}
+}
+/* very small phones (iPhone SE 1st gen, old Androids) */
+@media (max-width:359px){
+  :root{--pad:16px}
+  .header__in{gap:8px}
+  .logo{font-size:16px}
+  .stat .label{font-size:8px;letter-spacing:.1em}
+  .bento .cell--b,.bento .cell--c,.bento .cell--f,.bento .cell--g{grid-column:span 2;min-height:200px}
+}
+
+</style>
+<script>
+/* The page is always laid out at 1920 design px and scaled to the window width (CSS zoom).
+   Browser zoom changes innerWidth, the scale compensates, so the site looks the same everywhere. */
+(function () {
+  var D = 1920, MOBILE = 1200, h = document.documentElement, lastW = 0;
+  function fit() {
+    var w = window.innerWidth;
+    if (w < MOBILE) {
+      // phones and tablets: no canvas scaling. The mobile browser bar changes innerHeight while scrolling,
+      // so only a width change (rotation) triggers an update: no restyle of the whole page on every scroll.
+      if (w === lastW && window.__Z === 1) return;
+      lastW = w; h.style.zoom = ''; window.__Z = 1;
+      h.style.setProperty('--vw', w + 'px');
+      h.style.setProperty('--vh', window.innerHeight + 'px');
+      h.style.setProperty('--hk', 1);
+      return;
+    }
+    lastW = w;
+    var z = w / D;
+    h.style.zoom = z; window.__Z = z;
+    h.style.setProperty('--vw', (w / z) + 'px');
+    h.style.setProperty('--vh', (window.innerHeight / z) + 'px');
+    h.style.setProperty('--hk', Math.min(1, Math.max(.7, (window.innerHeight / z) / 1030)).toFixed(4));
+  }
+  fit();
+  window.addEventListener('resize', fit);
+})();
+</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Сколько стоит построить дом под ключ?", "acceptedAnswer": {"@type": "Answer", "text": "Зависит от площади, этажности, материала стен и комплектации. Предварительную смету по этапам можно получить в калькуляторе за пару минут. Точную стоимость с учётом участка, отделки и коммуникаций архитектор рассчитает на встрече, и она фиксируется в договоре."}}, {"@type": "Question", "name": "Может ли смета вырасти во время стройки?", "acceptedAnswer": {"@type": "Answer", "text": "Нет. Согласованная стоимость закреплена в договоре и не меняется до сдачи ключей. Если вы сами решите что‑то изменить, например комплектацию или планировку, мы заранее пересчитаем смету и согласуем её с вами."}}, {"@type": "Question", "name": "Почему вы работаете без предоплаты?", "acceptedAnswer": {"@type": "Answer", "text": "Потому что уверены в своих сроках и качестве. Вы платите за работу, которую уже видите на участке, а не авансом за обещания."}}, {"@type": "Question", "name": "Сколько времени занимает строительство?", "acceptedAnswer": {"@type": "Answer", "text": "Обычно от 5 до 9 месяцев для дома под ключ: всё зависит от площади, этажности и комплектации. Сроки каждого этапа прописываются в графике работ к договору."}}, {"@type": "Question", "name": "Что выбрать: газобетон или тёплую керамику?", "acceptedAnswer": {"@type": "Answer", "text": "Оба материала тёплые и подходят для постоянного проживания. Газобетон легче и быстрее в работе, керамика даёт дышащие стены и стабильный микроклимат. Подробно сравниваем их в технологической книге, а окончательно подбираем материал вместе с архитектором."}}, {"@type": "Question", "name": "Нужен ли готовый проект?", "acceptedAnswer": {"@type": "Answer", "text": "Нет. Мы разрабатываем индивидуальный проект и до начала работ показываем дом в 3D, чтобы вы увидели каждую деталь. Если проект у вас уже есть, посмотрим его и посчитаем стоимость строительства."}}, {"@type": "Question", "name": "Можно ли построить дом в ипотеку или кредит?", "acceptedAnswer": {"@type": "Answer", "text": "Да. Помогаем получить кредит на строительство в 7 банках‑партнёрах и готовим документы, которые запрашивает банк."}}, {"@type": "Question", "name": "Как я смогу следить за стройкой?", "acceptedAnswer": {"@type": "Answer", "text": "Каждый день присылаем фотоотчёт о том, что сделано на участке. Руководитель проекта всегда на связи, а приехать на объект можно в любой удобный день."}}, {"@type": "Question", "name": "Где вы строите?", "acceptedAnswer": {"@type": "Answer", "text": "В Москве и Московской области. Чтобы увидеть, как мы работаем, запишитесь на экскурсию на действующий объект."}}]}</script>
+</head>
+<body>
+<div class="preloader" aria-hidden="true"><div class="preloader__in"><span class="preloader__text"></span><i class="preloader__caret"></i></div><span class="preloader__line"></span></div>
+<script>
+(function () {
+  var h = document.documentElement, el = document.querySelector('.preloader'), out = el.querySelector('.preloader__text');
+  var word = 'Prime Architect', i = 0, done = false;
+  var rm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  h.classList.add('is-loading');
+  function finish() {
+    if (done) return; done = true;
+    // decode the hero photo first so the curtain never reveals a half-painted image
+    var img = document.querySelector('.hero__img');
+    var ready = img && img.decode ? Promise.race([img.decode().catch(function () {}), new Promise(function (r) { setTimeout(r, 700); })]) : Promise.resolve();
+    ready.then(function () {
+      requestAnimationFrame(function () {
+        el.classList.add('is-done');
+        setTimeout(function () { h.classList.remove('is-loading'); window.dispatchEvent(new Event('preloader:done')); }, 250);
+        setTimeout(function () { el.remove(); }, 1100);
+      });
+    });
+  }
+  function whenLoaded() {
+    if (document.readyState === 'complete') finish();
+    else { window.addEventListener('load', finish, { once: true }); setTimeout(finish, 1200); }
+  }
+  // time-based: ~60ms per letter, so the word finishes on time even if timers get throttled
+  var t0 = 0, PER = 60;
+  function type() {
+    if (!t0) t0 = Date.now();
+    i = Math.min(word.length, Math.floor((Date.now() - t0) / PER) + 1);
+    out.textContent = word.slice(0, i); el.style.setProperty('--p', i / word.length);
+    if (i < word.length) setTimeout(type, 30);
+    else setTimeout(whenLoaded, 300);
+  }
+  var fonts = document.fonts ? Promise.race([document.fonts.ready, new Promise(function (r) { setTimeout(r, 500); })]) : Promise.resolve();
+  fonts.then(function () {
+    if (rm) { out.textContent = word; el.style.setProperty('--p', 1); setTimeout(whenLoaded, 300); }
+    else setTimeout(type, 120);
+  });
+})();
+</script>
+<div class="toast" role="status" aria-live="polite"><i aria-hidden="true"></i><span class="toast__t"></span></div>
+<a class="skip" href="#main">Перейти к содержимому</a>
+
+<header class="header">
+  <div class="wrap header__in">
+    <a class="logo" href="#top" aria-label="Prime Architect, наверх">Prime<span>Architect</span></a>
+    <nav class="nav" id="site-nav" aria-label="Разделы">
+      <a href="#cases">Дома</a>
+      <a href="#approach">Подход</a>
+      <a href="#steps">Этапы</a>
+      <a href="#materials">Материалы</a>
+      <a href="#guarantees">Гарантии</a>
+      <a href="#team">Команда</a>
+      <a href="#contact">Контакты</a>
+      <div class="nav__extra">
+        <a class="pill pill--dark" href="#contact" data-calc><span class="pill__ico" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M221.7 133.7l-72 72a8 8 0 0 1-11.4-11.4l58.4-58.3H40a8 8 0 0 1 0-16h156.7l-58.4-58.3a8 8 0 0 1 11.4-11.4l72 72a8 8 0 0 1 0 11.4z"/></svg></span>Рассчитать стоимость</a>
+        <a class="nav__tel" href="tel:+74959999999">8 (495) 999‑99‑99</a>
+        <span class="nav__note">Москва, Тихорецкий пр., 17&nbsp;Б</span>
+      </div>
+    </nav>
+    <div class="header__cta">
+      <a class="pill pill--line" href="tel:+74959999999"><span class="pill__ico" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M222.4 158.3l-47.1-21.1-.2-.1a16 16 0 0 0-15.2 1.4 8.1 8.1 0 0 0-.8.6L134.8 160c-15.4-7.5-31.3-23.3-38.8-38.5l20.8-24.7.6-.8a16 16 0 0 0 1.3-15.1v-.2L97.7 33.6a16 16 0 0 0-16.6-9.5A56.3 56.3 0 0 0 32 80c0 79.4 64.6 144 144 144a56.3 56.3 0 0 0 55.9-49.1 16 16 0 0 0-9.5-16.6zM176 208A128.1 128.1 0 0 1 48 80a40.2 40.2 0 0 1 34.9-40v.2l21 47-20.6 24.7-.6.8a16 16 0 0 0-1.6 15.6c9 18.4 27.5 36.8 46.1 45.8a16 16 0 0 0 15.7-1.2l.8-.6 24.2-20.6 47 21h.2A40.2 40.2 0 0 1 176 208z"/></svg></span>8 (495) 999‑99‑99</a>
+      <a class="pill pill--line" href="#contact" data-calc><span class="pill__ico" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M208 32h-24v-8a8 8 0 0 0-16 0v8H88v-8a8 8 0 0 0-16 0v8H48a16 16 0 0 0-16 16v160a16 16 0 0 0 16 16h160a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM72 48v8a8 8 0 0 0 16 0v-8h80v8a8 8 0 0 0 16 0v-8h24v32H48V48zm136 160H48V96h160v112z"/></svg></span>Рассчитать стоимость</a>
+      <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="site-nav"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<!-- 01 HERO -->
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <img class="hero__img" src="assets/l-hero.webp" alt="Современный двухэтажный дом среди сосен на краю луга" fetchpriority="high">
+  <div class="hero__shade" aria-hidden="true"></div>
+  <div class="hero__dim" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="chapter hero-in"><span class="chapter__num">01</span><span class="label">Дома под ключ</span></div>
+    <div class="hero__body">
+      <p class="eyebrow hero-in" style="--i:1">Москва и область · с 2001 года</p>
+      <h1 class="display hero__title hero-in" style="--i:2" id="hero-title">Каменный дом <br>под ключ. <br><em>Без предоплаты.</em></h1>
+      <p class="lead hero__text hero-in" style="--i:3">Проектируем и строим дома из газобетона и тёплой керамики. <br>Берём на себя все вопросы: от проекта и 3D‑модели до сдачи ключей.</p>
+      <div class="hero__cta hero-in" style="--i:4">
+        <a class="pill pill--solid" href="#contact" data-calc><span class="pill__ico" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M221.7 133.7l-72 72a8 8 0 0 1-11.4-11.4l58.4-58.3H40a8 8 0 0 1 0-16h156.7l-58.4-58.3a8 8 0 0 1 11.4-11.4l72 72a8 8 0 0 1 0 11.4z"/></svg></span>Рассчитать смету дома</a>
+        <a class="textlink" href="#contact">Записаться на экскурсию</a>
+      </div>
+      <p class="hero__note hero-in" style="--i:5"><i aria-hidden="true"></i>Стоимость и сроки фиксируем в договоре</p>
+    </div>
+    <div class="video-wrap hero-in" style="--i:5">
+      <button class="video-btn tilt" type="button" data-video>
+        <svg class="video-btn__waves" aria-hidden="true"><circle cx="44" cy="50%" r="24"/><circle cx="44" cy="50%" r="24"/></svg>
+        <span class="video-btn__ring"><svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M240 128a15.7 15.7 0 0 1-7.6 13.5L88.3 229.6a16 16 0 0 1-16.2.3A15.9 15.9 0 0 1 64 216V40a15.9 15.9 0 0 1 8.1-13.9 16 16 0 0 1 16.2.3l144.1 88.1A15.7 15.7 0 0 1 240 128z"/></svg></span>
+        <span class="video-btn__txt"><span class="label">Видео · 2 минуты</span>Посмотрите короткое видео о&nbsp;том, как мы <br>строим дом от фундамента до ключей</span>
+      </button>
+    </div>
+    <div class="stats hero-in" style="--i:5">
+      <div class="stat"><div class="stat__num" data-count="210">210</div><span class="label">Домов построено</span></div>
+      <div class="stat"><div class="stat__num" data-count="25">25</div><span class="label">Лет строим дома</span></div>
+      <div class="stat"><div class="stat__num" data-count="7">7</div><span class="label">Банков‑партнёров</span></div>
+    </div>
+  </div>
+  <span class="hero__caption">Фото: Unsplash</span>
+</section>
+
+<!-- 02 CASES -->
+<section class="cases" id="cases" aria-labelledby="cases-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-head__l">
+        <div class="chapter reveal"><span class="chapter__num">02</span><span class="label">Построенные дома</span></div>
+        <p class="eyebrow reveal" style="--i:1">Каждый по индивидуальному проекту</p>
+        <h2 class="display h2 reveal" style="--i:2" id="cases-title">Дома, которые <br><em>мы уже сдали.</em></h2>
+      </div>
+      <p class="lead reveal" style="--i:3">Реальные сроки, смета без доплат и фотоотчёт по каждому дню стройки. Нажмите на дом, чтобы увидеть подробности, или приезжайте посмотреть вживую.</p>
+    </div>
+    <div class="filters reveal" role="tablist" aria-label="Материал стен">
+      <button class="filter" role="tab" aria-selected="true" data-filter="all">Все<sup>6</sup></button>
+      <button class="filter" role="tab" aria-selected="false" data-filter="gas">Газобетон<sup>3</sup></button>
+      <button class="filter" role="tab" aria-selected="false" data-filter="ceramic">Тёплая керамика<sup>3</sup></button>
+    </div>
+    <div class="grid" id="case-grid"></div>
+    <p class="empty" role="status">В этой категории пока нет домов. Покажем похожие объекты на консультации.</p>
+  </div>
+</section>
+
+<!-- LEAD BAND -->
+<section class="band" aria-labelledby="band-title">
+  <div class="wrap">
+    <div>
+      <h2 class="display reveal" id="band-title">Узнайте стоимость дома <br><em>за две минуты.</em></h2>
+      <p class="lead reveal" style="--i:1">Ответьте на 8 вопросов и получите предварительную смету по этапам: от коробки до дома под ключ. Точную стоимость архитектор рассчитает на встрече.</p>
+      <div class="band__cta reveal" style="--i:2">
+        <a class="pill pill--solid" href="#contact" data-calc><span class="pill__ico" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M221.7 133.7l-72 72a8 8 0 0 1-11.4-11.4l58.4-58.3H40a8 8 0 0 1 0-16h156.7l-58.4-58.3a8 8 0 0 1 11.4-11.4l72 72a8 8 0 0 1 0 11.4z"/></svg></span>Рассчитать смету</a>
+        <a class="pill pill--ghost pill--noico" href="#contact">Встреча с архитектором</a>
+      </div>
+    </div>
+    <ul class="band__list" role="list">
+      <li class="reveal"><span>01</span><div><b>Смета по этапам</b><p>Фундамент, стены, кровля, фасад, сети и отделка отдельными строками.</p></div></li>
+      <li class="reveal" style="--i:1"><span>02</span><div><b>Четыре комплектации</b><p>Коробка, тёплый контур, предчистовая отделка или дом под ключ.</p></div></li>
+      <li class="reveal" style="--i:2"><span>03</span><div><b>Срок строительства</b><p>Сколько месяцев займёт стройка именно вашего дома.</p></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 03 APPROACH -->
+<section class="approach" id="approach" aria-labelledby="approach-title">
+  <div class="wrap approach__grid">
+    <div class="approach__head">
+      <div class="chapter reveal"><span class="chapter__num">03</span><span class="label">Подход</span></div>
+      <p class="eyebrow reveal" style="--i:1">У вас всё включено</p>
+      <h2 class="display h2 reveal" style="--i:2" id="approach-title">Стройте дом, <br><em>а не вторую работу.</em></h2>
+      <p class="lead reveal" style="--i:3">Проект, коробку, отделку и коммуникации ведёт одна команда, по одному договору и одной смете. Вы общаетесь с нами, <br>а не с десятком подрядчиков.</p>
+      <ul class="benefits" role="list">
+        <li class="benefit reveal"><span class="benefit__n">01</span><h3>210 домов</h3><p>Строим с 2001 года и показываем объекты вживую на экскурсиях.</p></li>
+        <li class="benefit reveal"><span class="benefit__n">02</span><h3>Готовый дом</h3><p>Сдаём дом с отделкой и подключёнными коммуникациями, без доделок.</p></li>
+        <li class="benefit reveal"><span class="benefit__n">03</span><h3>Неизменная смета</h3><p>Стоимость фиксируется в договоре и не растёт от начала работ до сдачи.</p></li>
+        <li class="benefit reveal"><span class="benefit__n">04</span><h3>По договору</h3><p>Все работы ведутся в соответствии с ГОСТ и СНиП.</p></li>
+        <li class="benefit reveal"><span class="benefit__n">05</span><h3>Фотоотчёт</h3><p>Каждый день присылаем фото того, что сделано на участке.</p></li>
+        <li class="benefit reveal"><span class="benefit__n">06</span><h3>Кредит</h3><p>Помогаем получить кредит на строительство в 7 банках‑партнёрах.</p></li>
+        <li class="benefit reveal"><span class="benefit__n">07</span><h3>Своя бригада</h3><p>Строят наши мастера, без цепочки субподрядчиков.</p></li>
+      </ul>
+    </div>
+    <figure class="approach__media">
+      <div class="media reveal-img"><img src="assets/l-interior.webp" alt="Светлая гостиная со вторым светом и видом на лес" loading="lazy"></div>
+      <figcaption class="caption"><span>Интерьер с видом на лес</span><span>Фото: Unsplash</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 04 LIFE -->
+<section class="life" id="life" aria-labelledby="life-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-head__l">
+        <div class="chapter reveal"><span class="chapter__num">04</span><span class="label">Жизнь за городом</span></div>
+        <p class="eyebrow reveal" style="--i:1">Через несколько месяцев</p>
+        <h2 class="display h2 reveal" style="--i:2" id="life-title">Представьте свой день <br><em>в доме, который мы построим.</em></h2>
+      </div>
+      <p class="lead reveal" style="--i:3">Не просто стены и крыша. Дом, где есть место для всего, что вы любите, и для тех, кого любите.</p>
+    </div>
+
+    <div class="bento">
+      <div class="cell cell--a reveal"><article class="tile tile--photo">
+        <img class="tile__img" src="assets/l-life-family.webp" alt="Семья обедает за большим столом в саду под деревом" loading="lazy">
+        <span class="label">Семья и друзья</span>
+        <h3>Отдыхать с семьёй и встречать друзей</h3>
+        <p>Большой стол в саду, терраса для летних вечеров и гостиная, где всем хватает места.</p>
+      </article></div>
+      <div class="cell cell--b reveal"><article class="tile tile--gold">
+        <span class="tile__big">BBQ</span>
+        <h3>Готовить лучшее барбекю</h3>
+        <p>Навес и летняя кухня в двух шагах от дома.</p>
+      </article></div>
+      <div class="cell cell--c reveal"><article class="tile">
+        <span class="tile__big num">0</span>
+        <h3>Соседей за стеной</h3>
+        <p>Только тишина и лес.</p>
+      </article></div>
+      <div class="cell cell--d reveal"><article class="tile tile--photo">
+        <img class="tile__img" src="assets/l-life-sauna.webp" alt="Деревянная баня с панорамным окном" loading="lazy">
+        <span class="label">Восстановиться</span>
+        <h3>Париться в бане после рабочей недели</h3>
+        <p>Своя баня на участке, а не по записи в выходные.</p>
+      </article></div>
+      <div class="cell cell--e reveal"><article class="tile tile--photo">
+        <img class="tile__img" src="assets/l-life-fire.webp" alt="Женщина отдыхает у горящего камина" loading="lazy">
+        <span class="label">Вечер</span>
+        <h3>Читать книгу у камина</h3>
+        <p>Тёплые каменные стены и огонь, когда за окном снег.</p>
+      </article></div>
+      <div class="cell cell--f reveal"><article class="tile">
+        <span class="label">Спорт</span>
+        <h3>Тренироваться в своём зале</h3>
+        <p>Или бегать по лесу каждое утро, вместо беговой дорожки в фитнес‑клубе.</p>
+      </article></div>
+      <div class="cell cell--g reveal"><article class="tile tile--photo">
+        <img class="tile__img" src="assets/l-life-cinema.webp" alt="Домашний кинотеатр с большим диваном" loading="lazy">
+        <h3>Смотреть кино в домашнем кинотеатре</h3>
+      </article></div>
+      <div class="cell cell--h reveal"><article class="tile tile--photo">
+        <img class="tile__img" src="assets/l-life-kids.webp" alt="Девочка смеётся на качелях во дворе" loading="lazy">
+        <span class="label">Дети</span>
+        <h3>Подарить детям детство, о котором мечтали сами</h3>
+        <p>Своя комната каждому, качели и площадка во дворе.</p>
+      </article></div>
+    </div>
+  </div>
+
+
+  <div class="wrap life__end">
+    <div class="reveal">
+      <h3>Идеальный дом нельзя купить. <br><em>Его можно только построить.</em></h3>
+      <p>Расскажите, какой дом вы представили, и мы посчитаем, сколько он стоит.</p>
+    </div>
+    <a class="pill pill--solid reveal" style="--i:1" href="#contact" data-calc><span class="pill__ico" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M221.7 133.7l-72 72a8 8 0 0 1-11.4-11.4l58.4-58.3H40a8 8 0 0 1 0-16h156.7l-58.4-58.3a8 8 0 0 1 11.4-11.4l72 72a8 8 0 0 1 0 11.4z"/></svg></span>Рассчитать свой дом</a>
+  </div>
+</section>
+
+<!-- 04 STEPS -->
+<section class="steps" id="steps" aria-labelledby="steps-title">
+  <div class="wrap steps__grid">
+    <div class="steps__aside">
+      <div class="chapter reveal"><span class="chapter__num">05</span><span class="label">Этапы</span></div>
+      <p class="eyebrow reveal" style="--i:1">Полный цикл работ</p>
+      <h2 class="display h2 reveal" style="--i:2" id="steps-title">Восемь шагов <br><em>до ключей.</em></h2>
+      <div class="steps__frame reveal-img" aria-hidden="true">
+        <img class="is-shown" src="assets/l-step-1.webp" alt="" style="z-index:1">
+        <img src="assets/l-step-2.webp" alt="">
+        <img src="assets/l-step-3.webp" alt="">
+        <img src="assets/l-step-site.webp" alt="">
+        <img src="assets/l-step-4.webp" alt="">
+        <img src="assets/l-step-mep.webp" alt="">
+        <img src="assets/l-step-finish2.webp" alt="">
+        <img src="assets/l-step-5.webp" alt="">
+      </div>
+      <p class="caption"><span class="steps__cap">Этап 01 · Знакомство и консультация</span><span>Фото: Unsplash</span></p>
+    </div>
+    <ol class="step-list" role="list">
+      <li class="step is-active reveal" tabindex="0"><span class="step__n">01</span><div>
+        <h3>Знакомство и консультация</h3>
+        <p>Обсуждаем участок, состав семьи и бюджет. Архитектор рассчитывает стоимость с учётом отделки и коммуникаций.</p>
+        <ul><li>Консультируем по выбору участка</li><li>Формулируем представление о доме</li><li>Согласуем сроки проекта и стройки</li><li>Считаем предварительную смету</li></ul>
+        <span class="step__res"><b>Результат</b>Понятный бюджет и сроки ещё до проекта</span></div></li>
+      <li class="step reveal" tabindex="0"><span class="step__n">02</span><div>
+        <h3>Проект и 3D‑модель</h3>
+        <p>Разрабатываем проект дома и показываем его в 3D, чтобы вместе <br>продумать каждый элемент строения.</p>
+        <ul><li>Архитектурный план дома</li><li>Конструктив фундамента и перекрытий</li><li>План инженерных коммуникаций</li><li>Виртуальная 3D‑модель дома</li></ul>
+        <span class="step__res"><b>Результат</b>Вы видите свой дом ещё до фундамента</span></div></li>
+      <li class="step reveal" tabindex="0"><span class="step__n">03</span><div>
+        <h3>Договор и смета</h3>
+        <p>Фиксируем стоимость и сроки в договоре. Предоплату не берём.</p>
+        <ul><li>Смета по этапам с точностью до рубля</li><li>График работ по каждому этапу</li><li>Помогаем с кредитом в 7 банках</li><li>Оплата только за сделанную работу</li></ul>
+        <span class="step__res"><b>Результат</b>Цена и сроки закреплены на бумаге</span></div></li>
+      <li class="step reveal" tabindex="0"><span class="step__n">04</span><div>
+        <h3>Подготовка участка</h3>
+        <p>Готовим площадку и материалы, чтобы стройка шла без простоев.</p>
+        <ul><li>Геологические изыскания</li><li>Организация стройплощадки</li><li>Закупка материалов</li><li>Доставка и вывоз мусора</li></ul>
+        <span class="step__res"><b>Результат</b>Материалы на участке, стройка началась</span></div></li>
+      <li class="step reveal" tabindex="0"><span class="step__n">05</span><div>
+        <h3>Фундамент и тёплый контур</h3>
+        <p>Наша бригада возводит основу дома из газобетона <br>или тёплой керамики.</p>
+        <ul><li>Фундамент по геологии участка</li><li>Стены и перекрытия</li><li>Кровля, окна и входная дверь</li><li>Ежедневный фотоотчёт</li></ul>
+        <span class="step__res"><b>Результат</b>Тёплый контур, дом готов наполовину</span></div></li>
+      <li class="step reveal" tabindex="0"><span class="step__n">06</span><div>
+        <h3>Инженерные сети</h3>
+        <p>Прокладываем всё, что нужно для жизни в доме круглый год.</p>
+        <ul><li>Электрика</li><li>Водоснабжение и канализация</li><li>Отопление</li><li>Подключение газа</li></ul>
+        <span class="step__res"><b>Результат</b>Все коммуникации подключены</span></div></li>
+      <li class="step reveal" tabindex="0"><span class="step__n">07</span><div>
+        <h3>Отделка</h3>
+        <p>Отделываем фасад и помещения по согласованной комплектации.</p>
+        <ul><li>Финишная отделка фасада</li><li>Штукатурка и стяжка</li><li>Чистовая отделка помещений</li><li>Работы по ГОСТ и СНиП</li></ul>
+        <span class="step__res"><b>Результат</b>Дом готов к заселению</span></div></li>
+      <li class="step reveal" tabindex="0"><span class="step__n">08</span><div>
+        <h3>Сдача и заселение</h3>
+        <p>Принимаете готовый дом вместе с нами <br>и получаете ключи.</p>
+        <ul><li>Уборка и вывоз мусора</li><li>Приёмка дома вместе с вами</li><li>Передача ключей и документов</li><li>Гарантийные обязательства</li></ul>
+        <span class="step__res"><b>Результат</b>Вы живёте за городом</span></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 05 MATERIALS -->
+<section class="cine" id="materials" aria-labelledby="materials-title">
+  <img class="cine__img" src="assets/l-blocks.webp" alt="" loading="lazy">
+  <div class="cine__shade" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="cine__head">
+      <div class="chapter reveal"><span class="chapter__num">06</span><span class="label">Материалы</span></div>
+      <p class="eyebrow reveal" style="--i:1">Тёплые по природе</p>
+      <h2 class="display h2 reveal" style="--i:2" id="materials-title">Газобетон и керамика. <br><em>Тепло, которое остаётся.</em></h2>
+      <p class="lead reveal" style="--i:3">Работаем с двумя материалами для каменных домов. <br>Какой подойдёт именно вам, разберём на встрече с архитектором.</p>
+    </div>
+    <div class="materials">
+      <div class="material reveal"><h3>Газобетон</h3><p>Лёгкий и точный блок. Ровные стены, понятные сроки <br>и хорошая теплоизоляция без лишних слоёв.</p></div>
+      <div class="material reveal" style="--i:1"><h3><em>Тёплая</em> керамика</h3><p>Поризованный керамический блок. Дышащие стены, долговечность и стабильный микроклимат в любое время года.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 GUARANTEES -->
+<section class="guar" id="guarantees" aria-labelledby="guar-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-head__l">
+        <div class="chapter reveal"><span class="chapter__num">07</span><span class="label">Гарантии</span></div>
+        <p class="eyebrow reveal" style="--i:1">Закреплены в договоре</p>
+        <h2 class="display h2 reveal" style="--i:2" id="guar-title">Мы отвечаем <br><em>за результат.</em></h2>
+      </div>
+      <p class="lead reveal" style="--i:3">Всё, что мы обещаем на встрече, записано в договоре. Не на словах и не в рекламе.</p>
+    </div>
+    <div class="guar__grid">
+      <article class="g reveal"><span class="g__n num">01</span><h3>Фиксированная смета</h3><p>Согласованная стоимость не меняется до сдачи ключей. Если захотите изменить комплектацию, пересчитаем и согласуем новую смету заранее.</p></article>
+      <article class="g reveal"><span class="g__n num">02</span><h3>Без предоплаты</h3><p>Не берём деньги вперёд. Вы платите за работу, <br>которую уже видите на участке.</p></article>
+      <article class="g reveal"><span class="g__n num">03</span><h3>Стандарты качества</h3><p>Все работы выполняются по договору, в соответствии с ГОСТ и СНиП, своей бригадой.</p></article>
+      <article class="g reveal"><span class="g__n num">04</span><h3>Прозрачная стройка</h3><p>Ежедневный фотоотчёт: вы видите каждый шаг <br>и всегда знаете, с кого спросить.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- TECH BOOK -->
+<section class="band band--book" aria-labelledby="book-title">
+  <div class="wrap">
+    <div>
+      <h2 class="display reveal" id="book-title">Мы знаем, как важны <br><em>технические детали.</em></h2>
+      <p class="lead reveal" style="--i:1">Поэтому собрали всё в технологическую книгу: из чего строим, как устроены стены, фундамент и инженерия и как мы контролируем качество на каждом этапе.</p>
+      <div class="band__cta reveal" style="--i:2">
+        <button class="pill pill--solid" type="button" data-book><span class="pill__ico" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M224 144v64a8 8 0 0 1-8 8H40a8 8 0 0 1-8-8v-64a8 8 0 0 1 16 0v56h160v-56a8 8 0 0 1 16 0zm-101.7 5.7a8 8 0 0 0 11.4 0l40-40a8 8 0 0 0-11.4-11.4L136 124.7V40a8 8 0 0 0-16 0v84.7L93.7 98.3a8 8 0 0 0-11.4 11.4z"/></svg></span>Скачать книгу</button>
+        <span class="band__note">PDF, скачивание сразу после заявки</span>
+      </div>
+    </div>
+    <div class="book-side"><div class="ob-stage ob-stage--band" aria-hidden="true"><div class="ob-float"><div class="ob-book"><span class="ob-shadow"></span><div class="ob-right"><div class="ob-base pg"><span class="pg__label">Дальше в книге</span><span class="pg__h">Ещё три <em>главы</em></span><p>Отделка и комплектации, контроль качества, договор и гарантии.</p><p>Полная версия книги в PDF доступна по кнопке «Скачать книгу».</p><span class="pg__num">10</span></div><div class="ob-leaf" style="--zc:6px;--zo:1px;--k:0"><div class="ob-face bookcov"><span class="bookcov__brand">Prime Architect</span><span class="bookcov__line"></span><span class="bookcov__kind">Технологическая книга</span><span class="bookcov__title">Как мы строим <br>каменный&nbsp;дом <em>от фундамента до ключей</em></span><span class="bookcov__foot">PDF · 2026</span><span class="ob-turn" aria-hidden="true">→</span></div><div class="ob-face ob-back pg pg--inside"><span class="pg__brand">Prime Architect</span><span class="pg__rule"></span><span class="pg__small">Технологическая книга · 2026</span><span class="ob-turn" aria-hidden="true">←</span></div></div><div class="ob-leaf" style="--zc:5px;--zo:2px;--k:1"><div class="ob-face pg "><span class="pg__label">Содержание</span><span class="pg__h">Что внутри</span><ol class="pg__toc"><li>Газобетон или тёплая керамика</li><li>Фундамент под ваш участок</li><li>Стены, перекрытия и кровля</li><li>Инженерные сети</li><li>Отделка и комплектации</li><li>Контроль качества</li><li>Договор и гарантии</li></ol><span class="pg__num">02</span><span class="ob-turn" aria-hidden="true">→</span></div><div class="ob-face ob-back pg "><span class="pg__label">Глава 01</span><span class="pg__h">Газобетон или <em>тёплая керамика</em></span><p>Оба материала тёплые и подходят для постоянного проживания. Выбор зависит от бюджета, сроков и микроклимата, который вы хотите получить.</p><p>Окончательно материал подбираем вместе с архитектором.</p><span class="pg__num">03</span><span class="ob-turn" aria-hidden="true">←</span></div></div><div class="ob-leaf" style="--zc:4px;--zo:3px;--k:2"><div class="ob-face pg "><span class="pg__sub">Газобетон</span><ul><li>Лёгкий и точный блок</li><li>Ровные стены, понятные сроки</li><li>Нужен жёсткий фундамент</li></ul><span class="pg__sub">Тёплая керамика</span><ul><li>Дышащие стены</li><li>Долговечность</li><li>Стабильный микроклимат</li></ul><span class="pg__num">04</span><span class="ob-turn" aria-hidden="true">→</span></div><div class="ob-face ob-back pg "><span class="pg__label">Глава 02</span><span class="pg__h">Фундамент <em>под ваш участок</em></span><p>Тип фундамента определяем по геологии участка, а не по шаблону. Для газобетона нужен жёсткий фундамент.</p><span class="pg__num">05</span><span class="ob-turn" aria-hidden="true">←</span></div></div><div class="ob-leaf" style="--zc:3px;--zo:4px;--k:3"><div class="ob-face pg "><span class="pg__sub">Монолитная плита</span><p>Надёжно на пучинистых грунтах.</p><span class="pg__sub">Ленточный</span><p>Для ровных участков и домов с цоколем.</p><span class="pg__sub">Свайно‑ростверковый</span><p>Для участков с уклоном.</p><span class="pg__num">06</span><span class="ob-turn" aria-hidden="true">→</span></div><div class="ob-face ob-back pg "><span class="pg__label">Глава 03</span><span class="pg__h">Стены, перекрытия <em>и кровля</em></span><p>Из этого складывается тёплый контур: дом, который уже держит тепло и готов к инженерным работам.</p><span class="pg__num">07</span><span class="ob-turn" aria-hidden="true">←</span></div></div><div class="ob-leaf" style="--zc:2px;--zo:5px;--k:4"><div class="ob-face pg "><span class="pg__sub">Тёплый контур</span><ul><li>Стены и перегородки</li><li>Перекрытия</li><li>Кровля</li><li>Окна и входная дверь</li><li>Утеплённый фасад</li></ul><span class="pg__num">08</span><span class="ob-turn" aria-hidden="true">→</span></div><div class="ob-face ob-back pg "><span class="pg__label">Глава 04</span><span class="pg__h">Инженерные <em>сети</em></span><p>Электрика, водоснабжение, канализация, отопление и подключение газа: всё, что нужно для жизни круглый год.</p><span class="pg__num">09</span><span class="ob-turn" aria-hidden="true">←</span></div></div></div></div></div></div></div>
+  </div>
+</section>
+
+<!-- 08 TEAM -->
+<section class="team" id="team" aria-labelledby="team-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-head__l">
+        <div class="chapter reveal"><span class="chapter__num">08</span><span class="label">Команда</span></div>
+        <p class="eyebrow reveal" style="--i:1">Люди, которые построят ваш дом</p>
+        <h2 class="display h2 reveal" style="--i:2" id="team-title">Работаем одной командой <br><em>уже более 10&nbsp;лет.</em></h2>
+      </div>
+      <p class="lead reveal" style="--i:3">Над каждым домом работают архитектор, руководитель проекта, инженер‑сметчик и наша бригада. Вы знаете каждого по имени.</p>
+    </div>
+    <div class="team__grid">
+      <article class="person reveal"><div class="media reveal-img"><img src="assets/l-team-1.webp" alt="Алексей Воронцов" loading="lazy"></div>
+        <p class="person__role">Основатель</p><h3>Алексей Воронцов</h3><p class="person__text">Строит дома с 2001 года и лично принимает каждый объект перед сдачей.</p></article>
+      <article class="person reveal"><div class="media reveal-img"><img src="assets/l-team-2.webp" alt="Михаил Ярцев" loading="lazy"></div>
+        <p class="person__role">Главный архитектор</p><h3>Михаил Ярцев</h3><p class="person__text">Ведёт проект от первого эскиза до 3D‑модели и следит за ним на стройке.</p></article>
+      <article class="person reveal"><div class="media reveal-img"><img src="assets/l-team-3.webp" alt="Анна Лебедева" loading="lazy"></div>
+        <p class="person__role">Руководитель проектов</p><h3>Анна Лебедева</h3><p class="person__text">Ваш главный контакт: график, фотоотчёты и ответы на вопросы.</p></article>
+      <article class="person reveal"><div class="media reveal-img"><img src="assets/l-team-4.webp" alt="Елена Корнеева" loading="lazy"></div>
+        <p class="person__role">Инженер‑сметчик</p><h3>Елена Корнеева</h3><p class="person__text">Считает смету по этапам и следит, чтобы она не менялась.</p></article>
+      <article class="person reveal"><div class="media reveal-img"><img src="assets/l-team-5.webp" alt="Сергей Крылов" loading="lazy"></div>
+        <p class="person__role">Прораб</p><h3>Сергей Крылов</h3><p class="person__text">Каждый день руководит нашей бригадой на участке.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- 09 FAQ -->
+<section class="faq" id="faq" aria-labelledby="faq-title">
+  <div class="wrap faq__grid">
+    <div class="faq__head">
+      <div class="chapter reveal"><span class="chapter__num">09</span><span class="label">Вопросы</span></div>
+      <p class="eyebrow reveal" style="--i:1">Частые вопросы</p>
+      <h2 class="display h2 reveal" style="--i:2" id="faq-title">Отвечаем честно <br><em>и заранее.</em></h2>
+      <p class="lead reveal" style="--i:3">Собрали то, о чём нас спрашивают чаще всего, ещё до первой встречи.</p>
+      <a class="pill pill--line reveal" style="--i:4" href="#contact"><span class="pill__ico" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M221.7 133.7l-72 72a8 8 0 0 1-11.4-11.4l58.4-58.3H40a8 8 0 0 1 0-16h156.7l-58.4-58.3a8 8 0 0 1 11.4-11.4l72 72a8 8 0 0 1 0 11.4z"/></svg></span>Задать свой вопрос</a>
+    </div>
+    <div class="faq__list">
+      <div class="qa reveal is-open">
+        <button class="qa__q" type="button" aria-expanded="true" aria-controls="qa-0" id="qa-q-0"><span>Сколько стоит построить дом под ключ?</span><i class="qa__ico" aria-hidden="true"></i></button>
+        <div class="qa__a" id="qa-0" role="region" aria-labelledby="qa-q-0"><div class="qa__in"><p>Зависит от площади, этажности, материала стен и комплектации. Предварительную смету по этапам можно получить в калькуляторе за пару минут. Точную стоимость с учётом участка, отделки и коммуникаций архитектор рассчитает на встрече, и она фиксируется в договоре.</p></div></div>
+      </div>
+      <div class="qa reveal">
+        <button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-1" id="qa-q-1"><span>Может ли смета вырасти во время стройки?</span><i class="qa__ico" aria-hidden="true"></i></button>
+        <div class="qa__a" id="qa-1" role="region" aria-labelledby="qa-q-1"><div class="qa__in"><p>Нет. Согласованная стоимость закреплена в договоре и не меняется до сдачи ключей. Если вы сами решите что‑то изменить, например комплектацию или планировку, мы заранее пересчитаем смету и согласуем её с вами.</p></div></div>
+      </div>
+      <div class="qa reveal">
+        <button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-2" id="qa-q-2"><span>Почему вы работаете без предоплаты?</span><i class="qa__ico" aria-hidden="true"></i></button>
+        <div class="qa__a" id="qa-2" role="region" aria-labelledby="qa-q-2"><div class="qa__in"><p>Потому что уверены в своих сроках и качестве. Вы платите за работу, которую уже видите на участке, а не авансом за обещания.</p></div></div>
+      </div>
+      <div class="qa reveal">
+        <button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-3" id="qa-q-3"><span>Сколько времени занимает строительство?</span><i class="qa__ico" aria-hidden="true"></i></button>
+        <div class="qa__a" id="qa-3" role="region" aria-labelledby="qa-q-3"><div class="qa__in"><p>Обычно от 5 до 9 месяцев для дома под ключ: всё зависит от площади, этажности и комплектации. Сроки каждого этапа прописываются в графике работ к договору.</p></div></div>
+      </div>
+      <div class="qa reveal">
+        <button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-4" id="qa-q-4"><span>Что выбрать: газобетон или тёплую керамику?</span><i class="qa__ico" aria-hidden="true"></i></button>
+        <div class="qa__a" id="qa-4" role="region" aria-labelledby="qa-q-4"><div class="qa__in"><p>Оба материала тёплые и подходят для постоянного проживания. Газобетон легче и быстрее в работе, керамика даёт дышащие стены и стабильный микроклимат. Подробно сравниваем их в технологической книге, а окончательно подбираем материал вместе с архитектором.</p></div></div>
+      </div>
+      <div class="qa reveal">
+        <button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-5" id="qa-q-5"><span>Нужен ли готовый проект?</span><i class="qa__ico" aria-hidden="true"></i></button>
+        <div class="qa__a" id="qa-5" role="region" aria-labelledby="qa-q-5"><div class="qa__in"><p>Нет. Мы разрабатываем индивидуальный проект и до начала работ показываем дом в 3D, чтобы вы увидели каждую деталь. Если проект у вас уже есть, посмотрим его и посчитаем стоимость строительства.</p></div></div>
+      </div>
+      <div class="qa reveal">
+        <button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-6" id="qa-q-6"><span>Можно ли построить дом в ипотеку или кредит?</span><i class="qa__ico" aria-hidden="true"></i></button>
+        <div class="qa__a" id="qa-6" role="region" aria-labelledby="qa-q-6"><div class="qa__in"><p>Да. Помогаем получить кредит на строительство в 7 банках‑партнёрах и готовим документы, которые запрашивает банк.</p></div></div>
+      </div>
+      <div class="qa reveal">
+        <button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-7" id="qa-q-7"><span>Как я смогу следить за стройкой?</span><i class="qa__ico" aria-hidden="true"></i></button>
+        <div class="qa__a" id="qa-7" role="region" aria-labelledby="qa-q-7"><div class="qa__in"><p>Каждый день присылаем фотоотчёт о том, что сделано на участке. Руководитель проекта всегда на связи, а приехать на объект можно в любой удобный день.</p></div></div>
+      </div>
+      <div class="qa reveal">
+        <button class="qa__q" type="button" aria-expanded="false" aria-controls="qa-8" id="qa-q-8"><span>Где вы строите?</span><i class="qa__ico" aria-hidden="true"></i></button>
+        <div class="qa__a" id="qa-8" role="region" aria-labelledby="qa-q-8"><div class="qa__in"><p>В Москве и Московской области. Чтобы увидеть, как мы работаем, запишитесь на экскурсию на действующий объект.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 CONTACT -->
+<section class="contact" id="contact" aria-labelledby="contact-title">
+  <img class="contact__img" src="assets/l-dusk.webp" alt="" loading="lazy">
+  <div class="contact__shade" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="contact__l">
+      <div class="chapter reveal"><span class="chapter__num">10</span><span class="label">Контакты</span></div>
+      <p class="eyebrow reveal" style="--i:1">Остались вопросы?</p>
+      <h2 class="display h2 reveal" style="--i:2" id="contact-title">Обсудим ваш дом <br><em>за чашкой кофе.</em></h2>
+      <p class="lead reveal" style="--i:3">Встретимся в офисе, на вашем участке или по видеосвязи. Архитектор рассчитает точную стоимость, а на экскурсии покажем, как строим, на действующем объекте.</p>
+      <div class="details reveal" style="--i:4">
+        <div><span class="label">Телефон</span><a href="tel:+74959999999">8 (495) 999‑99‑99</a></div>
+        <div><span class="label">Офис</span><p>Москва, Тихорецкий пр., 17&nbsp;Б</p></div>
+        <div><span class="label">Мессенджеры</span><div class="socials"><a class="social" href="https://wa.me/74959999999" target="_blank" rel="noopener" aria-label="Написать в WhatsApp"><svg width="28" height="28" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M186.68,146.63l-32-16a6,6,0,0,0-6,.38L133,141.46A42.49,42.49,0,0,1,114.54,123L125,107.33a6,6,0,0,0,.38-6l-16-32A6,6,0,0,0,104,66a38,38,0,0,0-38,38,86.1,86.1,0,0,0,86,86,38,38,0,0,0,38-38A6,6,0,0,0,186.68,146.63ZM152,178a74.09,74.09,0,0,1-74-74,26,26,0,0,1,22.42-25.75l12.66,25.32-10.39,15.58a6,6,0,0,0-.54,5.63,54.43,54.43,0,0,0,29.07,29.07,6,6,0,0,0,5.63-.54l15.58-10.39,25.32,12.66A26,26,0,0,1,152,178ZM128,26A102,102,0,0,0,38.35,176.69L26.73,211.56a14,14,0,0,0,17.71,17.71l34.87-11.62A102,102,0,1,0,128,26Zm0,192a90,90,0,0,1-45.06-12.08,6.09,6.09,0,0,0-3-.81,6.2,6.2,0,0,0-1.9.31L40.65,217.88a2,2,0,0,1-2.53-2.53L50.58,178a6,6,0,0,0-.5-4.91A90,90,0,1,1,128,218Z"/></svg></a><a class="social" href="https://t.me/" target="_blank" rel="noopener" aria-label="Написать в Telegram"><svg width="28" height="28" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M227.57,27.7a7,7,0,0,0-7.13-1.22L17.78,105.79a12.23,12.23,0,0,0,2.1,23.39L74,139.81V200a14,14,0,0,0,24.08,9.71l26.64-27.63,41.58,36.45a13.9,13.9,0,0,0,9.2,3.49,14.33,14.33,0,0,0,4.36-.69,13.86,13.86,0,0,0,9.34-10.17L229.82,34.57A7,7,0,0,0,227.57,27.7ZM22.05,117.37h0a.46.46,0,0,1,0-.32.51.51,0,0,1,.15-.08L181.91,54.45l-103.3,74L22.2,117.41Zm67.39,84A2,2,0,0,1,86,200V148.11l29.69,26Zm88.07,7.08a1.93,1.93,0,0,1-1.34,1.44,2,2,0,0,1-2-.4L89.64,135.34,215,45.5Z"/></svg></a></div></div>
+      </div>
+    </div>
+    <div class="panel reveal" style="--i:2" id="lead-panel">
+      <p class="panel__title">Назначить встречу</p>
+      <form novalidate id="lead-form">
+        <p class="panel__text">Оставьте контакты, и мы согласуем удобное время для встречи с архитектором или экскурсии.</p>
+        <label class="field" data-field="name"><span>Имя</span><input name="name" type="text" autocomplete="name" required><em class="field__err" aria-live="polite"></em></label>
+        <label class="field" data-field="phone"><span>Телефон</span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+7" required><em class="field__err" aria-live="polite"></em></label>
+        <div class="panel__actions">
+          <button class="pill pill--solid pill--noico" type="submit" data-intent="Встреча с архитектором">Назначить встречу</button>
+          <button class="pill pill--ghost pill--noico" type="submit" data-intent="Экскурсия">Записаться на экскурсию</button>
+          <button class="pill pill--ghost pill--noico" type="submit" data-intent="Обратный звонок">Перезвоните мне</button>
+        </div>
+        <p class="panel__note">Без спама и обязательств.</p>
+      </form>
+      <p class="panel__ok" role="status"></p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Prime Architect, наверх">Prime<span>Architect</span></a>
+    <nav aria-label="Документы"><a href="#privacy">Политика конфиденциальности</a><a href="#terms">Условия</a></nav>
+    <span>© 2026 · Фото: Unsplash</span>
+  </div>
+</footer>
+
+<dialog class="modal calc" id="calc" aria-label="Калькулятор стоимости дома">
+  <div class="calc__grid">
+    <div class="calc__main">
+      <div class="calc__top"><span class="label">Расчёт стоимости дома</span><span class="label calc__count"></span></div>
+      <div class="calc__bar"><i></i></div>
+      <div class="calc__body" id="calc-body"></div>
+      <div class="calc__nav">
+        <button class="textlink calc__back" type="button">← Назад</button>
+        <button class="pill pill--dark calc__next" type="button"><span class="pill__ico" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M221.7 133.7l-72 72a8 8 0 0 1-11.4-11.4l58.4-58.3H40a8 8 0 0 1 0-16h156.7l-58.4-58.3a8 8 0 0 1 11.4-11.4l72 72a8 8 0 0 1 0 11.4z"/></svg></span><span class="calc__next-t">Далее</span></button>
+      </div>
+    </div>
+    <aside class="calc__side">
+      <button class="modal__close modal__close--light" type="button" data-close aria-label="Закрыть калькулятор"><svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M205.7 194.3a8 8 0 0 1-11.4 11.4L128 139.3l-66.3 66.4a8 8 0 0 1-11.4-11.4l66.4-66.3-66.4-66.3a8 8 0 0 1 11.4-11.4l66.3 66.4 66.3-66.4a8 8 0 0 1 11.4 11.4L139.3 128z"/></svg></button>
+      <div class="side__sum" aria-live="polite">
+        <span class="label">Предварительная стоимость</span>
+        <div class="calc__total">—</div>
+        <p class="calc__range"></p>
+        <p class="calc__sqm"></p>
+        <dl class="calc__params"></dl>
+        <p class="calc__note">Расчёт ориентировочный, точность ±7%. Цены для Москвы и области на ноябрь 2026 года. Не является публичной офертой.</p>
+      </div>
+      <div class="side__form" id="side-form">
+        <form id="res-form" novalidate>
+          <span class="label stg">Последний шаг</span>
+          <h3 class="side__title stg" style="--i:1">Получите точную смету <br><em>под ваш участок.</em></h3>
+          <p class="side__text stg" style="--i:2">Архитектор позвонит, уточнит детали и пересчитает дом. Без предоплаты и обязательств.</p>
+          <ul class="side__perks" role="list">
+            <li class="stg" style="--i:3">Расчёт с учётом участка и геологии</li>
+            <li class="stg" style="--i:4">Встреча с архитектором в офисе или онлайн</li>
+            <li class="stg" style="--i:5">3D‑модель дома до начала работ</li>
+          </ul>
+          <label class="field stg" style="--i:6" data-field="name"><span>Имя</span><input name="name" type="text" autocomplete="name"><em class="field__err" aria-live="polite"></em></label>
+          <label class="field stg" style="--i:7" data-field="phone"><span>Телефон</span><input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7"><em class="field__err" aria-live="polite"></em></label>
+          <button class="pill pill--solid pill--noico stg" style="--i:8" type="submit">Получить точную смету</button>
+          <p class="side__note stg" style="--i:9">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности.</p>
+        </form>
+        <p class="side__ok" role="status"></p>
+      </div>
+    </aside>
+  </div>
+</dialog>
+
+<dialog class="modal bookm" id="book-modal" aria-label="Скачать технологическую книгу">
+  <button class="modal__close modal__close--dark" type="button" data-close aria-label="Закрыть"><svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M205.7 194.3a8 8 0 0 1-11.4 11.4L128 139.3l-66.3 66.4a8 8 0 0 1-11.4-11.4l66.4-66.3-66.4-66.3a8 8 0 0 1 11.4-11.4l66.3 66.4 66.3-66.4a8 8 0 0 1 11.4 11.4L139.3 128z"/></svg></button>
+  <div class="bookm__grid">
+    <div class="bookm__side"><div class="ob-stage ob-stage--modal" aria-hidden="true"><div class="ob-float"><div class="ob-book"><span class="ob-shadow"></span><div class="ob-right"><div class="ob-base pg"><span class="pg__lines"></span></div><div class="ob-leaf" style="--zc:5px;--zo:1px;--k:0"><div class="ob-face bookcov"><span class="bookcov__brand">Prime Architect</span><span class="bookcov__line"></span><span class="bookcov__kind">Технологическая книга</span><span class="bookcov__title">Как мы строим <br>каменный&nbsp;дом <em>от фундамента до ключей</em></span><span class="bookcov__foot">PDF · 2026</span><span class="ob-turn" aria-hidden="true">→</span></div><div class="ob-face ob-back pg pg--inside"><span class="pg__brand">Prime Architect</span><span class="pg__rule"></span><span class="pg__small">Технологическая книга · 2026</span><span class="ob-turn" aria-hidden="true">←</span></div></div><div class="ob-leaf" style="--zc:4px;--zo:2px;--k:1"><div class="ob-face pg pg--blank"><span class="pg__lines"></span></div><div class="ob-face ob-back pg pg--blank"><span class="pg__lines"></span></div></div><div class="ob-leaf" style="--zc:3px;--zo:3px;--k:2"><div class="ob-face pg pg--blank"><span class="pg__lines"></span></div><div class="ob-face ob-back pg pg--blank"><span class="pg__lines"></span></div></div><div class="ob-leaf" style="--zc:2px;--zo:4px;--k:3"><div class="ob-face pg pg--blank"><span class="pg__lines"></span></div><div class="ob-face ob-back pg pg--blank"><span class="pg__lines"></span></div></div></div></div></div></div></div>
+    <div class="bookm__main" id="book-panel">
+      <form id="book-form" novalidate>
+        <p class="label bookm__label">Технологическая книга · PDF</p>
+        <h3 class="display bookm__title">Получите книгу <br><em>о технологии.</em></h3>
+        <p class="bookm__text">Оставьте имя и телефон, и книга сразу начнёт скачиваться. Внутри: материалы, фундамент, тёплый контур, инженерия и контроль качества.</p>
+        <label class="field" data-field="name"><span>Имя</span><input name="name" type="text" autocomplete="name"><em class="field__err" aria-live="polite"></em></label>
+        <label class="field" data-field="phone"><span>Телефон</span><input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7"><em class="field__err" aria-live="polite"></em></label>
+        <button class="pill pill--dark" type="submit"><span class="pill__ico" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M224 144v64a8 8 0 0 1-8 8H40a8 8 0 0 1-8-8v-64a8 8 0 0 1 16 0v56h160v-56a8 8 0 0 1 16 0zm-101.7 5.7a8 8 0 0 0 11.4 0l40-40a8 8 0 0 0-11.4-11.4L136 124.7V40a8 8 0 0 0-16 0v84.7L93.7 98.3a8 8 0 0 0-11.4 11.4z"/></svg></span>Скачать книгу</button>
+        <p class="bookm__note">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности.</p>
+      </form>
+      <div class="bookm__ok" role="status">
+        <p class="label bookm__label">Готово</p>
+        <h3 class="display bookm__title"><span class="bookm__name"></span><br><em>книга скачивается.</em></h3>
+        <p class="bookm__text">Если загрузка не началась, нажмите кнопку ниже. Остались вопросы по технологии? Архитектор ответит на встрече.</p>
+        <a class="pill pill--line" href="assets/prime-architect-tech-book.pdf" download="Prime-Architect-tehnologicheskaya-kniga.pdf"><span class="pill__ico" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M224 144v64a8 8 0 0 1-8 8H40a8 8 0 0 1-8-8v-64a8 8 0 0 1 16 0v56h160v-56a8 8 0 0 1 16 0zm-101.7 5.7a8 8 0 0 0 11.4 0l40-40a8 8 0 0 0-11.4-11.4L136 124.7V40a8 8 0 0 0-16 0v84.7L93.7 98.3a8 8 0 0 0-11.4 11.4z"/></svg></span>Скачать ещё раз</a>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="modal vmodal" id="video-modal" aria-label="Видео о строительстве дома">
+  <button class="modal__close modal__close--light" type="button" data-close aria-label="Закрыть видео"><svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M205.7 194.3a8 8 0 0 1-11.4 11.4L128 139.3l-66.3 66.4a8 8 0 0 1-11.4-11.4l66.4-66.3-66.4-66.3a8 8 0 0 1 11.4-11.4l66.3 66.4 66.3-66.4a8 8 0 0 1 11.4 11.4L139.3 128z"/></svg></button>
+  <div class="vmodal__frame">
+    <!-- сюда вставить ролик: <video src="..." controls autoplay playsinline></video> или iframe -->
+    Видео появится здесь
+  </div>
+  <div class="vmodal__bar"><span>Как мы строим дом: от фундамента до ключей · 2 минуты</span><a class="pill pill--solid" href="#contact" data-calc data-close><span class="pill__ico" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M221.7 133.7l-72 72a8 8 0 0 1-11.4-11.4l58.4-58.3H40a8 8 0 0 1 0-16h156.7l-58.4-58.3a8 8 0 0 1 11.4-11.4l72 72a8 8 0 0 1 0 11.4z"/></svg></span>Рассчитать свой дом</a></div>
+</dialog>
+
+<dialog class="modal case" id="case-modal" aria-label="Подробнее о доме">
+  <button class="modal__close modal__close--dark" type="button" data-close aria-label="Закрыть"><svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M205.7 194.3a8 8 0 0 1-11.4 11.4L128 139.3l-66.3 66.4a8 8 0 0 1-11.4-11.4l66.4-66.3-66.4-66.3a8 8 0 0 1 11.4-11.4l66.3 66.4 66.3-66.4a8 8 0 0 1 11.4 11.4L139.3 128z"/></svg></button>
+  <div class="case__grid">
+    <div class="case__media"><img alt=""><p class="caption"><span class="case__cap"></span><span>Фото: Unsplash</span></p></div>
+    <div class="case__body" id="case-body"></div>
+  </div>
+</dialog>
+
+<script>
+/* ================= helpers ================= */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const fmt = n => new Intl.NumberFormat('ru-RU').format(Math.round(n / 1000) * 1000) + ' ₽';
+const fmtM = n => (n / 1e6).toFixed(1).replace('.', ',') + ' млн ₽';
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const EASE_OUT = 'cubic-bezier(.23,1,.32,1)';
+const enter = el => el.animate(reduced ? [{ opacity: 0 }, { opacity: 1 }] : [{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }], { duration: 220, easing: EASE_OUT });
+
+/* ================= cases data ================= */
+const CASES = [
+  { material: 'gas', img: 'assets/l-case-1.webp', alt: 'Двухэтажный дом с деревянным потолком террасы и панорамным остеклением',
+    place: 'КП «Лесные озёра», Истринский р‑н', short: 'Истринский р‑н', year: 2025,
+    title: 'Дом 214 м²', em: 'с террасой и вторым светом', area: 214, floors: '2 этажа', walls: 'Газобетон D500', foundation: 'Монолитная плита',
+    roof: 'Плоская кровля', facade: 'Штукатурка и термодерево', rooms: '4 спальни · 3 санузла', term: '7 месяцев', price: 23480000,
+    client: 'Андрей и Мария Ковалёвы', summary: 'Дом для постоянной жизни семьи с двумя детьми на опушке леса.',
+    task: 'Гостиная со вторым светом, кабинет для работы из дома и терраса на всю ширину фасада. Главное условие: уложиться в бюджет, согласованный на старте.',
+    solution: 'Газобетон на монолитной плите, панорамное остекление гостиной на два этажа, терраса под общей кровлей. Смету закрыли без доплат.',
+    quote: 'Боялись, что смета поползёт, как у соседей. Не поползла: сдали в те же деньги, что и подписали. Фотоотчёты смотрели каждый вечер, как сериал.',
+    preset: { area: 214, floors: '2', walls: 'gas', foundation: 'slab', roof: 'flat', facade: 'plaster', pack: 'key', extras: ['terrace'] } },
+  { material: 'ceramic', img: 'assets/l-case-6.webp', alt: 'Одноэтажный дом среди сосен',
+    place: 'Новорижское ш., 32 км', short: 'Новорижское ш.', year: 2025,
+    title: 'Одноэтажный дом 168 м²', em: 'в сосновом лесу', area: 168, floors: '1 этаж', walls: 'Тёплая керамика', foundation: 'Монолитная плита',
+    roof: 'Гибкая черепица', facade: 'Фиброцементные панели', rooms: '3 спальни · 2 санузла', term: '6 месяцев', price: 20960000,
+    client: 'Ирина и Михаил Соболевы', summary: 'Дом на одном уровне для пары, которая переехала из города насовсем.',
+    task: 'Без лестниц, с выходом в сад из каждой спальни. И сохранить сосны, ради которых покупали участок.',
+    solution: 'Пятно застройки сдвинули на шесть метров, и ни одно дерево не пострадало. Тёплая керамика держит стабильную влажность, широкие свесы кровли защищают фасад.',
+    quote: 'Мы хотели жить в лесу, а не на стройке. Сосны на месте, а дом получился тёплым уже в первую зиму.',
+    preset: { area: 168, floors: '1', walls: 'ceramic', foundation: 'slab', roof: 'soft', facade: 'fiber', pack: 'key', extras: ['water'] } },
+  { material: 'gas', img: 'assets/l-case-2.webp', alt: 'Дом с панорамными окнами среди высоких деревьев',
+    place: 'Калужское ш., 24 км', short: 'Калужское ш.', year: 2024,
+    title: 'Дом 286 м²', em: 'с панорамными окнами', area: 286, floors: '2 этажа', walls: 'Газобетон D500', foundation: 'Монолитная плита',
+    roof: 'Плоская кровля', facade: 'Штукатурка и фасадная доска', rooms: '5 спален · 4 санузла', term: '9 месяцев', price: 29740000,
+    client: 'Семья Гаврилиных', summary: 'Большой дом для семьи с тремя детьми и бабушкой.',
+    task: 'Отдельный гостевой блок на первом этаже и общая кухня‑гостиная, где помещаются все. Строительство в кредит.',
+    solution: 'Двухсветная гостиная с остеклением в пол, гостевой блок со своим входом. Подготовили документы для банка‑партнёра, кредит одобрили до начала работ.',
+    quote: 'Кредит одобрили быстрее, чем мы успели выбрать плитку. Дальше просто следили за фотоотчётами.',
+    preset: { area: 286, floors: '2', walls: 'gas', foundation: 'slab', roof: 'flat', facade: 'plaster', pack: 'key', extras: ['water', 'gas'] } },
+  { material: 'ceramic', img: 'assets/l-case-3.webp', alt: 'Дом с каменной отделкой фасада и дымоходом',
+    place: 'Дмитровское ш., 41 км', short: 'Дмитровское ш.', year: 2024,
+    title: 'Дом 192 м²', em: 'с каменным фасадом', area: 192, floors: 'Этаж и мансарда', walls: 'Тёплая керамика', foundation: 'Ленточный',
+    roof: 'Гибкая черепица', facade: 'Камень и штукатурка', rooms: '4 спальни · 2 санузла', term: '8 месяцев', price: 22080000,
+    client: 'Наталья Ершова', summary: 'Дом с мансардой и камином, чтобы собирать большую семью на выходных.',
+    task: 'Классическая архитектура, камин в гостиной и спальни для внуков под крышей.',
+    solution: 'Мансардный этаж под крутой кровлей, камин с отдельным дымоходом, цоколь и углы отделаны натуральным камнем.',
+    quote: 'Архитектор показал дом в 3D ещё до фундамента. Поменяли лестницу и окна, и это ничего не стоило, потому что всё решили на модели.',
+    preset: { area: 192, floors: '1.5', walls: 'ceramic', foundation: 'strip', roof: 'soft', facade: 'clinker', pack: 'key', extras: ['fireplace'] } },
+  { material: 'gas', img: 'assets/l-case-4.webp', alt: 'Тёмный дом с террасой зимой',
+    place: 'Ярославское ш., 28 км', short: 'Ярославское ш.', year: 2023,
+    title: 'Дом 134 м²', em: 'с террасой', area: 134, floors: '1 этаж', walls: 'Газобетон D500', foundation: 'Свайно‑ростверковый',
+    roof: 'Односкатная, фальц', facade: 'Фасадная доска', rooms: '2 спальни · кабинет', term: '5 месяцев', price: 15810000,
+    client: 'Дмитрий Лапин', summary: 'Компактный дом для удалённой работы на участке с уклоном.',
+    task: 'Кабинет с видом на лес и терраса, на которой можно работать летом. Участок с перепадом высот почти в метр.',
+    solution: 'Свайно‑ростверковый фундамент выровнял перепад без подпорных стен. Терраса вдоль всего фасада, большое остекление кабинета.',
+    quote: 'Зимой сдали, весной я уже работал с террасы. Сроки, которые обещали, совпали до недели.',
+    preset: { area: 134, floors: '1', walls: 'gas', foundation: 'piles', roof: 'metal', facade: 'fiber', pack: 'key', extras: ['terrace'] } },
+  { material: 'ceramic', img: 'assets/l-case-5.webp', alt: 'Дом с крыльцом и деревянными колоннами',
+    place: 'Минское ш., 37 км', short: 'Минское ш.', year: 2023,
+    title: 'Дом 248 м²', em: 'с крыльцом и верандой', area: 248, floors: '2 этажа', walls: 'Тёплая керамика', foundation: 'Монолитная плита',
+    roof: 'Гибкая черепица', facade: 'Фиброцементные панели', rooms: '4 спальни · 3 санузла', term: '8 месяцев', price: 27790000,
+    client: 'Семья Мельниковых', summary: 'Дом в американском стиле с глубокой верандой.',
+    task: 'Деревянное крыльцо с колоннами, веранда для летних ужинов и мастер‑спальня с гардеробной.',
+    solution: 'Тёплая керамика с отделкой фиброцементом под доску, веранда под общей кровлей, гардеробная и ванная при мастер‑спальне.',
+    quote: 'Каждый вечер получали фото того, что сделано за день. Ни разу не пришлось ехать на участок с проверкой.',
+    preset: { area: 248, floors: '2', walls: 'ceramic', foundation: 'slab', roof: 'soft', facade: 'fiber', pack: 'key', extras: ['terrace', 'gas'] } },
+];
+
+const grid = $('#case-grid');
+grid.innerHTML = CASES.map((c, i) => `
+  <button class="card reveal" type="button" data-material="${c.material}" data-case="${i}" aria-label="Подробнее: ${c.title} ${c.em}">
+    <div class="media"><img src="${c.img}" alt="${c.alt}" loading="lazy"><span class="card__more">Подробнее →</span></div>
+    <div class="card__row"><p class="meta">${c.short}</p><p class="meta">${c.year}</p></div>
+    <h3>${c.title} <em>${c.em}</em></h3>
+    <p class="card__specs">${c.floors} · ${c.rooms}</p>
+    <div class="card__foot"><span>${c.walls.replace(' D500', '')} · ${c.term.replace('месяцев', 'мес.')}</span><b>${fmtM(c.price)}</b></div>
+  </button>`).join('');
+
+/* ================= reveal (once, staggered) & header ================= */
+// stagger siblings in lists: 60ms apart, capped so long lists never feel slow
+['#case-grid', '.benefits', '.step-list', '.guar__grid', '.bento', '.team__grid', '.faq__list'].forEach(sel => $$(sel + ' > .reveal').forEach((el, i) => el.style.setProperty('--i', i % 4)));
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), { threshold: .12, rootMargin: '0px 0px -60px 0px' });
+$$('.reveal').forEach(el => io.observe(el));
+const ioImg = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  $$(':scope > .reveal-img', e.target).forEach(x => x.classList.add('is-in'));
+  ioImg.unobserve(e.target);
+}), { threshold: .1 });
+$$('.reveal-img').forEach(el => ioImg.observe(el.parentElement));
+
+/* ================= count-up on hero stats ================= */
+function countUp(el) {
+  const to = +el.dataset.count; // width is locked beforehand: no layout shift while digits grow
+  if (reduced) { el.textContent = to; return; }
+  const dur = 1600, t0 = performance.now();
+  const tick = t => {
+    const k = Math.min(1, (t - t0) / dur);
+    el.textContent = Math.round(to * (1 - Math.pow(1 - k, 4))); // ease-out quart
+    if (k < 1) requestAnimationFrame(tick);
+  };
+  el.textContent = 0;
+  requestAnimationFrame(tick);
+}
+const statsIO = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  statsIO.disconnect();
+  const go = () => setTimeout(() => $$('[data-count]').forEach(countUp), reduced ? 0 : 700);
+  document.documentElement.classList.contains('is-loading') ? addEventListener('preloader:done', go, { once: true }) : go();
+}), { threshold: .4 });
+document.fonts.ready.then(() => {
+  $$('[data-count]').forEach(el => { el.style.minWidth = el.getBoundingClientRect().width + 'px'; if (!reduced) el.textContent = 0; });
+  statsIO.observe($('.stats'));
+});
+const header = $('.header');
+/* hero is sticky: as the next section rises over it, the hero sinks back (scale + dim) and its copy drifts up and fades */
+(() => {
+  const hero = $('.hero'), wrap = $('.hero .wrap'), dim = $('.hero__dim');
+  let ticking = false;
+  const mobile = matchMedia('(max-width: 1199px)');
+  const update = () => {
+    ticking = false;
+    const Z = window.__Z || 1, H = hero.offsetHeight * Z, y = window.scrollY; // scrollY is already in screen px
+    const p = Math.min(1, Math.max(0, y / H));
+    header.classList.toggle('is-solid', y > H - 80 * Z);
+    if (mobile.matches) { // phones: the hero simply scrolls away, nothing to animate on every frame
+      if (hero.style.transform) { hero.style.transform = wrap.style.opacity = wrap.style.transform = dim.style.opacity = hero.style.visibility = ''; }
+      return;
+    }
+    // fully covered by the next sections: stop painting it, so its scaled edge can never peek out further down the page
+    hero.style.visibility = y > H + 40 ? 'hidden' : '';
+    if (reduced) return;
+    hero.style.transform = `scale(${(1 - p * .06).toFixed(4)})`;
+    wrap.style.opacity = Math.max(0, 1 - p * 1.6).toFixed(3);
+    wrap.style.transform = `translate3d(0, ${(-p * 80).toFixed(1)}px, 0)`;
+    dim.style.opacity = (p * .6).toFixed(3);
+  };
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  addEventListener('resize', update);
+  update();
+})();
+/* mobile menu */
+(() => {
+  const h = document.documentElement, burger = $('.burger'), nav = $('#site-nav');
+  const set = on => {
+    h.classList.toggle('menu-open', on);
+    burger.setAttribute('aria-expanded', on);
+    burger.setAttribute('aria-label', on ? 'Закрыть меню' : 'Открыть меню');
+  };
+  burger.addEventListener('click', () => set(!h.classList.contains('menu-open')));
+  nav.addEventListener('click', e => { if (e.target.closest('a')) set(false); });
+  addEventListener('keydown', e => { if (e.key === 'Escape') set(false); });
+  matchMedia('(max-width: 1199px)').addEventListener('change', e => { if (!e.matches) set(false); });
+})();
+const links = $$('.nav > a');
+const spy = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) links.forEach(a => a.classList.toggle('is-active', a.getAttribute('href') === '#' + e.target.id));
+}), { rootMargin: '-45% 0px -50% 0px' });
+['cases', 'approach', 'steps', 'materials', 'guarantees', 'team', 'contact'].forEach(id => spy.observe(document.getElementById(id)));
+
+/* ================= steps: diagonal photo swap ================= */
+const NUMS = [...document.querySelectorAll('.step')].map((_, i) => String(i + 1).padStart(2, '0'));
+const steps = $$('.step');
+const frames = $$('.steps__frame img');
+const stepCap = $('.steps__cap');
+// phones: each step carries its own photo (the sticky frame is a desktop idea)
+steps.forEach((s, i) => {
+  const ph = document.createElement('div'); ph.className = 'step__ph media';
+  const im = new Image(); im.alt = ''; im.loading = 'lazy'; im.decoding = 'async'; im.src = frames[i].getAttribute('src');
+  ph.append(im); $('div', s).prepend(ph);
+});
+let curStep = 0, zTop = 1;
+function showStep(k) {
+  if (k === curStep) return;
+  curStep = k;
+  steps.forEach((s, i) => s.classList.toggle('is-active', i === k));
+  const img = frames[k];
+  img.style.transition = 'none';
+  img.classList.remove('is-shown');
+  img.style.zIndex = ++zTop;
+  void img.offsetWidth;
+  img.style.transition = '';
+  img.classList.add('is-shown');
+  stepCap.style.opacity = 0;
+  clearTimeout(showStep.t);
+  showStep.t = setTimeout(() => {
+    stepCap.textContent = `Этап ${NUMS[k]} · ${steps[k].querySelector('h3').textContent}`;
+    stepCap.style.opacity = 1;
+  }, 200);
+}
+steps.forEach((s, i) => { s.addEventListener('mouseenter', () => showStep(i)); s.addEventListener('focus', () => showStep(i)); });
+// without a mouse: the step crossing the middle of the screen becomes active
+const stepIO = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) showStep(steps.indexOf(e.target)); }), { rootMargin: '-48% 0px -48% 0px' });
+steps.forEach(st => stepIO.observe(st));
+
+/* ================= life tiles: light + tilt follow the cursor ================= */
+// Two springs: position follows the pointer, and an "intensity" eases in on enter and out on leave,
+// so the tile never jumps when the cursor crosses its edge.
+(() => {
+  const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  $$('.tile, .tilt').forEach(tile => {
+    const img = $('.tile__img', tile);
+    let tx = 0, ty = 0, x = 0, y = 0, ta = 0, a = 0, raf = 0;
+    const render = () => {
+      const k = a;
+      tile.style.transform = `rotateX(${(-y * 3.2 * k).toFixed(3)}deg) rotateY(${(x * 4 * k).toFixed(3)}deg) translate3d(${(x * 5 * k).toFixed(2)}px, ${(y * 5 * k).toFixed(2)}px, 0)`;
+      if (img) img.style.transform = `scale(1.06) translate3d(${(-x * 8 * k).toFixed(2)}px, ${(-y * 8 * k).toFixed(2)}px, 0)`;
+    };
+    const loop = () => {
+      x += (tx - x) * 0.07; y += (ty - y) * 0.07;
+      a += (ta - a) * (ta > a ? 0.06 : 0.045);
+      render();
+      const moving = Math.abs(tx - x) > .0005 || Math.abs(ty - y) > .0005 || Math.abs(ta - a) > .001;
+      raf = moving ? requestAnimationFrame(loop) : 0;
+    };
+    const kick = () => { if (!raf) raf = requestAnimationFrame(loop); };
+    tile.addEventListener('pointerenter', () => { if (fine && !reduced) { ta = 1; kick(); } });
+    tile.addEventListener('pointermove', e => {
+      const r = tile.getBoundingClientRect();
+      tile.style.setProperty('--mx', (e.clientX - r.left) / (window.__Z || 1) + 'px');
+      tile.style.setProperty('--my', (e.clientY - r.top) / (window.__Z || 1) + 'px');
+      tile.classList.add('is-hot');
+      if (!fine || reduced) return;
+      tx = (e.clientX - r.left) / r.width - .5;
+      ty = (e.clientY - r.top) / r.height - .5;
+      kick();
+    });
+    tile.addEventListener('pointerleave', () => { tile.classList.remove('is-hot'); ta = 0; kick(); });
+    render();
+  });
+})();
+
+/* ================= typography: keep short words with the next one ================= */
+(() => {
+  const SHORT = 'в|во|и|а|но|да|на|не|ни|с|со|к|ко|у|о|об|обо|от|до|по|за|из|изо|без|для|при|под|над|про|через|что|как|или|это|мы|вы|вам|нам|их|его|её|все|всё|так|уже|ещё|бы|чем';
+  const reShort = new RegExp(`(^|[\\s(«„"—])(${SHORT})\\s+`, 'giu');
+  const reTail = /\s+(же|ли|бы)(?=[\s.,!?:;»)]|$)/giu;
+  const reNum = /(\d)\s+(?=[\p{L}%₽№])/gu;
+  const reDash = /\s+(—|–)/g;
+  const fix = t => {
+    let o = t;
+    for (let i = 0; i < 2; i++) o = o.replace(reShort, '$1$2 '); // twice: "и в доме"
+    return o.replace(reTail, ' $1').replace(reNum, '$1 ').replace(reDash, ' $1');
+  };
+  const SKIP = new Set(['SCRIPT', 'STYLE', 'TEXTAREA', 'INPUT', 'OPTION']);
+  const walk = root => {
+    if (root.nodeType === 3) { const v = fix(root.data); if (v !== root.data) root.data = v; return; }
+    if (root.nodeType !== 1 || SKIP.has(root.tagName)) return;
+    const tw = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: n => SKIP.has(n.parentNode.tagName) ? 2 : 1 });
+    for (let n; (n = tw.nextNode());) { const v = fix(n.data); if (v !== n.data) n.data = v; }
+  };
+  walk(document.body);
+  // dynamic content (case modal, calculator steps, result) is processed as it is inserted
+  new MutationObserver(ms => ms.forEach(m => m.addedNodes.forEach(walk))).observe(document.body, { childList: true, subtree: true });
+})();
+
+/* ================= phone mask: +7 is fixed, a leading 7 or 8 is never accepted ================= */
+(() => {
+  const format = raw => {
+    let d = raw.replace(/\D/g, '');
+    if (raw.trim().startsWith('+7')) d = d.slice(1);
+    if (d[0] === '7' || d[0] === '8') d = d.slice(1);
+    d = d.slice(0, 10);
+    if (!d) return '+7 ';
+    let o = '+7 (' + d.slice(0, 3);
+    if (d.length > 3) o += ') ' + d.slice(3, 6);
+    if (d.length > 6) o += '-' + d.slice(6, 8);
+    if (d.length > 8) o += '-' + d.slice(8, 10);
+    return o;
+  };
+  $$('input[type="tel"]').forEach(inp => {
+    inp.addEventListener('focus', () => { if (!inp.value) inp.value = '+7 '; requestAnimationFrame(() => inp.setSelectionRange(inp.value.length, inp.value.length)); });
+    inp.addEventListener('input', () => { inp.value = format(inp.value); inp.setSelectionRange(inp.value.length, inp.value.length); });
+    inp.addEventListener('keydown', e => { // the prefix itself cannot be erased
+      if ((e.key === 'Backspace' || e.key === 'Delete') && inp.value.replace(/\D/g, '').length <= 1) e.preventDefault();
+    });
+    inp.addEventListener('blur', () => { if (inp.value.replace(/\D/g, '').length <= 1) inp.value = ''; });
+  });
+})();
+
+/* ================= pills: inverted circle from the cursor ================= */
+(() => {
+  if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  const place = (p, e) => {
+    const r = p.getBoundingClientRect(), Z = window.__Z || 1;
+    p.style.setProperty('--x', (e.clientX - r.left) / Z + 'px');
+    p.style.setProperty('--y', (e.clientY - r.top) / Z + 'px');
+    const x = e.clientX - r.left, y = e.clientY - r.top; // circle just large enough to reach the farthest corner
+    p.style.setProperty('--d', (2 * Math.max(Math.hypot(x, y), Math.hypot(r.width - x, y), Math.hypot(x, r.height - y), Math.hypot(r.width - x, r.height - y)) + 4) / Z + 'px');
+  };
+  document.addEventListener('pointerover', e => {
+    const p = e.target.closest && e.target.closest('.pill');
+    if (!p || p.contains(e.relatedTarget)) return;
+    place(p, e); p.classList.add('is-hover');
+  });
+  document.addEventListener('pointerout', e => {
+    const p = e.target.closest && e.target.closest('.pill');
+    if (!p || p.contains(e.relatedTarget)) return;
+    place(p, e); p.classList.remove('is-hover');
+  });
+})();
+
+/* ================= links to pages that do not exist yet ================= */
+(() => {
+  const toast = $('.toast'), text = $('.toast__t', toast);
+  let t;
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    const id = a.getAttribute('href').slice(1);
+    if (!id || document.getElementById(id)) return;
+    e.preventDefault();
+    text.textContent = `Страница «${a.textContent.trim()}» в\u00a0разработке.`;
+    toast.classList.add('is-on');
+    clearTimeout(t); t = setTimeout(() => toast.classList.remove('is-on'), 2800);
+  });
+})();
+
+/* ================= "to the top" links (logo in header and footer) =================
+   The hero is sticky, so the browser thinks #top is always in view and does not scroll: do it explicitly. */
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[href="#top"]');
+  if (!a) return;
+  e.preventDefault();
+  window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
+});
+
+/* ================= tech book in the block ================= */
+(() => {
+  const st = $('.ob-stage--band');
+  if (!st) return;
+  const book = $('.ob-book', st), leaves = $$('.ob-leaf', st);
+  let cur = 0, touched = false; // cur = how many leaves are turned to the left
+  const mark = () => {
+    leaves.forEach((l, i) => {
+      l.classList.toggle('is-flipped', i < cur);
+      l.classList.toggle('is-next', i === cur);
+      l.classList.toggle('is-prev', i === cur - 1);
+    });
+    st.classList.toggle('can-next', cur < leaves.length);
+    st.classList.toggle('can-prev', cur > 0);
+    st.classList.toggle('is-closed', cur === 0);
+  };
+  const go = d => { const n = cur + d; if (n < 0 || n > leaves.length) return; cur = n; mark(); }; // 0 = closed
+  mark();
+  // opens by itself when it comes into view, then turns two pages as a hint
+  const autoOpen = () => {
+    if (reduced) { cur = 3; mark(); return; }
+    [[300, 1], [1500, 2], [2600, 3]].forEach(([t, n]) => setTimeout(() => { if (!touched && cur < n) { cur = n; mark(); } }, t));
+  };
+  // never play behind the preloader: if the page reloads on this block, wait until the curtain has gone
+  const start = () => document.documentElement.classList.contains('is-loading')
+    ? addEventListener('preloader:done', () => setTimeout(autoOpen, 700), { once: true })
+    : autoOpen();
+  const seen = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { start(); seen.disconnect(); } }), { threshold: .45 });
+  seen.observe(st);
+  const side = e => { const r = book.getBoundingClientRect(); return e.clientX > r.left + r.width / 2 ? 'right' : 'left'; };
+  book.addEventListener('pointermove', e => { const sd = side(e); st.classList.toggle('hover-right', sd === 'right'); st.classList.toggle('hover-left', sd === 'left'); });
+  book.addEventListener('pointerleave', () => st.classList.remove('hover-right', 'hover-left'));
+  book.addEventListener('click', e => {
+    if (e.target.closest('[data-book]')) return;
+    touched = true;
+    go(side(e) === 'right' ? 1 : -1);
+  });
+  // gentle parallax while the page scrolls
+  const par = $$('[data-parallax]');
+  let tick = false;
+  const upd = () => {
+    tick = false;
+    par.forEach(el => {
+      const r = el.getBoundingClientRect(), d = (r.top + r.height / 2 - innerHeight / 2) / innerHeight;
+      el.style.translate = `0 ${(d * -18).toFixed(1)}px`;
+    });
+  };
+  addEventListener('scroll', () => { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true });
+  upd();
+})();
+
+/* ================= tech book popup ================= */
+(() => {
+  const dlg = $('#book-modal'), form = $('#book-form'), stage = $('.ob-stage--modal', dlg);
+  // after the shut-and-centre animation the book becomes a flat 2D picture (smooth tilted edges)
+  const flatten = () => stage.classList.add('is-flat');
+  $('.ob-book', stage).addEventListener('animationend', e => { if (e.animationName === 'toCenter') flatten(); });
+  document.addEventListener('click', e => {
+    if (!e.target.closest('[data-book]')) return;
+    stage.classList.remove('is-flat');
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) requestAnimationFrame(flatten);
+    dlg.classList.remove('is-sent'); form.reset();
+    $$('.field', form).forEach(f => { f.classList.remove('has-error'); $('.field__err', f).textContent = ''; });
+    openModal(dlg);
+  });
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const name = form.elements.name.value.trim(), phone = form.elements.phone.value.trim(), d = phone.replace(/\D/g, '');
+    const err = (n, m) => { const f = $(`[data-field="${n}"]`, form); f.classList.toggle('has-error', !!m); $('.field__err', f).textContent = m || ''; };
+    err('name', name ? '' : 'Укажите, как к вам обращаться.');
+    err('phone', d.length === 11 ? '' : 'Введите номер полностью: 10 цифр после +7.');
+    if (!name || d.length !== 11) return;
+    $('.bookm__name', dlg).textContent = name + ',';
+    dlg.classList.add('is-sent');
+    $('.bookm__ok a[download]', dlg).click(); // start the download right away
+  });
+})();
+
+/* ================= FAQ accordion ================= */
+$$('.qa__q').forEach(b => b.addEventListener('click', () => {
+  const qa = b.closest('.qa'), open = !qa.classList.contains('is-open');
+  qa.classList.toggle('is-open', open);
+  b.setAttribute('aria-expanded', open);
+}));
+
+/* ================= modals ================= */
+document.addEventListener('click', e => { if (e.target.closest('[data-video]')) openModal($('#video-modal')); });
+function openModal(d) {
+  const h = document.documentElement;
+  if (!h.classList.contains('has-modal')) h.style.setProperty('--sbw', Math.max(0, window.innerWidth - h.getBoundingClientRect().width) / (window.__Z || 1) + 'px');
+  d.classList.remove('is-closing'); d.showModal(); h.classList.add('has-modal');
+}
+// exit is faster than enter (180ms vs 320ms). Esc closes instantly: keyboard actions are not animated.
+function closeModal(d) {
+  if (!d.open || d.classList.contains('is-closing')) return;
+  if (reduced) { d.close(); unlock(); return; }
+  d.classList.add('is-closing');
+  setTimeout(() => { d.close(); d.classList.remove('is-closing'); unlock(); }, 180);
+}
+// unlock scroll directly: some browsers deliver the dialog 'close' event late or not at all
+function unlock() { if (!$$('dialog.modal').some(x => x.open)) document.documentElement.classList.remove('has-modal'); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') setTimeout(unlock, 0); });
+$$('dialog.modal').forEach(d => {
+  d.addEventListener('close', unlock);
+  d.addEventListener('cancel', () => setTimeout(unlock, 0));
+  d.addEventListener('click', e => { if (e.target === d || e.target.closest('[data-close]')) closeModal(d); });
+});
+
+/* ================= case filter + case modal ================= */
+const filters = $$('.filter');
+const cards = $$('.card', grid);
+const empty = $('.empty');
+filters.forEach(f => f.addEventListener('click', () => {
+  filters.forEach(x => x.setAttribute('aria-selected', x === f ? 'true' : 'false'));
+  const v = f.dataset.filter; let shown = 0;
+  cards.forEach(el => {
+    const on = v === 'all' || el.dataset.material === v;
+    el.classList.toggle('is-hidden', !on);
+    el.classList.remove('is-filtered');
+    if (on) { el.classList.add('is-in'); el.style.setProperty('--i', shown++); void el.offsetWidth; el.classList.add('is-filtered'); }
+  });
+  empty.style.display = shown ? 'none' : 'block';
+}));
+
+const caseModal = $('#case-modal');
+const caseBody = $('#case-body');
+const caseImg = $('.case__media img', caseModal);
+function openCase(i) {
+  const c = CASES[i];
+  caseImg.src = c.img; caseImg.alt = c.alt;
+  caseImg.style.animation = 'none'; void caseImg.offsetWidth; caseImg.style.animation = '';
+  $('.case__cap', caseModal).textContent = c.place;
+  const spec = (k, v, hl) => `<div class="${hl ? 'hl' : ''}"><dt>${k}</dt><dd>${v}</dd></div>`;
+  caseBody.innerHTML = `
+    <p class="label case__kicker">Кейс ${String(i + 1).padStart(2, '0')} · сдан в ${c.year}</p>
+    <h2 class="display case__title">${c.title} <br><em>${c.em}</em></h2>
+    <p class="meta case__place">${c.place}</p>
+    <p class="case__lead">${c.summary}</p>
+    <dl class="case__specs">
+      ${spec('Площадь', c.area + ' м²')}${spec('Этажность', c.floors)}
+      ${spec('Стены', c.walls)}${spec('Фундамент', c.foundation)}
+      ${spec('Кровля', c.roof)}${spec('Фасад', c.facade)}
+      ${spec('Планировка', c.rooms)}${spec('Срок строительства', c.term)}
+      ${spec('Стоимость под ключ', fmt(c.price), 1)}${spec('Отклонение от сметы', '0 ₽', 1)}
+    </dl>
+    <div class="case__blocks">
+      <div><p class="label">Задача</p><p>${c.task}</p></div>
+      <div><p class="label">Решение</p><p>${c.solution}</p></div>
+    </div>
+    <blockquote class="case__quote"><p>«${c.quote}»</p><footer>${c.client}, заказчик</footer></blockquote>
+    <div class="case__actions">
+      <button class="pill pill--dark" type="button" data-preset="${i}"><span class="pill__ico" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M221.7 133.7l-72 72a8 8 0 0 1-11.4-11.4l58.4-58.3H40a8 8 0 0 1 0-16h156.7l-58.4-58.3a8 8 0 0 1 11.4-11.4l72 72a8 8 0 0 1 0 11.4z"/></svg></span>Рассчитать похожий дом</button>
+      <a class="textlink" href="#contact" data-close>Записаться на экскурсию</a>
+    </div>`;
+  caseBody.scrollTop = 0;
+  openModal(caseModal);
+}
+grid.addEventListener('click', e => { const b = e.target.closest('[data-case]'); if (b) openCase(+b.dataset.case); });
+caseBody.addEventListener('click', e => {
+  const b = e.target.closest('[data-preset]');
+  if (!b) return;
+  closeModal(caseModal);
+  setTimeout(() => openCalc(CASES[+b.dataset.preset].preset), reduced ? 0 : 190);
+});
+
+/* ================= calculator ================= */
+// Ставки, ₽ за м² общей площади (база: двухэтажный дом). Подмосковье, ноябрь 2026.
+const R = {
+  foundation: { slab: 9400, strip: 7500, piles: 6200 },
+  walls: { gas: 23000, ceramic: 26500 },
+  floorsSlab: { '1': 2500, '1.5': 5600, '2': 7000 },
+  roof: { metal: 10000, soft: 11800, flat: 12500 },
+  openings: 3600,
+  facade: { plaster: 10500, clinker: 15800, fiber: 13200 },
+  networks: 2700, plaster: 8300, finish: 32500,
+  stairs: { '1': 0, '1.5': 260000, '2': 320000 },
+  footprint: { '1': 2, '1.5': 1.35, '2': 1 },
+  roofK: { '1': 2, '1.5': 1.5, '2': 1 },
+  extras: { terrace: ['Терраса 30 м²', 690000], carport: ['Навес на 2 машины', 480000], water: ['Скважина и септик', 720000], gas: ['Подключение газа', 450000], fireplace: ['Камин с дымоходом', 380000] },
+};
+const PACKS = ['box', 'contour', 'pre', 'key'];
+const PACK_T = { box: 'Коробка и кровля', contour: 'Тёплый контур', pre: 'Предчистовая', key: 'Под ключ' };
+const DEF = { area: 160, floors: '2', walls: 'gas', foundation: 'slab', roof: 'metal', facade: 'plaster', pack: 'key', extras: [] };
+const Q = [
+  { key: 'area', type: 'range', title: 'Какой площади <br><em>будет дом?</em>', hint: 'Общая площадь всех этажей. Если проекта ещё нет, укажите примерно: это легко поменять позже.' },
+  { key: 'floors', type: 'radio', title: 'Сколько <br><em>этажей?</em>', hint: 'От этажности зависят фундамент и кровля: у одноэтажного дома они больше на тот же метр площади.', opts: [
+    ['1', 'Один этаж', 'Всё на одном уровне, без лестниц'], ['1.5', 'Этаж и мансарда', 'Спальни под скатной кровлей'], ['2', 'Два этажа', 'Меньше пятно застройки, больше сада']] },
+  { key: 'walls', type: 'radio', title: 'Из чего <br><em>строим стены?</em>', hint: 'Оба материала тёплые и подходят для постоянного проживания.', opts: [
+    ['gas', 'Газобетон D500', 'Лёгкий и точный блок, быстрые сроки'], ['ceramic', 'Тёплая керамика', 'Дышащие стены, стабильный микроклимат'], ['unsure', 'Пока не знаю', 'Посчитаем по газобетону, подскажем на консультации']] },
+  { key: 'foundation', type: 'radio', title: 'Какой <br><em>фундамент?</em>', hint: 'Точный тип определяем по геологии участка. Для газобетона нужен жёсткий фундамент.', opts: [
+    ['slab', 'Монолитная плита', 'Надёжно на пучинистых грунтах'], ['strip', 'Ленточный', 'Для ровных участков и домов с цоколем'], ['piles', 'Свайно‑ростверковый', 'Для участков с уклоном'], ['geo', 'Определим по геологии', 'Посчитаем плиту, уточним после изысканий']] },
+  { key: 'roof', type: 'radio', title: 'Какая <br><em>кровля?</em>', hint: 'Покрытие влияет на облик дома, шум в дождь и стоимость.', opts: [
+    ['metal', 'Металлочерепица', 'Практично и доступно'], ['soft', 'Гибкая черепица', 'Тихо в дождь, подходит для сложных форм'], ['flat', 'Плоская кровля', 'Современная архитектура, можно сделать террасу']] },
+  { key: 'facade', type: 'radio', title: 'Чем отделать <br><em>фасад?</em>', hint: 'Можно сочетать: например, штукатурку с деревом или камнем по цоколю.', opts: [
+    ['plaster', 'Фактурная штукатурка', 'Чистые плоскости, любой цвет'], ['fiber', 'Фиброцементные панели', 'Фактура дерева без ухода'], ['clinker', 'Клинкерная плитка', 'Вид кирпичного дома на десятилетия']] },
+  { key: 'pack', type: 'radio', title: 'В какой <br><em>комплектации?</em>', hint: 'Каждая следующая включает предыдущую.', opts: [
+    ['box', 'Коробка и кровля', 'Фундамент, стены, перекрытия, кровля'], ['contour', 'Тёплый контур', '+ окна, входная дверь, утеплённый фасад'], ['pre', 'Предчистовая', '+ инженерные сети, штукатурка стен, лестница'], ['key', 'Под ключ', '+ чистовая отделка, можно заезжать с мебелью']] },
+  { key: 'extras', type: 'check', title: 'Что добавить <br><em>к дому?</em>', hint: 'Необязательно. Отметьте то, что хотите учесть в расчёте.',
+    opts: Object.entries(R.extras).map(([k, [t, p]]) => [k, t, '', '+' + fmt(p)]) },
+];
+const LABELS = {
+  floors: { '1': 'Один этаж', '1.5': 'Этаж и мансарда', '2': 'Два этажа' },
+  walls: { gas: 'Газобетон', ceramic: 'Тёплая керамика', unsure: 'Подберём' },
+  foundation: { slab: 'Плита', strip: 'Ленточный', piles: 'Сваи и ростверк', geo: 'По геологии' },
+  roof: { metal: 'Металлочерепица', soft: 'Гибкая черепица', flat: 'Плоская' },
+  facade: { plaster: 'Штукатурка', fiber: 'Фиброцемент', clinker: 'Клинкер' },
+};
+
+let S = { ...DEF }, qi = 0, shownTotal = 0, answered = new Set(), shownKeys = new Set();
+function compute(s) {
+  const a = s.area, f = s.floors;
+  const walls = s.walls === 'ceramic' ? 'ceramic' : 'gas';
+  const fnd = s.foundation === 'geo' ? 'slab' : s.foundation;
+  const rows = [
+    ['Фундамент: ' + LABELS.foundation[fnd].toLowerCase(), a * R.foundation[fnd] * R.footprint[f], 'box'],
+    ['Стены и перегородки', a * R.walls[walls] * (f === '1' ? .95 : 1), 'box'],
+    ['Перекрытия', a * R.floorsSlab[f], 'box'],
+    ['Кровля: ' + LABELS.roof[s.roof].toLowerCase(), a * R.roof[s.roof] * R.roofK[f], 'box'],
+    ['Окна и входная дверь', a * R.openings, 'contour'],
+    ['Фасад: ' + LABELS.facade[s.facade].toLowerCase(), a * R.facade[s.facade], 'contour'],
+    ['Инженерные сети', a * R.networks, 'pre'],
+    ['Штукатурка стен', a * R.plaster, 'pre'],
+    ['Лестница', R.stairs[f], 'pre'],
+    ['Чистовая отделка', a * R.finish, 'key'],
+  ].filter(r => r[1] > 0);
+  const subs = {}; let acc = 0;
+  PACKS.forEach(p => { rows.filter(r => r[2] === p).forEach(r => acc += r[1]); subs[p] = acc; });
+  const extras = s.extras.map(k => R.extras[k]);
+  const extrasSum = extras.reduce((t, e) => t + e[1], 0);
+  const total = subs[s.pack] + extrasSum;
+  const base = { box: 3, contour: 4, pre: 5.5, key: 7 }[s.pack];
+  const months = Math.round((base + Math.max(0, a - 150) / 100) * 2) / 2;
+  return { rows, subs, extras, total, months };
+}
+
+const calc = $('#calc'), body = $('#calc-body');
+const back = $('.calc__back', calc), next = $('.calc__next', calc), nextT = $('.calc__next-t', calc);
+const totalEl = $('.calc__total', calc);
+
+function tweenTotal(to) {
+  const from = shownTotal; shownTotal = to;
+  if (reduced) { totalEl.innerHTML = (to / 1e6).toFixed(1).replace('.', ',') + '<small>млн ₽</small>'; return; }
+  const t0 = performance.now();
+  const step = t => {
+    const k = Math.min(1, (t - t0) / 450), e = 1 - Math.pow(1 - k, 3);
+    totalEl.innerHTML = ((from + (to - from) * e) / 1e6).toFixed(1).replace('.', ',') + '<small>млн ₽</small>';
+    if (k < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+function renderSide() {
+  const r = compute(S);
+  tweenTotal(r.total);
+  $('.calc__range', calc).textContent = `от ${fmtM(r.total * .93)} до ${fmtM(r.total * 1.07)}`;
+  $('.calc__sqm', calc).textContent = `≈ ${fmt(r.total / S.area)} за м² · ${PACK_T[S.pack].toLowerCase()}`;
+  // only what the client has already answered, in question order
+  const p = [['area', 'Площадь', S.area + ' м²'], ['floors', 'Этажность', LABELS.floors[S.floors]], ['walls', 'Стены', LABELS.walls[S.walls]], ['foundation', 'Фундамент', LABELS.foundation[S.foundation]],
+    ['roof', 'Кровля', LABELS.roof[S.roof]], ['facade', 'Фасад', LABELS.facade[S.facade]], ['pack', 'Комплектация', PACK_T[S.pack]], ['extras', 'Дополнительно', S.extras.length ? S.extras.length + ' поз.' : 'нет'], ['pack', 'Срок', '≈ ' + String(r.months).replace('.', ',') + ' мес.']]
+    .filter(([key]) => answered.has(key));
+  $('.calc__params', calc).innerHTML = p.length ? p.map(([key, k, v]) => `<div class="${shownKeys.has(k) ? '' : 'is-new'}"><dt>${k}</dt><dd>${v}</dd></div>`).join('')
+    : '<p class="calc__empty">Параметры появятся здесь по мере ответов.</p>';
+  shownKeys = new Set(p.map(x => x[1]));
+}
+function renderStep() {
+  const done = qi === Q.length;
+  calc.classList.toggle('is-result', done);
+  $('.calc__count', calc).textContent = done ? 'Готово' : `Шаг ${qi + 1} из ${Q.length}`;
+  $('.calc__bar i', calc).style.transform = `scaleX(${done ? 1 : (qi + 1) / (Q.length + 1)})`;
+  back.hidden = qi === 0;
+  back.textContent = done ? '← Изменить параметры' : '← Назад';
+  next.hidden = done;
+  const label = qi === Q.length - 1 ? 'Показать расчёт' : 'Далее';
+  if (nextT.textContent !== label) {
+    nextT.textContent = label;
+    if (!reduced) nextT.animate([{ opacity: 0, filter: 'blur(3px)' }, { opacity: 1, filter: 'blur(0)' }], { duration: 240, easing: EASE_OUT });
+  }
+  if (done) body.innerHTML = resultHTML();
+  else {
+    const q = Q[qi];
+    let h = `<p class="label calc__qlabel">Вопрос ${qi + 1}</p><h3 class="display calc__q">${q.title}</h3><p class="calc__hint">${q.hint}</p>`;
+    if (q.type === 'range') {
+      h += `<div class="area"><output class="area__val" id="area-out">${S.area}<small>м²</small></output>
+        <input class="range" id="area-in" type="range" min="60" max="450" step="2" value="${S.area}" aria-label="Площадь дома, м²">
+        <div class="area__scale"><span>60 м²</span><span>450 м²</span></div>
+        <div class="chips">${[100, 150, 200, 250, 300].map(v => `<button type="button" class="chip${S.area === v ? ' is-on' : ''}" data-area="${v}">${v} м²</button>`).join('')}</div></div>`;
+    } else {
+      const multi = q.type === 'check';
+      h += `<div class="opts opts--${q.opts.length}" role="${multi ? 'group' : 'radiogroup'}">` + q.opts.map(([v, t, s, p]) => {
+        const on = multi ? S.extras.includes(v) : String(S[q.key]) === v;
+        return `<label class="opt${multi ? ' opt--check' : ''}"><input type="${multi ? 'checkbox' : 'radio'}" name="${q.key}" value="${v}"${on ? ' checked' : ''}><span class="opt__mark"></span><span class="opt__t">${t}</span>${s ? `<span class="opt__s">${s}</span>` : ''}${p ? `<span class="opt__p">${p}</span>` : ''}</label>`;
+      }).join('') + `</div>`;
+    }
+    body.innerHTML = h;
+  }
+  body.scrollTop = 0;
+  enter(body);
+  bindStep();
+  if (!done) renderSide();
+  else if (!reduced) $$('.kpi > div, .res__groups > div, .pack', body).forEach((el, i) =>
+    el.animate([{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 500, delay: 200 + i * 45, easing: EASE_OUT, fill: 'backwards' }));
+}
+function setRangeFill(inp) { inp.style.setProperty('--p', ((inp.value - inp.min) / (inp.max - inp.min) * 100) + '%'); }
+function bindStep() {
+  const inp = $('#area-in', body);
+  if (inp) {
+    setRangeFill(inp);
+    inp.addEventListener('input', () => {
+      S.area = +inp.value; setRangeFill(inp); answered.add('area');
+      $('#area-out', body).innerHTML = S.area + '<small>м²</small>';
+      $$('.chip', body).forEach(c => c.classList.toggle('is-on', +c.dataset.area === S.area));
+      renderSide();
+    });
+    $$('.chip', body).forEach(c => c.addEventListener('click', () => { inp.value = c.dataset.area; inp.dispatchEvent(new Event('input')); }));
+  }
+  $$('.opt input', body).forEach(i => i.addEventListener('change', () => {
+    if (i.type === 'checkbox') { S.extras = $$('.opt input:checked', body).map(x => x.value); answered.add('extras'); }
+    else { S[i.name] = i.value; answered.add(i.name); }
+    renderSide();
+  }));
+}
+function resultHTML() {
+  const r = compute(S), packIdx = PACKS.indexOf(S.pack);
+  const m = String(r.months).replace('.', ',');
+  const row = (k, v) => `<div><dt>${k}</dt><dd>${v}</dd></div>`;
+  const extrasT = S.extras.length ? S.extras.map(k => R.extras[k][0]).join(', ') : 'нет';
+  let prev = 0;
+  const packs = PACKS.map((p, pi) => {
+    const items = r.rows.filter(x => x[2] === p);
+    const own = r.subs[p] - prev; prev = r.subs[p];
+    const off = pi > packIdx;
+    return `<div class="pack${off ? ' is-off' : ''}">
+      <div class="pack__head"><span>${PACK_T[p]}</span><b>${off ? '+' : ''}${fmt(own)}</b></div>
+      ${off ? `<span class="pack__add">Не входит в выбранную комплектацию. Можно добавить.</span>` :
+        `<ul>${items.map(x => `<li><span>${x[0]}</span><span>${fmt(x[1])}</span></li>`).join('')}</ul>`}
+    </div>`;
+  }).join('');
+  const extras = r.extras.length ? `<div class="pack"><div class="pack__head"><span>Дополнительно</span><b>${fmt(r.extras.reduce((t, e) => t + e[1], 0))}</b></div>
+      <ul>${r.extras.map(([t, v]) => `<li><span>${t}</span><span>${fmt(v)}</span></li>`).join('')}</ul></div>` : '';
+  return `<p class="label calc__qlabel">Ваш расчёт · ноябрь 2026</p>
+    <h3 class="display res__title">Дом ${S.area} м², <em>${PACK_T[S.pack].toLowerCase()}</em></h3>
+    <div class="kpi">
+      <div><span class="label">Стоимость дома</span><b class="kpi__total">${(r.total / 1e6).toFixed(1).replace('.', ',')}<small>млн ₽</small></b><span class="kpi__range">от ${fmtM(r.total * .93)} до ${fmtM(r.total * 1.07)} · ±7%</span></div>
+      <div><span class="label">За м²</span><b>${fmt(r.total / S.area)}</b></div>
+      <div><span class="label">Срок</span><b>≈ ${m} мес.</b></div>
+      <div><span class="label">Предоплата</span><b>0 ₽</b></div>
+    </div>
+    <div class="res__groups">
+      <div class="res__group"><h4>Дом</h4><dl>${row('Площадь', S.area + ' м²')}${row('Этажность', LABELS.floors[S.floors])}${row('Стены', LABELS.walls[S.walls])}</dl></div>
+      <div class="res__group"><h4>Конструктив и фасад</h4><dl>${row('Фундамент', LABELS.foundation[S.foundation])}${row('Кровля', LABELS.roof[S.roof])}${row('Фасад', LABELS.facade[S.facade])}</dl></div>
+      <div class="res__group"><h4>Комплектация</h4><dl>${row('Пакет', PACK_T[S.pack])}${row('Опции', S.extras.length ? S.extras.length + ' шт.' : 'нет')}${row('Срок', '≈ ' + m + ' мес.')}</dl></div>
+    </div>
+    <div class="res__est">
+      <h4>Смета по этапам <span>${PACK_T[S.pack]}${extrasT === 'нет' ? '' : ' + опции'}</span></h4>
+      <div class="packs">${packs}${extras}</div>
+    </div>
+    <p class="res__note">Расчёт ориентировочный, точность ±7%. Цены для Москвы и области на ноябрь 2026 года. Точную смету архитектор составит после встречи. Не является публичной офертой.</p>`;
+}
+
+// form on the dark side
+const sideForm = $('#side-form');
+const resForm = $('#res-form');
+resForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const name = resForm.elements.name.value.trim(), phone = resForm.elements.phone.value.trim(), d = phone.replace(/\D/g, '');
+  const err = (n, msg) => { const f = $(`[data-field="${n}"]`, resForm); f.classList.toggle('has-error', !!msg); $('.field__err', f).textContent = msg || ''; };
+  err('name', name ? '' : 'Укажите, как к вам обращаться.');
+  err('phone', d.length === 11 ? '' : 'Введите номер полностью: 10 цифр после +7.');
+  if (!name || d.length !== 11) return;
+  const r = compute(S);
+  $('.side__ok', sideForm).innerHTML = `${name}, спасибо. <br><em>Расчёт на ${fmtM(r.total)} у нас.</em><br>Архитектор позвонит на ${phone} и пришлёт точную смету по этапам.`;
+  sideForm.classList.add('is-sent');
+});
+back.addEventListener('click', () => { if (qi > 0) { qi--; renderStep(); } });
+next.addEventListener('click', () => { if (qi < Q.length) { answered.add(Q[qi].key); qi++; renderStep(); } });
+function openCalc(preset) {
+  S = { ...DEF, ...(preset || {}), extras: [...((preset && preset.extras) || [])] };
+  qi = 0; shownTotal = 0; shownKeys = new Set();
+  answered = new Set(preset ? Q.map(q => q.key) : []);
+  sideForm.classList.remove('is-sent'); resForm.reset();
+  $$('.field', resForm).forEach(f => { f.classList.remove('has-error'); $('.field__err', f).textContent = ''; });
+  renderStep();
+  openModal(calc);
+}
+$$('[data-calc]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); openCalc(); }));
+
+/* ================= contact form ================= */
+const form = $('#lead-form');
+const panel = $('#lead-panel');
+let intent = 'Встреча с архитектором';
+form.querySelectorAll('[data-intent]').forEach(b => b.addEventListener('click', () => intent = b.dataset.intent));
+const setErr = (name, msg) => { const f = form.querySelector(`[data-field="${name}"]`); f.classList.toggle('has-error', !!msg); f.querySelector('.field__err').textContent = msg || ''; };
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const name = form.elements.name.value.trim();
+  const phone = form.elements.phone.value.trim();
+  const digits = phone.replace(/\D/g, '');
+  setErr('name', name ? '' : 'Укажите, как к вам обращаться.');
+  setErr('phone', digits.length === 11 ? '' : 'Введите номер полностью: 10 цифр после +7.');
+  if (!name || digits.length !== 11) return;
+  panel.querySelector('.panel__ok').textContent = `${name}, заявка «${intent}» принята. Архитектор позвонит на номер ${phone}.`;
+  panel.classList.add('is-sent');
+});
+</script>
+</body>
+</html>
