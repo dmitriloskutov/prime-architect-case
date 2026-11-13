@@ -265,6 +265,11 @@ button,.pill,.chip,.filter,.opt,.card,.textlink,.nav a,.logo,.modal__close,.soci
 .life__end h3 em{font-style:italic;color:var(--gold)}
 .life__end p{margin-top:20px;font-size:16px;line-height:26px;color:rgba(241,238,231,.65)}
 @media (prefers-reduced-motion:reduce){ .tile,.tile__img{transform:none!important} }
+/* touch screens: no tilt (there is no cursor to follow). A narrow desktop window with a mouse or trackpad keeps it. */
+@media (max-width:1199px) and (hover:none), (max-width:1199px) and (pointer:coarse){
+  .bento .cell{perspective:none}
+  .tile,.tile__img{transform:none!important}
+}
 
 /* ---------- 04 STEPS ---------- */
 .steps{background:var(--paper);padding:160px 0}
@@ -906,11 +911,11 @@ html{scrollbar-color:rgba(30,33,29,.3) var(--cream)}
   /* ---------- life: two-column mosaic ---------- */
   .life{padding:72px 0 0}
   .bento{grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:10px;margin-top:40px}
-  .bento .cell{grid-column:span 2;grid-row:auto;min-height:260px;perspective:none}
+  .bento .cell{grid-column:span 2;grid-row:auto;min-height:260px}
   .bento .cell--a{min-height:400px}
   .bento .cell--b,.bento .cell--c,.bento .cell--f,.bento .cell--g{grid-column:span 1;min-height:230px}
-  .tile{padding:18px;transform:none!important}
-  .tile__img{transform:none!important;inset:0;width:100%;height:100%}
+  .tile{padding:18px}
+  .tile__img{inset:0;width:100%;height:100%}
   .tile h3,.cell--a .tile h3{font-size:24px;margin-top:8px;max-width:none}
   .cell--a .tile h3{font-size:30px}
   .cell--b .tile h3,.cell--c .tile h3,.cell--f .tile h3,.cell--g .tile h3{font-size:19px;line-height:1.08}
