@@ -1255,6 +1255,22 @@ html{scrollbar-color:rgba(30,33,29,.3) var(--cream)}
   .hero__img,.hero__shade{height:70vh;min-height:0}
 }
 
+
+/* ---- touch polish ---- */
+dialog:focus{outline:none}
+/* no double-tap zoom (quick taps on "Далее" zoomed the page); pinch-zoom stays available, so a zoomed page can always be zoomed back out */
+html{touch-action:manipulation}
+@media (max-width:1199px){
+  /* team carousel: moves sideways only, cards are shown at once (a slide-up reveal while swiping made them jump) */
+  .team__grid{overflow-y:hidden;touch-action:pan-x pan-y}
+  .team__grid > .reveal{opacity:1;transform:none;transition:none}
+  /* video badge: the ripple starts from the play circle (14px padding + 22px radius = 36px; the SVG circle sits at 44px) */
+  .video-btn{padding-left:22px}
+  /* book: the page-corner hint appears only after the page has finished turning */
+  .ob-stage--band.can-next .ob-leaf.is-next > .ob-face:not(.ob-back) .ob-turn{transition:opacity 220ms ease 850ms,transform 380ms var(--ease-out) 850ms}
+  .ob-stage--band .ob-turn{transition:opacity 120ms ease,transform 200ms var(--ease-out)}
+}
+
 </style>
 <script>
 /* The page is always laid out at 1920 design px and scaled to the window width (CSS zoom).
@@ -2278,6 +2294,8 @@ function openModal(d) {
   const h = document.documentElement;
   if (!h.classList.contains('has-modal')) h.style.setProperty('--sbw', Math.max(0, window.innerWidth - h.getBoundingClientRect().width) / (window.__Z || 1) + 'px');
   d.classList.remove('is-closing'); d.showModal(); h.classList.add('has-modal');
+  if (!d.hasAttribute('tabindex')) d.setAttribute('tabindex', '-1');
+  d.focus({ preventScroll: true }); // keyboard users tab from here into the popup
 }
 // exit is faster than enter (180ms vs 320ms). Esc closes instantly: keyboard actions are not animated.
 function closeModal(d) {
