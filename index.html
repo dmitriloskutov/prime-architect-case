@@ -773,6 +773,7 @@ html.has-modal .header{right:var(--sbw,0px)}
 .opt__t{font-size:23px}
 .opt__s{font-size:13px;line-height:20px}
 .area__val{font-size:104px}
+.calc__mobar,.calc__peek,.side__jump{display:none}
 .res__house{position:relative;margin:24px 0 0;aspect-ratio:700/440;border-radius:4px;background:rgba(30,33,29,.035)}
 .res__hint{position:absolute;left:16px;bottom:12px;font-size:11px;line-height:16px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-55);pointer-events:none}
 .hm-hot{cursor:pointer;outline:none}
@@ -1129,8 +1130,8 @@ html{scrollbar-color:rgba(30,33,29,.3) var(--cream)}
 
   /* book */
   .bookm__grid{grid-template-columns:1fr}
-  .bookm__side{padding:56px 0 36px}
-  .ob-stage--modal{--pw:min(150px,38vw)}
+  .bookm__side{padding:22px 0 10px}
+  .ob-stage--modal{--pw:min(108px,29vw)}
   .bookm__main{padding:32px var(--pad) calc(40px + env(safe-area-inset-bottom))}
   .bookm__title{font-size:clamp(32px,9vw,48px)}
   .bookm form .pill{width:100%;justify-content:center}
@@ -1269,6 +1270,56 @@ html{touch-action:manipulation}
   /* book: the page-corner hint appears only after the page has finished turning */
   .ob-stage--band.can-next .ob-leaf.is-next > .ob-face:not(.ob-back) .ob-turn{transition:opacity 220ms ease 850ms,transform 380ms var(--ease-out) 850ms}
   .ob-stage--band .ob-turn{transition:opacity 120ms ease,transform 200ms var(--ease-out)}
+}
+
+
+/* ---- calculator on phones: house button, model sheet, form first on the result ---- */
+@media (max-width:1199px){
+  .calc__mobar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px}
+  .calc__peek-btn{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 16px 0 12px;border:1px solid var(--ink-line);border-radius:999px;font-size:11px;line-height:1;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);transition:border-color 200ms ease,transform 160ms var(--ease-out)}
+  .calc__peek-btn svg{color:var(--clay)}
+  .calc__peek-btn:active{transform:scale(.97)}
+  .calc__mototal{font-family:var(--serif);font-weight:400;font-size:22px;line-height:1;color:var(--clay);font-variant-numeric:tabular-nums lining-nums;white-space:nowrap}
+  .calc__body{padding-top:20px}
+
+  .calc__peek{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;background:var(--olive);color:var(--cream);
+    padding:calc(16px + env(safe-area-inset-top)) var(--pad) calc(18px + env(safe-area-inset-bottom));opacity:0;transform:translateY(14px);transition:opacity 220ms ease,transform 320ms var(--ease-out)}
+  .calc__peek.is-on{opacity:1;transform:none}
+  .calc__peek[hidden]{display:none}
+  .peek__top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+  .peek__top .label{display:block;color:rgba(241,238,231,.6)}
+  .peek__total{display:block;margin-top:8px;font-family:var(--serif);font-weight:300;font-size:38px;line-height:1;font-variant-numeric:tabular-nums lining-nums}
+  .peek__close{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.12);color:var(--cream)}
+  .peek__house{flex:1;min-height:0;display:flex;align-items:center;justify-content:center}
+  .peek__svg{position:relative;width:min(100%,calc((100svh - 190px) * 700 / 760));aspect-ratio:700/760}
+  .peek__svg svg{display:block;width:100%;height:100%}
+  .peek__hint{font-size:11px;line-height:16px;letter-spacing:.14em;text-transform:uppercase;text-align:center;color:rgba(241,238,231,.5)}
+  .calc__peek .res__tip{background:var(--cream);color:var(--ink);white-space:normal;max-width:min(240px,60vw)}
+  .calc__peek .res__tip .label{color:var(--clay)}
+  .calc__peek .res__tip span:last-child{color:var(--ink-55)}
+
+  /* result: the form (with a teaser of the estimate) first, the estimate after it */
+  .calc.is-result .calc__grid{display:flex;flex-direction:column}
+  .calc.is-result .calc__side{order:-1}
+  .calc.is-result .side__form{padding-top:72px}
+  .side__jump{display:block;margin-bottom:32px;padding:20px;border:1px solid rgba(205,185,143,.35);border-radius:4px}
+  .side__jump .label{color:var(--gold)}
+  .side__jump b{display:block;margin-top:10px;font-family:var(--serif);font-weight:300;font-size:46px;line-height:1;font-variant-numeric:tabular-nums lining-nums}
+  .side__jump p{margin-top:12px;font-size:13px;line-height:20px;color:rgba(241,238,231,.72)}
+  .side__jump button{display:inline-flex;align-items:center;gap:10px;margin-top:16px;padding-bottom:4px;border-bottom:1px solid rgba(241,238,231,.45);font-size:11px;line-height:16px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--cream)}
+  .side__jump button svg{animation:swipeNudgeY 1.6s var(--ease-in-out) infinite}
+}
+@keyframes swipeNudgeY{0%,100%{transform:none}50%{transform:translateY(3px)}}
+@media (prefers-reduced-motion:reduce){ .side__jump button svg{animation:none} .calc__peek{transition:none} }
+
+
+/* short phones (iPhone SE and the like): an even smaller book and tighter form, so the button is still on the first screen */
+@media (max-width:1199px) and (max-height:740px){
+  .bookm__side{padding:14px 0 6px}
+  .ob-stage--modal{--pw:min(84px,23vw)}
+  .bookm__main{padding-top:22px}
+  .bookm .field{margin-top:16px}
+  .bookm__title{font-size:30px}
 }
 
 </style>
@@ -1782,6 +1833,7 @@ html{touch-action:manipulation}
     <div class="calc__main">
       <div class="calc__top"><span class="label">Расчёт стоимости дома</span><span class="label calc__count"></span></div>
       <div class="calc__bar"><i></i></div>
+      <div class="calc__mobar"><button class="calc__peek-btn" type="button"><svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M219.3 108.7l-80-80a16 16 0 0 0-22.6 0l-80 80A15.9 15.9 0 0 0 32 120v96a8 8 0 0 0 8 8h64a8 8 0 0 0 8-8v-56h32v56a8 8 0 0 0 8 8h64a8 8 0 0 0 8-8v-96a15.9 15.9 0 0 0-4.7-11.3zM208 208h-48v-56a8 8 0 0 0-8-8h-48a8 8 0 0 0-8 8v56H48v-88l80-80 80 80z"/></svg>Ваш дом</button><span class="calc__mototal" aria-live="polite"></span></div>
       <div class="calc__body" id="calc-body"></div>
       <div class="calc__nav">
         <button class="textlink calc__back" type="button">← Назад</button>
@@ -1800,6 +1852,7 @@ html{touch-action:manipulation}
         <p class="calc__note">Расчёт ориентировочный, точность ±7%. Цены для Москвы и области на ноябрь 2026 года. Не является публичной офертой.</p>
       </div>
       <div class="side__form" id="side-form">
+        <div class="side__jump"><span class="label">Ваш расчёт готов</span><b class="side__jump-total"></b><p>Смета по этапам и параметры дома ниже. Оставьте телефон, и архитектор пересчитает дом под ваш участок.</p><button type="button">Смотреть расчёт<svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.7 149.7l-72 72a8 8 0 0 1-11.4 0l-72-72a8 8 0 0 1 11.4-11.4L120 196.7V40a8 8 0 0 1 16 0v156.7l58.3-58.4a8 8 0 0 1 11.4 11.4z"/></svg></button></div>
         <form id="res-form" novalidate>
           <span class="label stg">Последний шаг</span>
           <h3 class="side__title stg" style="--i:1">Получите точную смету <br><em>под ваш участок.</em></h3>
@@ -1817,6 +1870,11 @@ html{touch-action:manipulation}
         <p class="side__ok" role="status"></p>
       </div>
     </aside>
+  </div>
+  <div class="calc__peek" hidden role="dialog" aria-label="Модель вашего дома">
+    <div class="peek__top"><div><span class="label">Ваш дом</span><b class="peek__total"></b></div><button class="peek__close" type="button" aria-label="Закрыть модель"><svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M205.7 194.3a8 8 0 0 1-11.4 11.4L128 139.3l-66.3 66.4a8 8 0 0 1-11.4-11.4l66.4-66.3-66.4-66.3a8 8 0 0 1 11.4-11.4l66.3 66.4 66.3-66.4a8 8 0 0 1 11.4 11.4L139.3 128z"/></svg></button></div>
+    <div class="peek__house"><div class="peek__svg"></div></div>
+    <p class="peek__hint">Нажмите на точку, чтобы увидеть деталь</p>
   </div>
 </dialog>
 
@@ -2719,7 +2777,7 @@ const HOUSE = (() => {
     m.G.forEach(g => g.items.forEach(it => { if (it.t === 'x' || it.cls && it.cls.startsWith('hm-smoke')) return; (it.p || [it.c]).forEach(p => { const [x, y] = P0(p); bx0 = Math.min(bx0, x); bx1 = Math.max(bx1, x); by0 = Math.min(by0, y); by1 = Math.max(by1, y); }); }));
     const t = Math.min(1, Math.max(0, (s.area - 60) / 390));
     const colOff = Math.min(o.VW / 2 - 185, 240);
-    const tw = o.labels ? Math.min(2 * colOff - 60, 380 + 70 * t) : o.VW * (.6 + .3 * t), th2 = o.VH - (o.labels ? 80 : 30);
+    const tw = o.labels ? Math.min(2 * colOff - 60, 380 + 70 * t) : o.VW * (o.hot ? .84 + .14 * t : .6 + .3 * t), th2 = o.VH - (o.labels ? 80 : 30);
     const sc = Math.min(tw / (bx1 - bx0), th2 / (by1 - by0));
     const tx = o.VW / 2 - (bx0 + bx1) / 2 * sc, ty = o.VH / 2 - (by0 + by1) / 2 * sc + (o.labels ? 14 : 0);
     const P = p => { const [x, y] = P0(p); return [x * sc + tx, y * sc + ty]; };
@@ -2874,6 +2932,7 @@ function renderSide() {
     : '<p class="calc__empty">Параметры появятся здесь по мере ответов.</p>';
   shownKeys = new Set(p.map(x => x[1]));
   renderModel();
+  $('.calc__mototal', calc).textContent = '≈ ' + fmtM(r.total);
 }
 function renderStep() {
   const done = qi === Q.length;
@@ -2888,7 +2947,13 @@ function renderStep() {
     nextT.textContent = label;
     if (!reduced) nextT.animate([{ opacity: 0, filter: 'blur(3px)' }, { opacity: 1, filter: 'blur(0)' }], { duration: 240, easing: EASE_OUT });
   }
-  if (done) body.innerHTML = resultHTML();
+  if (done) {
+    body.innerHTML = resultHTML();
+    const t = fmtM(compute(S).total);
+    $('.calc__mototal', calc).textContent = '≈ ' + t;
+    $('.side__jump-total', calc).textContent = t;
+    if (narrow.matches) calc.scrollTop = 0; // phones: the form (with the estimate teaser) comes first
+  }
   else {
     const q = Q[qi];
     let h = `<p class="label calc__qlabel">Вопрос ${qi + 1}</p><h3 class="display calc__q">${q.title}</h3><p class="calc__hint">${q.hint}</p>`;
@@ -2971,20 +3036,43 @@ function resultHTML() {
     <p class="res__note">Расчёт ориентировочный, точность ±7%. Цены для Москвы и области на ноябрь 2026 года. Точную смету архитектор составит после встречи. Не является публичной офертой.</p>`;
 }
 
-// result model: hover or focus a point of interest to see what it is and what it costs
+// house model points of interest (result figure, phone sheet): hover, focus or tap shows a compact card
 (() => {
+  const tipFor = h => h.closest('svg').parentElement.querySelector('.res__tip');
   const show = h => {
-    const fig = h.closest('.res__house'), tip = $('.res__tip', fig), x = +h.dataset.x, y = +h.dataset.y;
+    const tip = tipFor(h), vb = h.closest('svg').viewBox.baseVal, x = +h.dataset.x, y = +h.dataset.y;
+    $$('.hm-hot.is-on', calc).forEach(o => o !== h && o.classList.remove('is-on'));
     tip.innerHTML = `<span class="label">${h.dataset.k}</span><b>${h.dataset.v}</b><span>${h.dataset.p}</span>`;
-    tip.style.left = (x / 700 * 100) + '%'; tip.style.top = (y / 440 * 100) + '%';
-    tip.classList.toggle('is-left', x > 440);
+    tip.style.left = (x / vb.width * 100) + '%'; tip.style.top = (y / vb.height * 100) + '%';
+    tip.classList.toggle('is-left', x > vb.width * .58);
     tip.classList.add('is-on'); h.classList.add('is-on');
   };
-  const hide = h => { const fig = h.closest('.res__house'); if (fig) $('.res__tip', fig).classList.remove('is-on'); h.classList.remove('is-on'); };
-  body.addEventListener('pointerover', e => { const h = e.target.closest('.hm-hot'); if (h) show(h); });
-  body.addEventListener('pointerout', e => { const h = e.target.closest('.hm-hot'); if (h && !h.contains(e.relatedTarget)) hide(h); });
-  body.addEventListener('focusin', e => { const h = e.target.closest('.hm-hot'); if (h) show(h); });
-  body.addEventListener('focusout', e => { const h = e.target.closest('.hm-hot'); if (h) hide(h); });
+  const hide = h => { const t = tipFor(h); if (t) t.classList.remove('is-on'); h.classList.remove('is-on'); };
+  calc.addEventListener('pointerover', e => { const h = e.target.closest('.hm-hot'); if (h) show(h); });
+  calc.addEventListener('pointerout', e => { if (e.pointerType === 'touch') return; const h = e.target.closest('.hm-hot'); if (h && !h.contains(e.relatedTarget)) hide(h); });
+  calc.addEventListener('focusin', e => { const h = e.target.closest('.hm-hot'); if (h) show(h); });
+  calc.addEventListener('focusout', e => { const h = e.target.closest('.hm-hot'); if (h) hide(h); });
+  // touch: a tap anywhere else hides the card
+  calc.addEventListener('pointerdown', e => { if (!e.target.closest('.hm-hot')) $$('.hm-hot.is-on', calc).forEach(hide); });
+})();
+
+// phones: the house model opens as a sheet over the questions
+(() => {
+  const peek = $('.calc__peek', calc), wrap = $('.peek__svg', calc);
+  const open = () => {
+    const vis = qi >= Q.length ? new Set(Q.map(q => q.key)) : new Set([...answered, Q[qi].key]);
+    HOUSE.forget('peek');
+    wrap.innerHTML = HOUSE.svg(S, vis, null, { id: 'peek', VW: 700, VH: 760, labels: false, hot: true, theme: 'dark' }) + '<div class="res__tip" aria-hidden="true"></div>';
+    $('.peek__total', calc).textContent = fmtM(compute(S).total);
+    peek.hidden = false;
+    requestAnimationFrame(() => requestAnimationFrame(() => peek.classList.add('is-on')));
+  };
+  const close = () => { peek.classList.remove('is-on'); setTimeout(() => { peek.hidden = true; wrap.innerHTML = ''; }, 260); };
+  $('.calc__peek-btn', calc).addEventListener('click', open);
+  $('.peek__close', calc).addEventListener('click', close);
+  calc.addEventListener('close', () => { peek.classList.remove('is-on'); peek.hidden = true; });
+  // result on phones: the estimate teaser at the top of the form scrolls down to the full estimate
+  $('.side__jump button', calc).addEventListener('click', () => $('.calc__main', calc).scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' }));
 })();
 
 // form on the dark side
