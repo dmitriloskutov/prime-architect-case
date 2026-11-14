@@ -134,7 +134,7 @@ button,.pill,.chip,.filter,.opt,.card,.textlink,.nav a,.logo,.modal__close,.soci
 /* --hk < 1 when the screen is too short for the hero copy: the copy is scaled as a whole, so spacing stays proportional */
 .hero .wrap{zoom:var(--hk,1);max-width:none;width:100%;height:100%;display:flex;flex-direction:column;padding:112px calc(var(--pad) / var(--hk,1)) 72px}
 .hero .chapter{margin-bottom:auto;padding-bottom:32px}
-.hero__body{max-width:760px;margin-bottom:44px}
+.hero__body{max-width:760px;margin-top:auto;margin-bottom:44px}
 .hero .eyebrow{color:var(--w-80);border-color:var(--w-line)}
 .hero__title{font-size:108px;line-height:.88;margin-top:32px}
 .hero__title em{color:var(--gold)}
@@ -1260,7 +1260,8 @@ html{scrollbar-color:rgba(30,33,29,.3) var(--cream)}
 /* ---- touch polish ---- */
 dialog:focus{outline:none}
 /* no double-tap zoom (quick taps on "Далее" zoomed the page); pinch-zoom stays available, so a zoomed page can always be zoomed back out */
-html{touch-action:manipulation}
+html{touch-action:pan-x pan-y}
+html.is-zoomed{touch-action:manipulation}
 @media (max-width:1199px){
   /* team carousel: moves sideways only, cards are shown at once (a slide-up reveal while swiping made them jump) */
   .team__grid{overflow-y:hidden;touch-action:pan-x pan-y}
@@ -1407,6 +1408,18 @@ html{touch-action:manipulation}
   .side__jump button{letter-spacing:.1em;gap:6px}
 }
 
+
+/* ---- smallest phones (320px wide, 568px tall) ---- */
+@media (max-width:1199px){ .case__grid{grid-template-columns:minmax(0,1fr)} }
+@media (max-width:359px){
+  .hero__cta .pill:not(.pill--noico),.band__cta .pill:not(.pill--noico),.life__end .pill:not(.pill--noico),.vmodal__bar .pill:not(.pill--noico),
+  .case__actions .pill:not(.pill--noico),.bookm form .pill:not(.pill--noico),.nav__extra .pill:not(.pill--noico){padding:2px 16px 0 48px;letter-spacing:.1em}
+}
+@media (max-width:1199px) and (max-height:620px){
+  .bookm__side{display:none}
+  .bookm__main{padding-top:64px}
+}
+
 </style>
 <script>
 /* The page is always laid out at 1920 design px and scaled to the window width (CSS zoom).
@@ -1514,7 +1527,6 @@ html{touch-action:manipulation}
   <div class="hero__shade" aria-hidden="true"></div>
   <div class="hero__dim" aria-hidden="true"></div>
   <div class="wrap">
-    <div class="chapter hero-in"><span class="chapter__num">01</span><span class="label">Дома под ключ</span></div>
     <div class="hero__body">
       <p class="eyebrow hero-in" style="--i:1">Москва и область · с 2001 года</p>
       <h1 class="display hero__title hero-in" style="--i:2" id="hero-title">Каменный дом <br>под ключ. <br><em>Без предоплаты.</em></h1>
@@ -2318,6 +2330,15 @@ steps.forEach(st => stepIO.observe(st));
   g.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(upd); }, { passive: true });
   addEventListener('resize', upd);
   upd();
+})();
+
+/* pinch zoom guard: blocked at normal scale, allowed as soon as the page is zoomed (so it can always be zoomed back out) */
+(() => {
+  const vv = window.visualViewport, h = document.documentElement;
+  const zoomed = () => !!vv && vv.scale > 1.01;
+  if (vv) vv.addEventListener('resize', () => h.classList.toggle('is-zoomed', zoomed()));
+  // iOS Safari ignores touch-action for pinch: its own gesture events are cancelled instead, only at normal scale
+  ['gesturestart', 'gesturechange'].forEach(t => document.addEventListener(t, e => { if (!zoomed()) e.preventDefault(); }, { passive: false }));
 })();
 
 /* ================= links to pages that do not exist yet ================= */
