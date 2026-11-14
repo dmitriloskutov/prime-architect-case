@@ -1439,10 +1439,22 @@ html{touch-action:manipulation}
   .calc__peek .hm-hot__dot,.calc__peek .hm-hot__hit{transform:scale(var(--is,1))}
 }
 
+@media (min-width:1200px){ .cine__img{transform:scale(1.25);transform-origin:70% 52%} }
+/* team counter on phones */
+.team__swipe-row{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.team__count{font-size:11px;line-height:16px;font-weight:600;letter-spacing:.16em;color:var(--ink-55);font-variant-numeric:tabular-nums}
+.team__count b{font-weight:600;color:var(--clay)}
 </style>
 <script>
 /* The page is always laid out at 1920 design px and scaled to the window width (CSS zoom).
    Browser zoom changes innerWidth, the scale compensates, so the site looks the same everywhere. */
+// reloads always open at the top: drop a #section from the address and do not restore the old scroll position
+(function () {
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+  var top = function () { window.scrollTo(0, 0); };
+  addEventListener('DOMContentLoaded', top); addEventListener('load', function () { setTimeout(top, 0); });
+})();
 (function () {
   var D = 1920, MOBILE = 1200, h = document.documentElement, lastW = 0;
   function fit() {
@@ -1834,7 +1846,7 @@ html{touch-action:manipulation}
       </div>
       <p class="lead reveal" style="--i:3">Над каждым домом работают архитектор, руководитель проекта, инженер‑сметчик и наша бригада. Вы знаете каждого по имени.</p>
     </div>
-    <div class="team__swipe" aria-hidden="true"><span class="team__swipe-t">Листайте<svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M221.7 133.7l-72 72a8 8 0 0 1-11.4-11.4l58.4-58.3H40a8 8 0 0 1 0-16h156.7l-58.4-58.3a8 8 0 0 1 11.4-11.4l72 72a8 8 0 0 1 0 11.4z"/></svg></span><span class="team__track"><i></i></span></div>
+    <div class="team__swipe" aria-hidden="true"><div class="team__swipe-row"><span class="team__swipe-t">Листайте<svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M221.7 133.7l-72 72a8 8 0 0 1-11.4-11.4l58.4-58.3H40a8 8 0 0 1 0-16h156.7l-58.4-58.3a8 8 0 0 1 11.4-11.4l72 72a8 8 0 0 1 0 11.4z"/></svg></span><span class="team__count"><b>1</b> / 5</span></div><span class="team__track"><i></i></span></div>
     <div class="team__grid">
       <article class="person reveal"><div class="media reveal-img"><img src="assets/l-team-1.webp" alt="Алексей Воронцов" loading="lazy"></div>
         <p class="person__role">Основатель</p><h3>Алексей Воронцов</h3><p class="person__text">Строит дома с 2001 года и лично принимает каждый объект перед сдачей.</p></article>
@@ -2339,7 +2351,7 @@ steps.forEach(st => stepIO.observe(st));
 
 /* team on phones: the progress bar under "Листайте" follows the swipe */
 (() => {
-  const g = $('.team__grid'), bar = $('.team__track i');
+  const g = $('.team__grid'), bar = $('.team__track i'), count = $('.team__count');
   if (!g || !bar) return;
   let raf = 0;
   const upd = () => {
@@ -2347,6 +2359,8 @@ steps.forEach(st => stepIO.observe(st));
     const max = g.scrollWidth - g.clientWidth, w = Math.min(1, g.clientWidth / g.scrollWidth), p = max > 0 ? g.scrollLeft / max : 0;
     bar.style.width = (w * 100) + '%';
     bar.style.transform = `translateX(${(p * (1 - w) / w * 100).toFixed(2)}%)`;
+    const n = g.children.length, cur = Math.round(p * (n - 1)) + 1;
+    if (count) count.innerHTML = `<b>${cur}</b> / ${n}`;
   };
   g.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(upd); }, { passive: true });
   addEventListener('resize', upd);
