@@ -1322,6 +1322,36 @@ html{touch-action:manipulation}
   .bookm__title{font-size:30px}
 }
 
+
+/* ---- calculator on phones: tighter rhythm, so the short questions fit without scrolling ---- */
+@media (max-width:1199px){
+  .calc__mobar{margin-top:10px}
+  .calc__body{padding:12px 0 10px}
+  .calc__q{margin-top:10px}
+  .calc__hint{margin-top:10px;font-size:14px;line-height:21px}
+  .opts,.opts--2,.opts--3,.opts--4,.opts--5{gap:8px;margin-top:16px}
+  .opt{padding:12px 14px 12px 48px;gap:3px}
+  .opt__mark{left:16px;top:15px}
+  .opt__t{font-size:20px}
+  .area{margin-top:16px}
+  .area__val{font-size:clamp(56px,15vw,88px)}
+  .range{margin-top:18px}
+  .chips{margin-top:14px}
+  .calc__nav{padding-top:12px}
+  /* the estimate teaser: one compact row */
+  .side__jump{display:grid;grid-template-columns:1fr auto;align-items:end;column-gap:16px;margin-bottom:24px;padding:14px 16px}
+  .side__jump > div{display:contents}
+  .side__jump .label{grid-column:1/-1;white-space:nowrap}
+  .side__jump b{margin-top:6px;font-size:32px}
+  .side__jump button{flex:none;margin:0 0 4px}
+  .calc.is-result .side__form{padding-top:64px}
+  .side__form .side__title{margin-top:8px;font-size:30px}
+  .side__perks{margin-top:14px;gap:6px}
+  .side__perks li{font-size:13px;line-height:18px}
+  .side__form .field{margin-top:14px}
+  .side__form .pill{margin-top:18px}
+}
+
 </style>
 <script>
 /* The page is always laid out at 1920 design px and scaled to the window width (CSS zoom).
@@ -1852,11 +1882,10 @@ html{touch-action:manipulation}
         <p class="calc__note">Расчёт ориентировочный, точность ±7%. Цены для Москвы и области на ноябрь 2026 года. Не является публичной офертой.</p>
       </div>
       <div class="side__form" id="side-form">
-        <div class="side__jump"><span class="label">Ваш расчёт готов</span><b class="side__jump-total"></b><p>Смета по этапам и параметры дома ниже. Оставьте телефон, и архитектор пересчитает дом под ваш участок.</p><button type="button">Смотреть расчёт<svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.7 149.7l-72 72a8 8 0 0 1-11.4 0l-72-72a8 8 0 0 1 11.4-11.4L120 196.7V40a8 8 0 0 1 16 0v156.7l58.3-58.4a8 8 0 0 1 11.4 11.4z"/></svg></button></div>
+        <div class="side__jump"><div><span class="label">Ваш расчёт готов</span><b class="side__jump-total"></b></div><button type="button">Смотреть расчёт<svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.7 149.7l-72 72a8 8 0 0 1-11.4 0l-72-72a8 8 0 0 1 11.4-11.4L120 196.7V40a8 8 0 0 1 16 0v156.7l58.3-58.4a8 8 0 0 1 11.4 11.4z"/></svg></button></div>
         <form id="res-form" novalidate>
           <span class="label stg">Последний шаг</span>
           <h3 class="side__title stg" style="--i:1">Получите точную смету <br><em>под ваш участок.</em></h3>
-          <p class="side__text stg" style="--i:2">Архитектор позвонит, уточнит детали и пересчитает дом. Без предоплаты и обязательств.</p>
           <ul class="side__perks" role="list">
             <li class="stg" style="--i:3">Расчёт с учётом участка и геологии</li>
             <li class="stg" style="--i:4">Встреча с архитектором в офисе или онлайн</li>
