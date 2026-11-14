@@ -1260,8 +1260,7 @@ html{scrollbar-color:rgba(30,33,29,.3) var(--cream)}
 /* ---- touch polish ---- */
 dialog:focus{outline:none}
 /* no double-tap zoom (quick taps on "Далее" zoomed the page); pinch-zoom stays available, so a zoomed page can always be zoomed back out */
-html{touch-action:pan-x pan-y}
-html.is-zoomed{touch-action:manipulation}
+html{touch-action:manipulation}
 @media (max-width:1199px){
   /* team carousel: moves sideways only, cards are shown at once (a slide-up reveal while swiping made them jump) */
   .team__grid{overflow-y:hidden;touch-action:pan-x pan-y}
@@ -1418,6 +1417,26 @@ html.is-zoomed{touch-action:manipulation}
 @media (max-width:1199px) and (max-height:620px){
   .bookm__side{display:none}
   .bookm__main{padding-top:64px}
+}
+
+
+/* house sheet: the model can be zoomed and moved */
+@media (max-width:1199px){
+  .peek__house{position:relative;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none}
+  .peek__svg{transform-origin:50% 50%}
+  .peek__zoom{position:absolute;right:0;bottom:0;display:flex;gap:8px}
+  .peek__zoom button{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.12);color:var(--cream);transition:opacity 200ms ease,transform 160ms var(--ease-out)}
+  .peek__zoom button:active{transform:scale(.94)}
+  .peek__zoom button:disabled{opacity:.35}
+  .peek__hint{margin-top:12px;letter-spacing:.08em;line-height:17px}
+  /* the detail card keeps its size while the model is zoomed */
+  .calc__peek .res__tip{transform:translate(calc(16px * var(--is,1)),-50%) scale(calc(var(--is,1) * .97))}
+  .calc__peek .res__tip.is-on{transform:translate(calc(16px * var(--is,1)),-50%) scale(var(--is,1))}
+  .calc__peek .res__tip.is-left{transform:translate(calc(-100% - 16px * var(--is,1)),-50%) scale(calc(var(--is,1) * .97))}
+  .calc__peek .res__tip.is-left.is-on{transform:translate(calc(-100% - 16px * var(--is,1)),-50%) scale(var(--is,1))}
+  /* hotspots stay the same size on screen too */
+  .calc__peek .hm-hot circle{transform-box:fill-box;transform-origin:center}
+  .calc__peek .hm-hot__dot,.calc__peek .hm-hot__hit{transform:scale(var(--is,1))}
 }
 
 </style>
@@ -1969,8 +1988,10 @@ html.is-zoomed{touch-action:manipulation}
   </div>
   <div class="calc__peek" hidden role="dialog" aria-label="Модель вашего дома">
     <div class="peek__top"><div><span class="label">Ваш дом</span><b class="peek__total"></b></div><button class="peek__close" type="button" aria-label="Закрыть модель"><svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M205.7 194.3a8 8 0 0 1-11.4 11.4L128 139.3l-66.3 66.4a8 8 0 0 1-11.4-11.4l66.4-66.3-66.4-66.3a8 8 0 0 1 11.4-11.4l66.3 66.4 66.3-66.4a8 8 0 0 1 11.4 11.4L139.3 128z"/></svg></button></div>
-    <div class="peek__house"><div class="peek__svg"></div></div>
-    <p class="peek__hint">Нажмите на точку, чтобы увидеть деталь</p>
+    <div class="peek__house"><div class="peek__svg"></div>
+      <div class="peek__zoom"><button type="button" data-z="out" aria-label="Отдалить"><svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M224 128a8 8 0 0 1-8 8H40a8 8 0 0 1 0-16h176a8 8 0 0 1 8 8z"/></svg></button><button type="button" data-z="in" aria-label="Приблизить"><svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M224 128a8 8 0 0 1-8 8h-80v80a8 8 0 0 1-16 0v-80H40a8 8 0 0 1 0-16h80V40a8 8 0 0 1 16 0v80h80a8 8 0 0 1 8 8z"/></svg></button></div>
+    </div>
+    <p class="peek__hint">Приближайте двумя пальцами или кнопками. <br>Нажмите на точку, чтобы увидеть деталь</p>
   </div>
 </dialog>
 
@@ -2330,15 +2351,6 @@ steps.forEach(st => stepIO.observe(st));
   g.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(upd); }, { passive: true });
   addEventListener('resize', upd);
   upd();
-})();
-
-/* pinch zoom guard: blocked at normal scale, allowed as soon as the page is zoomed (so it can always be zoomed back out) */
-(() => {
-  const vv = window.visualViewport, h = document.documentElement;
-  const zoomed = () => !!vv && vv.scale > 1.01;
-  if (vv) vv.addEventListener('resize', () => h.classList.toggle('is-zoomed', zoomed()));
-  // iOS Safari ignores touch-action for pinch: its own gesture events are cancelled instead, only at normal scale
-  ['gesturestart', 'gesturechange'].forEach(t => document.addEventListener(t, e => { if (!zoomed()) e.preventDefault(); }, { passive: false }));
 })();
 
 /* ================= links to pages that do not exist yet ================= */
@@ -3191,7 +3203,61 @@ function resultHTML() {
     requestAnimationFrame(() => requestAnimationFrame(() => peek.classList.add('is-on')));
   };
   const close = () => { peek.classList.remove('is-on'); setTimeout(() => { peek.hidden = true; wrap.innerHTML = ''; }, 260); };
-  $('.calc__peek-btn', calc).addEventListener('click', open);
+  // zoom & pan: two fingers pinch, one finger drags when zoomed, double tap toggles, +/- buttons
+  const box = $('.peek__house', calc), zIn = $('[data-z="in"]', calc), zOut = $('[data-z="out"]', calc);
+  const MIN = 1, MAX = 4, pts = new Map();
+  let sc = 1, tx = 0, ty = 0, g = null, lastTap = 0;
+  const center = () => { const r = box.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; };
+  const apply = anim => {
+    sc = Math.min(MAX, Math.max(MIN, sc));
+    const mx = wrap.offsetWidth * (sc - 1) / 2, my = wrap.offsetHeight * (sc - 1) / 2;
+    tx = Math.min(mx, Math.max(-mx, tx)); ty = Math.min(my, Math.max(-my, ty));
+    wrap.style.transition = anim && !reduced ? 'transform 280ms cubic-bezier(.23,1,.32,1)' : 'none';
+    wrap.style.transform = `translate(${tx.toFixed(1)}px,${ty.toFixed(1)}px) scale(${sc.toFixed(3)})`;
+    wrap.style.setProperty('--is', (1 / sc).toFixed(4));
+    zIn.disabled = sc >= MAX - .01; zOut.disabled = sc <= MIN + .01;
+    box.classList.toggle('is-zoomed', sc > 1.01);
+  };
+  // scale to `to`, keeping the screen point (px, py) under the fingers
+  const zoomAt = (to, px, py, anim) => {
+    const [cx, cy] = center(), k = Math.min(MAX, Math.max(MIN, to)) / sc;
+    tx = (px - cx) - ((px - cx) - tx) * k; ty = (py - cy) - ((py - cy) - ty) * k; sc *= k; apply(anim);
+  };
+  const reset = () => { sc = 1; tx = ty = 0; apply(false); };
+  box.addEventListener('pointerdown', e => {
+    if (e.target.closest('.peek__zoom')) return;
+    pts.set(e.pointerId, [e.clientX, e.clientY]);
+    if (pts.size === 2) { const [a, b] = [...pts.values()]; g = { d: Math.hypot(a[0] - b[0], a[1] - b[1]), s: sc, m: [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2] }; }
+    else if (pts.size === 1) g = { p: [e.clientX, e.clientY], t: [tx, ty], moved: false };
+  });
+  box.addEventListener('pointermove', e => {
+    if (!pts.has(e.pointerId) || !g) return;
+    pts.set(e.pointerId, [e.clientX, e.clientY]);
+    if (pts.size >= 2 && g.d) {
+      const [a, b] = [...pts.values()], d = Math.hypot(a[0] - b[0], a[1] - b[1]), m = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
+      tx += m[0] - g.m[0]; ty += m[1] - g.m[1]; g.m = m;
+      zoomAt(g.s * d / g.d, m[0], m[1], false);
+    } else if (pts.size === 1 && g.p) {
+      const dx = e.clientX - g.p[0], dy = e.clientY - g.p[1];
+      if (Math.hypot(dx, dy) > 6) g.moved = true;
+      if (sc > 1.01 && g.moved) { tx = g.t[0] + dx; ty = g.t[1] + dy; apply(false); }
+    }
+  });
+  const up = e => {
+    if (!pts.has(e.pointerId)) return;
+    const wasTap = pts.size === 1 && g && g.p && !g.moved;
+    pts.delete(e.pointerId);
+    if (pts.size === 1) { const [p] = [...pts.values()]; g = { p, t: [tx, ty], moved: true }; } else if (!pts.size) g = null;
+    if (wasTap && !e.target.closest('.hm-hot')) {
+      const now = Date.now();
+      if (now - lastTap < 320) { zoomAt(sc > 1.5 ? 1 : 2.4, e.clientX, e.clientY, true); lastTap = 0; } else lastTap = now;
+    }
+  };
+  box.addEventListener('pointerup', up); box.addEventListener('pointercancel', up);
+  box.addEventListener('wheel', e => { e.preventDefault(); zoomAt(sc * Math.exp(-e.deltaY * .002), e.clientX, e.clientY, false); }, { passive: false });
+  zIn.addEventListener('click', () => { const [cx, cy] = center(); zoomAt(sc * 1.6, cx, cy, true); });
+  zOut.addEventListener('click', () => { const [cx, cy] = center(); zoomAt(sc / 1.6, cx, cy, true); });
+  $('.calc__peek-btn', calc).addEventListener('click', () => { reset(); open(); });
   $('.peek__close', calc).addEventListener('click', close);
   calc.addEventListener('close', () => { peek.classList.remove('is-on'); peek.hidden = true; });
   // result on phones: the estimate teaser at the top of the form scrolls down to the full estimate
