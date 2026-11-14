@@ -1352,6 +1352,61 @@ html{touch-action:manipulation}
   .side__form .pill{margin-top:18px}
 }
 
+
+/* ---- phones: popup polish ---- */
+@media (max-width:1199px){
+  /* nothing may widen the page (a wider page makes iOS zoom out and leave the content in a narrow column) */
+  html,body{overflow-x:clip}
+  .calc__peek,.calc{overflow-x:hidden}
+  .calc__peek .res__tip{max-width:min(210px,56vw)}
+
+  /* calculator: the question on one line */
+  .calc__q{white-space:nowrap;font-size:30px;line-height:1.05}
+  .calc__q br{display:none}
+
+  /* the house row: clearly a button (filled, icon in a circle, arrow at the end) */
+  .calc__peek-btn{display:flex;align-items:center;gap:10px;width:100%;height:46px;padding:0 14px 0 6px;border:0;border-radius:999px;background:rgba(122,59,38,.08);color:var(--ink);text-align:left}
+  .peek-btn__ico{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--clay);color:var(--cream)}
+  .peek-btn__ico svg{color:inherit}
+  .peek-btn__t{flex:1;min-width:0;font-size:11px;line-height:16px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .calc__peek-btn .calc__mototal{flex:none;font-size:19px;letter-spacing:0;text-transform:none}
+  .calc__peek-btn{text-transform:none;letter-spacing:0;font-size:14px}
+  .peek-btn__go{flex:none;color:var(--clay)}
+
+  /* result: the form first, the estimate card right under the button */
+  .calc.is-result .side__form{display:flex;flex-direction:column}
+  .side__jump{order:2;margin:24px 0 0}
+  .calc.is-result .side__form{padding-top:64px}
+
+  /* book popup: a smaller book, centred in its band */
+  .bookm__side{padding:20px 0 28px}
+  .ob-stage--modal{--pw:min(96px,26vw)}
+}
+@media (max-width:1199px) and (max-height:740px){
+  .bookm__side{padding:14px 0 22px}
+  .ob-stage--modal{--pw:min(80px,22vw)}
+}
+@media (max-width:359px){ .peek-btn__t{letter-spacing:.06em} }
+
+
+@media (max-width:1199px){
+  /* estimate card: placed under the form, but it rides along the bottom edge until you scroll to its place */
+  .side__jump{position:sticky;bottom:calc(10px + env(safe-area-inset-bottom));z-index:2;padding:9px 14px 10px;background:#23271f;border-color:rgba(205,185,143,.4);box-shadow:0 10px 30px rgba(0,0,0,.35)}
+  .side__jump .label{font-size:9.5px;line-height:14px}
+  .calc.is-result .side__form,.calc.is-result .calc__side,.calc.is-result .calc__grid{overflow:visible}
+  .side__jump b{margin-top:2px;font-size:26px;white-space:nowrap}
+  .side__jump{column-gap:10px}
+  .side__jump button{white-space:nowrap}
+  .side__jump button{margin-bottom:3px}
+}
+@media (max-width:359px){
+  .calc__peek-btn{gap:8px;padding-right:10px}
+  .peek-btn__t{font-size:10px;letter-spacing:.03em}
+  .calc__peek-btn .calc__mototal{font-size:16px}
+  .side__jump b{font-size:22px}
+  .side__jump button{letter-spacing:.1em;gap:6px}
+}
+
 </style>
 <script>
 /* The page is always laid out at 1920 design px and scaled to the window width (CSS zoom).
@@ -1863,7 +1918,7 @@ html{touch-action:manipulation}
     <div class="calc__main">
       <div class="calc__top"><span class="label">Расчёт стоимости дома</span><span class="label calc__count"></span></div>
       <div class="calc__bar"><i></i></div>
-      <div class="calc__mobar"><button class="calc__peek-btn" type="button"><svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M219.3 108.7l-80-80a16 16 0 0 0-22.6 0l-80 80A15.9 15.9 0 0 0 32 120v96a8 8 0 0 0 8 8h64a8 8 0 0 0 8-8v-56h32v56a8 8 0 0 0 8 8h64a8 8 0 0 0 8-8v-96a15.9 15.9 0 0 0-4.7-11.3zM208 208h-48v-56a8 8 0 0 0-8-8h-48a8 8 0 0 0-8 8v56H48v-88l80-80 80 80z"/></svg>Ваш дом</button><span class="calc__mototal" aria-live="polite"></span></div>
+      <div class="calc__mobar"><button class="calc__peek-btn" type="button"><span class="peek-btn__ico"><svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M219.3 108.7l-80-80a16 16 0 0 0-22.6 0l-80 80A15.9 15.9 0 0 0 32 120v96a8 8 0 0 0 8 8h64a8 8 0 0 0 8-8v-56h32v56a8 8 0 0 0 8 8h64a8 8 0 0 0 8-8v-96a15.9 15.9 0 0 0-4.7-11.3zM208 208h-48v-56a8 8 0 0 0-8-8h-48a8 8 0 0 0-8 8v56H48v-88l80-80 80 80z"/></svg></span><span class="peek-btn__t">Посмотреть дом</span><span class="calc__mototal" aria-live="polite"></span><svg class="peek-btn__go" width="14" height="14" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M181.7 133.7l-80 80a8 8 0 0 1-11.4-11.4l74.4-74.3-74.4-74.3a8 8 0 0 1 11.4-11.4l80 80a8 8 0 0 1 0 11.4z"/></svg></button></div>
       <div class="calc__body" id="calc-body"></div>
       <div class="calc__nav">
         <button class="textlink calc__back" type="button">← Назад</button>
@@ -2379,7 +2434,7 @@ $$('.qa__q').forEach(b => b.addEventListener('click', () => {
 document.addEventListener('click', e => { if (e.target.closest('[data-video]')) openModal($('#video-modal')); });
 function openModal(d) {
   const h = document.documentElement;
-  if (!h.classList.contains('has-modal')) h.style.setProperty('--sbw', Math.max(0, window.innerWidth - h.getBoundingClientRect().width) / (window.__Z || 1) + 'px');
+  if (!h.classList.contains('has-modal')) h.style.setProperty('--sbw', matchMedia('(pointer: fine)').matches ? Math.max(0, Math.min(24, window.innerWidth - h.getBoundingClientRect().width)) / (window.__Z || 1) + 'px' : '0px');
   d.classList.remove('is-closing'); d.showModal(); h.classList.add('has-modal');
   if (!d.hasAttribute('tabindex')) d.setAttribute('tabindex', '-1');
   d.focus({ preventScroll: true }); // keyboard users tab from here into the popup
@@ -2392,7 +2447,16 @@ function closeModal(d) {
   setTimeout(() => { d.close(); d.classList.remove('is-closing'); unlock(); }, 180);
 }
 // unlock scroll directly: some browsers deliver the dialog 'close' event late or not at all
-function unlock() { if (!$$('dialog.modal').some(x => x.open)) document.documentElement.classList.remove('has-modal'); }
+function unlock() {
+  if ($$('dialog.modal').some(x => x.open)) return;
+  document.documentElement.classList.remove('has-modal');
+  const vv = window.visualViewport, meta = document.querySelector('meta[name=viewport]');
+  if (vv && meta && Math.abs(vv.scale - 1) > .01 && !matchMedia('(pointer: fine)').matches) {
+    const c = meta.getAttribute('content');
+    meta.setAttribute('content', c + ', maximum-scale=1');     // snaps back to 100%...
+    setTimeout(() => meta.setAttribute('content', c), 350);     // ...and pinch-zoom is allowed again
+  }
+}
 document.addEventListener('keydown', e => { if (e.key === 'Escape') setTimeout(unlock, 0); });
 $$('dialog.modal').forEach(d => {
   d.addEventListener('close', unlock);
@@ -2999,6 +3063,7 @@ function renderStep() {
       }).join('') + `</div>`;
     }
     body.innerHTML = h;
+    fitTitle($('.calc__q', body));
   }
   body.scrollTop = 0;
   enter(body);
@@ -3006,6 +3071,14 @@ function renderStep() {
   if (!done) renderSide();
   else if (!reduced) $$('.kpi > div, .res__groups > div, .pack', body).forEach((el, i) =>
     el.animate([{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 500, delay: 200 + i * 45, easing: EASE_OUT, fill: 'backwards' }));
+}
+// phones: the question sits on one line; the font steps down until it fits the width
+function fitTitle(q) {
+  if (!q) return;
+  q.style.fontSize = '';
+  if (!narrow.matches) return;
+  let fs = parseFloat(getComputedStyle(q).fontSize);
+  while (q.scrollWidth > q.clientWidth + 1 && fs > 18) { fs -= 1; q.style.fontSize = fs + 'px'; }
 }
 function setRangeFill(inp) { inp.style.setProperty('--p', ((inp.value - inp.min) / (inp.max - inp.min) * 100) + '%'); }
 function bindStep() {
@@ -3128,7 +3201,9 @@ function openCalc(preset) {
   $$('.field', resForm).forEach(f => { f.classList.remove('has-error'); $('.field__err', f).textContent = ''; });
   renderStep();
   openModal(calc);
+  fitTitle($('.calc__q', body));
 }
+addEventListener('resize', () => { if (calc.open) fitTitle($('.calc__q', body)); });
 $$('[data-calc]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); openCalc(); }));
 
 /* ================= contact form ================= */
