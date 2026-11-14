@@ -1532,6 +1532,41 @@ html{touch-action:manipulation}
 
 @media (max-width:359px){ .side__jump button{width:52px} }
 
+
+/* ---- calculator Q7: included packages ---- */
+.opt.is-included{border-color:rgba(122,59,38,.4);background:rgba(122,59,38,.025)}
+.opt.is-included .opt__mark{border-color:var(--clay)}
+.opt.is-included .opt__mark::after{opacity:.4;transform:none}
+
+@media (max-width:1199px){
+  /* model sheet: bigger points of interest */
+  .calc__peek .hm-hot__dot{r:19px;stroke-width:3px}
+  .calc__peek .hm-hot__ring{r:34px}
+  .calc__peek .hm-hot__hit{r:50px}
+
+  /* estimate card: tap anywhere on it; the square holds a plain chevron that now and then catches the light */
+  .side__jump{cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .side__jump:active{transform:scale(.99)}
+  .side__jump button{position:relative;overflow:hidden}
+  .side__jump button .jump__ico svg{width:26px;height:26px;animation:none}
+  .side__jump button::after{content:"";position:absolute;top:-30%;bottom:-30%;left:-60%;width:50%;background:linear-gradient(105deg,transparent,rgba(255,255,255,.65),transparent);
+    transform:translateX(0) skewX(-12deg);animation:jumpShine 5s ease-in-out 1.5s infinite;pointer-events:none}
+
+  /* header: only the menu button, a round chip that reads on any background */
+  .header,.header.is-solid{background:none;border:0;pointer-events:none}
+  .header .logo,.header__cta > .pill{display:none!important}
+  .header__in{justify-content:flex-end;height:72px}
+  .burger{pointer-events:auto;width:52px;height:52px;background:rgba(241,238,231,.96);border:1px solid rgba(30,33,29,.12);box-shadow:0 6px 20px rgba(13,15,12,.18)}
+  .burger span{left:16px;right:16px}
+  .burger span:first-child{top:22px}
+  .burger span:last-child{top:28px}
+  html.menu-open .header{background:none}
+  .nav{top:0;height:100vh;height:100dvh;padding-top:88px;pointer-events:auto}
+  .hero .wrap{padding-top:36px}
+}
+@keyframes jumpShine{0%,62%{transform:translateX(0) skewX(-12deg)}86%,100%{transform:translateX(420%) skewX(-12deg)}}
+@media (prefers-reduced-motion:reduce){ .side__jump button::after{animation:none;display:none} }
+
 </style>
 <script>
 /* The page is always laid out at 1920 design px and scaled to the window width (CSS zoom).
@@ -2068,7 +2103,7 @@ html{touch-action:manipulation}
         <p class="calc__note">Расчёт ориентировочный, точность ±7%. Цены для Москвы и области на ноябрь 2026 года. Не является публичной офертой.</p>
       </div>
       <div class="side__form" id="side-form">
-        <div class="side__jump"><div><span class="label">Ваш расчёт готов</span><b class="side__jump-total"></b></div><button type="button" aria-label="Смотреть расчёт"><span class="jump__ico"><svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.7 149.7l-72 72a8 8 0 0 1-11.4 0l-72-72a8 8 0 0 1 11.4-11.4L120 196.7V40a8 8 0 0 1 16 0v156.7l58.3-58.4a8 8 0 0 1 11.4 11.4z"/></svg></span></button></div>
+        <div class="side__jump"><div><span class="label">Ваш расчёт готов</span><b class="side__jump-total"></b></div><button type="button" aria-label="Смотреть расчёт"><span class="jump__ico"><svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M213.7 101.7l-80 80a8 8 0 0 1-11.4 0l-80-80a8 8 0 0 1 11.4-11.4L128 164.7l74.3-74.4a8 8 0 0 1 11.4 11.4z"/></svg></span></button></div>
         <form id="res-form" novalidate>
           <span class="label stg">Последний шаг</span>
           <h3 class="side__title stg" style="--i:1">Получите точную смету <br><em>под ваш участок.</em></h3>
@@ -3239,9 +3274,13 @@ function bindStep() {
     });
     $$('.chip', body).forEach(c => c.addEventListener('click', () => { inp.value = c.dataset.area; inp.dispatchEvent(new Event('input')); }));
   }
+  // packages are cumulative: the chosen one and every one below it are shown as included
+  const markPacks = () => { const ins = $$('.opt input[name="pack"]', body), k = ins.findIndex(x => x.checked); ins.forEach((x, j) => x.closest('.opt').classList.toggle('is-included', k >= 0 && j < k)); };
+  markPacks();
   $$('.opt input', body).forEach(i => i.addEventListener('change', () => {
     if (i.type === 'checkbox') { S.extras = $$('.opt input:checked', body).map(x => x.value); answered.add('extras'); }
     else { S[i.name] = i.value; answered.add(i.name); }
+    if (i.name === 'pack') markPacks();
     renderSide();
   }));
 }
@@ -3374,7 +3413,14 @@ function resultHTML() {
   $('.peek__close', calc).addEventListener('click', close);
   calc.addEventListener('close', () => { peek.classList.remove('is-on'); peek.hidden = true; });
   // result on phones: the estimate teaser at the top of the form scrolls down to the full estimate
-  $('.side__jump button', calc).addEventListener('click', () => $('.calc__main', calc).scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' }));
+  // our own eased scroll (the browser's smooth scroll got cancelled when the tap landed on the card's text)
+  $('.side__jump', calc).addEventListener('click', () => {
+    const sc = calc, from = sc.scrollTop, to = from + $('.calc__main', calc).getBoundingClientRect().top - sc.getBoundingClientRect().top;
+    if (reduced) { sc.scrollTop = to; return; }
+    const t0 = performance.now(), dur = 650;
+    const step = t => { const k = Math.min(1, (t - t0) / dur), e = k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2; sc.scrollTop = from + (to - from) * e; if (k < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  });
 })();
 
 // form on the dark side
