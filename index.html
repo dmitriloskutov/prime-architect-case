@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ebe8e1">
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
 <meta name="googlebot" content="noindex, nofollow">
 <meta name="yandex" content="noindex, nofollow">
@@ -107,6 +108,8 @@ button,.pill,.chip,.filter,.opt,.card,.textlink,.nav a,.logo,.modal__close,.soci
 /* ---------- HEADER ---------- */
 .header{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(241,238,231,.78);backdrop-filter:blur(14px) saturate(1.1);-webkit-backdrop-filter:blur(14px) saturate(1.1);border-bottom:1px solid var(--ink-line);transition:background-color 200ms ease}
 .header.is-solid{background:rgba(241,238,231,.95)}
+/* content that scrolls under a browser's own translucent top bar shows the header's glass there, not the page */
+.header::before{content:"";position:absolute;left:0;right:0;bottom:100%;height:240px;background:inherit;-webkit-backdrop-filter:inherit;backdrop-filter:inherit;pointer-events:none}
 .header__in{height:72px;display:flex;align-items:center;justify-content:space-between;gap:32px}
 .logo{font-family:var(--serif);font-weight:400;font-size:26px;line-height:1;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
 .logo span{margin-left:.5em}
@@ -1444,6 +1447,29 @@ html{touch-action:manipulation}
 .team__swipe-row{display:flex;align-items:center;justify-content:space-between;gap:16px}
 .team__count{font-size:11px;line-height:16px;font-weight:600;letter-spacing:.16em;color:var(--ink-55);font-variant-numeric:tabular-nums}
 .team__count b{font-weight:600;color:var(--clay)}
+
+/* ---- phones: hero photo, video close, estimate card ---- */
+@media (max-width:1199px){
+  /* the photo height is fixed once per width (svh changed while an in-app browser's bars slid away: the photo shrank and grew) */
+  .hero__img{height:calc(var(--vh,100vh) * .5)}
+  .hero__shade{height:calc(var(--vh,100vh) * .5)}
+  /* ...and it slides up into place when it comes into view */
+  .hero__img{clip-path:inset(18% 0 0 0);transform:translateY(28px) scale(1.06);transform-origin:50% 100%;
+    transition:clip-path 1100ms var(--ease-out),transform 1300ms var(--ease-out)}
+  .hero__img.is-in{clip-path:inset(0 0 0 0);transform:none}
+  /* video: the close button sits in the video's own corner from the first frame */
+  .vmodal .modal__close{position:absolute;top:12px;right:12px}
+  /* estimate: a card and a separate button of the same height, side by side */
+  .side__jump{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:stretch;padding:0;border:0;background:none;box-shadow:none}
+  .side__jump > div{display:block;padding:10px 14px 11px;border:1px solid rgba(205,185,143,.4);border-radius:4px;background:#23271f;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+  .side__jump .label{grid-column:auto}
+  .side__jump button{display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:8px;margin:0;padding:10px 14px 11px;border:0;border-radius:4px;background:var(--cream);color:var(--ink);box-shadow:0 10px 30px rgba(0,0,0,.35);
+    font-size:10px;line-height:14px;letter-spacing:.14em;text-align:left;transition:transform 160ms var(--ease-out)}
+  .side__jump button:active{transform:scale(.97)}
+  .side__jump button svg{color:var(--clay);width:16px;height:16px}
+}
+@media (max-width:1199px) and (prefers-reduced-motion:reduce){ .hero__img{clip-path:none;transform:none;transition:none} }
+
 </style>
 <script>
 /* The page is always laid out at 1920 design px and scaled to the window width (CSS zoom).
@@ -1980,7 +2006,7 @@ html{touch-action:manipulation}
         <p class="calc__note">Расчёт ориентировочный, точность ±7%. Цены для Москвы и области на ноябрь 2026 года. Не является публичной офертой.</p>
       </div>
       <div class="side__form" id="side-form">
-        <div class="side__jump"><div><span class="label">Ваш расчёт готов</span><b class="side__jump-total"></b></div><button type="button">Смотреть расчёт<svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.7 149.7l-72 72a8 8 0 0 1-11.4 0l-72-72a8 8 0 0 1 11.4-11.4L120 196.7V40a8 8 0 0 1 16 0v156.7l58.3-58.4a8 8 0 0 1 11.4 11.4z"/></svg></button></div>
+        <div class="side__jump"><div><span class="label">Ваш расчёт готов</span><b class="side__jump-total"></b></div><button type="button"><span>Смотреть <br>расчёт</span><svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.7 149.7l-72 72a8 8 0 0 1-11.4 0l-72-72a8 8 0 0 1 11.4-11.4L120 196.7V40a8 8 0 0 1 16 0v156.7l58.3-58.4a8 8 0 0 1 11.4 11.4z"/></svg></button></div>
         <form id="res-form" novalidate>
           <span class="label stg">Последний шаг</span>
           <h3 class="side__title stg" style="--i:1">Получите точную смету <br><em>под ваш участок.</em></h3>
@@ -2151,15 +2177,11 @@ function countUp(el) {
   el.textContent = 0;
   requestAnimationFrame(tick);
 }
-const statsIO = new IntersectionObserver(es => es.forEach(e => {
-  if (!e.isIntersecting) return;
-  statsIO.disconnect();
-  const go = () => setTimeout(() => $$('[data-count]').forEach(countUp), reduced ? 0 : 700);
-  document.documentElement.classList.contains('is-loading') ? addEventListener('preloader:done', go, { once: true }) : go();
-}), { threshold: .4 });
 document.fonts.ready.then(() => {
   $$('[data-count]').forEach(el => { el.style.minWidth = el.getBoundingClientRect().width + 'px'; if (!reduced) el.textContent = 0; });
-  statsIO.observe($('.stats'));
+  // counts up as soon as the page shows, whether or not the numbers are in view yet
+  const go = () => setTimeout(() => $$('[data-count]').forEach(countUp), reduced ? 0 : 700);
+  document.documentElement.classList.contains('is-loading') ? addEventListener('preloader:done', go, { once: true }) : go();
 });
 const header = $('.header');
 /* hero is sticky: as the next section rises over it, the hero sinks back (scale + dim) and its copy drifts up and fades */
@@ -2365,6 +2387,14 @@ steps.forEach(st => stepIO.observe(st));
   g.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(upd); }, { passive: true });
   addEventListener('resize', upd);
   upd();
+})();
+
+/* phones: the hero photo slides into place the first time it is seen */
+(() => {
+  const img = $('.hero__img');
+  if (!img || !matchMedia('(max-width: 1199px)').matches) { if (img) img.classList.add('is-in'); return; }
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { img.classList.add('is-in'); io.disconnect(); } }), { threshold: .15 });
+  io.observe(img);
 })();
 
 /* ================= links to pages that do not exist yet ================= */
@@ -3072,7 +3102,7 @@ function renderSide() {
     : '<p class="calc__empty">Параметры появятся здесь по мере ответов.</p>';
   shownKeys = new Set(p.map(x => x[1]));
   renderModel();
-  $('.calc__mototal', calc).textContent = '≈ ' + fmtM(r.total);
+  rollMoney($('.calc__mototal', calc), r.total, '≈ ');
 }
 function renderStep() {
   const done = qi === Q.length;
@@ -3089,9 +3119,9 @@ function renderStep() {
   }
   if (done) {
     body.innerHTML = resultHTML();
-    const t = fmtM(compute(S).total);
-    $('.calc__mototal', calc).textContent = '≈ ' + t;
-    $('.side__jump-total', calc).textContent = t;
+    const tot = compute(S).total;
+    rollMoney($('.calc__mototal', calc), tot, '≈ ');
+    const jt = $('.side__jump-total', calc); jt._v = 0; rollMoney(jt, tot, '', 1100);
     if (narrow.matches) calc.scrollTop = 0; // phones: the form (with the estimate teaser) comes first
   }
   else {
@@ -3126,6 +3156,21 @@ function fitTitle(q) {
   if (!narrow.matches) return;
   let fs = parseFloat(getComputedStyle(q).fontSize);
   while (q.scrollWidth > q.clientWidth + 1 && fs > 18) { fs -= 1; q.style.fontSize = fs + 'px'; }
+}
+// a money figure rolls from its last value to the new one (ease-out); the first value is shown at once
+function rollMoney(el, to, prefix = '', dur = 450) {
+  if (!el) return;
+  const from = el._v;
+  el._v = to;
+  cancelAnimationFrame(el._raf);
+  if (from === undefined || reduced || from === to) { el.textContent = prefix + fmtM(to); return; }
+  const t0 = performance.now();
+  const step = t => {
+    const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+    el.textContent = prefix + fmtM(from + (to - from) * e);
+    if (k < 1) el._raf = requestAnimationFrame(step);
+  };
+  el._raf = requestAnimationFrame(step);
 }
 function setRangeFill(inp) { inp.style.setProperty('--p', ((inp.value - inp.min) / (inp.max - inp.min) * 100) + '%'); }
 function bindStep() {
@@ -3296,7 +3341,7 @@ back.addEventListener('click', () => { if (qi > 0) { qi--; renderStep(); } });
 next.addEventListener('click', () => { if (qi < Q.length) { answered.add(Q[qi].key); qi++; renderStep(); } });
 function openCalc(preset) {
   S = { ...DEF, ...(preset || {}), extras: [...((preset && preset.extras) || [])] };
-  qi = 0; shownTotal = 0; shownKeys = new Set(); HOUSE.forget();
+  qi = 0; shownTotal = 0; shownKeys = new Set(); HOUSE.forget(); $('.calc__mototal', calc)._v = undefined;
   answered = new Set(preset ? Q.map(q => q.key) : []);
   sideForm.classList.remove('is-sent'); resForm.reset();
   $$('.field', resForm).forEach(f => { f.classList.remove('has-error'); $('.field__err', f).textContent = ''; });
