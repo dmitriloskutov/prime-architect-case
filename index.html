@@ -1468,8 +1468,10 @@ html{touch-action:manipulation}
 
 
 @media (max-width:1199px){
-  .header{position:sticky;top:0;margin-bottom:-65px}
-  .header::before{height:400px;background:#ebe8e1;-webkit-backdrop-filter:none;backdrop-filter:none}
+  /* iOS browsers (Safari, Telegram) colour the strip under their own top bar from a fixed, fully opaque element
+     touching the top edge; a see-through header lets the page show there instead */
+  .header,.header.is-solid{position:fixed;background:#ebe8e1;-webkit-backdrop-filter:none;backdrop-filter:none}
+  .header::before{display:none}
 }
 
 
