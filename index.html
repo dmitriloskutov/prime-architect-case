@@ -307,7 +307,7 @@ button,.pill,.chip,.filter,.opt,.card,.textlink,.nav a,.logo,.modal__close,.soci
 
 /* ---------- 05 MATERIALS ---------- */
 .cine{position:relative;color:#fff;overflow:hidden;background:var(--olive)}
-.cine__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cine__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% 50%}
 .cine__shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(19,22,18,.86) 0%,rgba(19,22,18,.7) 45%,rgba(19,22,18,.35) 100%)}
 .cine .wrap{padding-top:140px;padding-bottom:140px;display:grid;gap:88px}
 .cine__head{display:flex;flex-direction:column;gap:44px;max-width:900px}
@@ -421,8 +421,18 @@ button,.pill,.chip,.filter,.opt,.card,.textlink,.nav a,.logo,.modal__close,.soci
 .ob-stage--modal .ob-right > .ob-base{box-shadow:18px 28px 40px -14px rgba(0,0,0,.5)}
 /* popup (tilted -4deg while it animates in 3D): a wider 4px transparent frame, so the filtered edge has room to fade
    even when the page scale shrinks a CSS pixel below one screen pixel; the visible page size is unchanged */
-.ob-stage--modal .ob-face{inset:-4px;border-width:4px}
-.ob-stage--modal .ob-right > .ob-base{inset:-3px -8px -8px -3px;border-width:4px 8px 8px 4px;
+/* band book, tilted: a flat float with its own perspective is rendered as one offscreen surface (book upright inside,
+   page turns still in 3D), and only that surface is rotated -4deg and filtered, with a 40px transparent margin: smooth edges */
+.ob-stage--band .ob-float{inset:-40px;transform:rotate(-4deg);transform-style:flat;perspective:2200px;will-change:transform;
+  /* a mask forces one offscreen surface: every 3D page is drawn into it upright, then the surface is turned and filtered */
+  -webkit-mask-image:linear-gradient(#000,#000);mask-image:linear-gradient(#000,#000)}
+.ob-stage--band .ob-book{inset:40px}
+/* the cover overhangs the pages by 2px (top, fore-edge, bottom), so no page shows through the cover's soft edge */
+.ob-stage--band .ob-face.bookcov{inset:-6px -6px -6px -4px}
+/* and the pages start 1px off the spine, so their edge also stays under the cover's left edge */
+.ob-stage--band .ob-right > .ob-leaf > .ob-face:not(.ob-back):not(.bookcov){inset:-4px -4px -4px -3px}
+.ob-stage--modal .ob-face,.ob-stage--band .ob-face{inset:-4px;border-width:4px}
+.ob-stage--modal .ob-right > .ob-base,.ob-stage--band .ob-right > .ob-base{inset:-3px -8px -8px -3px;border-width:4px 8px 8px 4px;
   background:linear-gradient(#f6f2ea,#f6f2ea) padding-box,
              linear-gradient(#e9e4d8,#e9e4d8) 6px 6px / calc(100% - 12px) calc(100% - 12px) no-repeat border-box,
              linear-gradient(#d9d3c3,#d9d3c3) 9px 9px / calc(100% - 12px) calc(100% - 12px) no-repeat border-box}
@@ -502,6 +512,7 @@ button,.pill,.chip,.filter,.opt,.card,.textlink,.nav a,.logo,.modal__close,.soci
 .team .eyebrow{color:var(--clay)}
 .team .h2 em{color:var(--clay)}
 .team__grid{display:grid;grid-template-columns:repeat(5,1fr);gap:32px;margin-top:72px}
+.team__swipe{display:none}
 .person .media{aspect-ratio:3/4}
 .person .media img{transition:transform 700ms var(--ease-out)}
 @media (hover:hover) and (pointer:fine){ .person:hover .media img{transform:scale(1.03)} }
@@ -614,7 +625,7 @@ html.has-modal .header{right:var(--sbw,0px)}
 @media (hover:hover) and (pointer:fine){ .modal__close--light:hover{background:rgba(255,255,255,.2)} .modal__close--dark:hover{background:rgba(30,33,29,.14)} }
 
 /* calculator */
-.calc{width:min(1360px,calc(var(--vw,100vw) * .94));height:min(860px,calc(var(--vh,100vh) * .94))}
+.calc{width:min(1640px,calc(var(--vw,100vw) * .94));height:min(900px,calc(var(--vh,100vh) * .94))}
 .calc__grid{position:relative;height:100%}
 .calc__main{display:flex;flex-direction:column;height:100%;min-height:0;margin-right:420px;padding:40px 56px 32px}
 .calc.is-result .calc__main{margin-right:560px}
@@ -736,6 +747,106 @@ html.has-modal .header{right:var(--sbw,0px)}
 .pack.is-off .pack__add{display:block;margin-top:6px;font-size:12px;line-height:18px;color:var(--ink-55)}
 .pack__add{display:none}
 .res__note{margin-top:20px;font-size:12px;line-height:18px;color:var(--ink-55)}
+
+/* ---------- calculator: the house model takes the right half ---------- */
+.calc__main{margin-right:calc(100% - 640px);padding:40px 48px 32px}
+.calc.is-result .calc__main{margin-right:560px}
+.calc__side{left:640px;right:-1px;width:auto;clip-path:inset(0 0 0 0)}
+@media (min-width:1200px){ .modal.calc{background:linear-gradient(90deg,var(--cream) calc(100% - 40px),var(--olive) calc(100% - 40px))} }
+.calc.is-result .calc__side{clip-path:inset(0 0 0 calc(100% - 560px))}
+.side__sum{left:0;padding:34px 32px 22px}
+.side__head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding:0 64px 0 8px}
+.side__head .calc__total{margin-top:10px;font-size:56px}
+.side__meta{text-align:right;padding-bottom:6px}
+.side__meta .calc__range{margin-top:0}
+.calc__stage{flex:1;min-height:0;margin-top:4px}
+.calc__stage svg{display:block;width:100%;height:100%}
+.calc__params{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);margin:0;border:0}
+.side__sum .calc__note{margin-top:6px;padding:12px 8px 0}
+.side__form{left:calc(100% - 560px)}
+.calc__q{font-size:52px}
+.opts{gap:12px;margin-top:32px}
+.opts--3{grid-template-columns:1fr}
+.opts--5{grid-template-columns:repeat(2,1fr)}
+.opt{padding:18px 20px 18px 56px;gap:6px}
+.opt__mark{left:20px;top:21px}
+.opt__t{font-size:23px}
+.opt__s{font-size:13px;line-height:20px}
+.area__val{font-size:104px}
+.res__house{position:relative;margin:24px 0 0;aspect-ratio:700/440;border-radius:4px;background:rgba(30,33,29,.035)}
+.res__hint{position:absolute;left:16px;bottom:12px;font-size:11px;line-height:16px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-55);pointer-events:none}
+.hm-hot{cursor:pointer;outline:none}
+.hm-hot__hit{fill:transparent}
+.hm-hot__dot{fill:var(--clay);stroke:#fff;stroke-width:1.5;transition:r 200ms var(--ease-out)}
+.hm-hot__ring{fill:rgba(122,59,38,.18);transform-box:fill-box;transform-origin:center;animation:hmPulse 2.4s ease-out infinite}
+.hm-hot.is-on .hm-hot__dot{r:6}
+.hm-hot:focus-visible .hm-hot__ring{fill:none;stroke:var(--clay);stroke-width:1.5;animation:none}
+@keyframes hmPulse{0%{transform:scale(.6);opacity:1}100%{transform:scale(1.7);opacity:0}}
+.res__tip{position:absolute;z-index:2;display:flex;flex-direction:column;gap:3px;padding:10px 14px 11px;border-radius:4px;background:var(--ink);color:var(--cream);white-space:nowrap;pointer-events:none;
+  opacity:0;transform:translate(16px,-50%) scale(.97);transform-origin:left center;transition:opacity 160ms ease,transform 200ms var(--ease-out)}
+.res__tip.is-left{transform:translate(calc(-100% - 16px),-50%) scale(.97);transform-origin:right center}
+.res__tip.is-on{opacity:1;transform:translate(16px,-50%)}
+.res__tip.is-left.is-on{transform:translate(calc(-100% - 16px),-50%)}
+.res__tip .label{font-size:9.5px;letter-spacing:.16em;color:var(--gold)}
+.res__tip b{font-family:var(--serif);font-weight:400;font-size:20px;line-height:1.1}
+.res__tip span:last-child{font-size:12px;line-height:16px;color:rgba(241,238,231,.7)}
+@media (prefers-reduced-motion:reduce){ .hm-hot__ring{animation:none} .res__tip{transition:none} }
+.res__house svg{display:block;width:100%;height:100%}
+
+/* house model */
+.hm{overflow:visible}
+.hm-g{fill:#f1eee7;stroke:none}
+.is-mass .hm-g{stroke:rgba(241,238,231,.16);stroke-width:.8;stroke-linejoin:round}
+.hm-tex{fill:none;stroke-width:.7;stroke-linecap:round}
+.hm-foot{fill:none;stroke:var(--gold);stroke-width:1.2;stroke-dasharray:5 4}
+.hm-dim{fill:none;stroke:var(--gold);stroke-width:1}
+.hm-dimt{fill:var(--gold);font:500 12px/1 var(--sans);letter-spacing:.06em;text-anchor:middle}
+.hm-lvl{fill:none;stroke:#b8693f;stroke-width:1.6;stroke-dasharray:6 4}
+.hm-xray{fill:none;stroke:rgba(241,238,231,.42);stroke-width:1;stroke-dasharray:3 3}
+.hm-net{fill:none;stroke:#8fb2c4;stroke-width:1.4;stroke-dasharray:6 4}
+.hm-net2{fill:none;stroke:var(--gold);stroke-width:1.4;stroke-dasharray:6 4}
+.hm-gas{fill:none;stroke:#e0b94c;stroke-width:2.4;stroke-linejoin:round;stroke-linecap:round}
+.hm-smoke{fill:rgba(241,238,231,.16);animation:hmSmoke 3.4s ease-in-out infinite}
+.hm-smoke--2{animation-delay:.7s}
+.hm-smoke--3{animation-delay:1.4s}
+.hm-c path{fill:none;stroke:rgba(241,238,231,.24);stroke-width:1;stroke-linejoin:round}
+.hm-c:not(.is-cur) .hm-cv{fill:rgba(241,238,231,.72)}
+.hm-c:not(.is-cur) .hm-cp{fill:rgba(205,185,143,.7)}
+.hm-c:not(.is-cur) .hm-dot{fill:rgba(241,238,231,.6)}
+.hm-dot{fill:var(--cream)}
+.hm-ck{font:600 10px/1 var(--sans);letter-spacing:.14em;fill:rgba(241,238,231,.55)}
+.hm-cv{font:400 19px/1 var(--serif);fill:var(--cream)}
+.hm-cp{font:500 11px/1 var(--sans);letter-spacing:.02em;fill:var(--gold)}
+.hm-c.is-cur path{stroke:var(--gold);stroke-width:1.2}
+.hm-c.is-cur .hm-dot{fill:var(--gold)}
+.hm-c.is-cur .hm-ck{fill:var(--gold)}
+.hm--light .hm-g{fill:#1e211d}
+.hm--light .is-mass .hm-g{stroke:rgba(30,33,29,.16)}
+.hm--light .hm-xray{stroke:rgba(30,33,29,.4)}
+.hm--light .hm-foot,.hm--light .hm-dim,.hm--light .hm-net2{stroke:var(--clay)}
+.hm--light .hm-dimt{fill:var(--clay)}
+.hm--light .hm-smoke{fill:rgba(30,33,29,.12)}
+.hm--light .hm-c path{stroke:rgba(30,33,29,.35)}
+.hm--light .hm-dot{fill:var(--ink)}
+.hm--light .hm-ck{fill:rgba(30,33,29,.55)}
+.hm--light .hm-cv{fill:var(--ink)}
+.hm--light .hm-cp{fill:var(--clay)}
+.hm-p.is-new{animation:hmIn 700ms var(--ease-out) both}
+.hm-p--roof.is-new{animation-name:hmDrop;animation-duration:850ms}
+.hm-p.is-swap{animation:hmSwap 450ms ease both}
+.hm-c.is-new path{stroke-dasharray:1;stroke-dashoffset:1;animation:hmDraw 650ms 250ms var(--ease-out) forwards}
+.hm-c.is-new circle,.hm-c.is-new text{animation:hmFade 450ms 450ms ease both}
+@keyframes hmIn{from{opacity:0;transform:translateY(-16px)}}
+@keyframes hmDrop{from{opacity:0;transform:translateY(-46px)}}
+@keyframes hmSwap{from{opacity:.2}}
+@keyframes hmDraw{to{stroke-dashoffset:0}}
+@keyframes hmFade{from{opacity:0}}
+@keyframes hmSmoke{0%{opacity:0;transform:translateY(6px)}40%{opacity:1}100%{opacity:0;transform:translateY(-16px)}}
+@media (prefers-reduced-motion:reduce){
+  .hm-p.is-new,.hm-p.is-swap,.hm-c.is-new circle,.hm-c.is-new text{animation:none}
+  .hm-c.is-new path{animation:none;stroke-dasharray:none;stroke-dashoffset:0}
+  .hm-smoke{display:none}
+}
 
 /* scrollbars in the site's palette */
 html{scrollbar-color:rgba(30,33,29,.3) var(--cream)}
@@ -1110,6 +1221,40 @@ html{scrollbar-color:rgba(30,33,29,.3) var(--cream)}
   .bento .cell--b,.bento .cell--c,.bento .cell--f,.bento .cell--g{grid-column:span 2;min-height:200px}
 }
 
+
+/* calculator on phones and tablets: a compact model above the question */
+@media (max-width:1199px){
+  .res__house{display:none}
+}
+
+
+/* phones and tablets: the offer and the button first, the photo of the house after them */
+@media (max-width:1199px){
+  .hero{display:flex;flex-direction:column;min-height:0;background:var(--olive)}
+  .hero .wrap{order:1;min-height:0;padding-top:92px;padding-bottom:28px}
+  .hero__img{order:2;position:relative;display:block;width:100%;height:50svh;min-height:300px;max-height:620px;object-fit:cover;object-position:62% 42%;animation:none}
+  .hero__shade{inset:auto 0 0 0;height:50svh;min-height:300px;max-height:620px;
+    background:linear-gradient(180deg,var(--olive) 0%,rgba(44,49,40,.55) 14%,rgba(19,22,18,0) 34%)}
+
+  /* stretched buttons: the round arrow stays at the left edge, the words stay centred */
+  .hero__cta .pill:not(.pill--noico),.band__cta .pill:not(.pill--noico),.life__end .pill:not(.pill--noico),.vmodal__bar .pill:not(.pill--noico),
+  .case__actions .pill:not(.pill--noico),.bookm form .pill:not(.pill--noico),.nav__extra .pill:not(.pill--noico){padding:2px 52px 0}
+  .hero__cta .pill__ico,.band__cta .pill__ico,.life__end .pill__ico,.vmodal__bar .pill__ico,.case__actions .pill__ico,.bookm form .pill__ico,.nav__extra .pill__ico{position:absolute;left:6px;top:calc(50% - 18px);margin:0}
+
+  /* team: say it scrolls sideways, and show where you are */
+  .team__swipe{display:flex;flex-direction:column;gap:12px;margin-top:36px}
+  .team__swipe-t{display:inline-flex;align-items:center;gap:10px;font-size:11px;line-height:16px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--clay)}
+  .team__swipe-t svg{animation:swipeNudge 1.6s var(--ease-in-out) infinite}
+  .team__track{position:relative;display:block;height:2px;background:var(--ink-line);overflow:hidden}
+  .team__track i{position:absolute;left:0;top:0;bottom:0;width:30%;background:var(--clay);will-change:transform}
+  .team__grid{margin-top:20px}
+}
+@keyframes swipeNudge{0%,100%{transform:none}50%{transform:translateX(6px)}}
+@media (prefers-reduced-motion:reduce){ .team__swipe-t svg{animation:none} }
+@media (max-width:1199px) and (min-height:0) and (max-height:520px) and (orientation:landscape){
+  .hero__img,.hero__shade{height:70vh;min-height:0}
+}
+
 </style>
 <script>
 /* The page is always laid out at 1920 design px and scaled to the window width (CSS zoom).
@@ -1444,7 +1589,7 @@ html{scrollbar-color:rgba(30,33,29,.3) var(--cream)}
 
 <!-- 05 MATERIALS -->
 <section class="cine" id="materials" aria-labelledby="materials-title">
-  <img class="cine__img" src="assets/l-blocks.webp" alt="" loading="lazy">
+  <img class="cine__img" src="assets/l-materials.webp" alt="Угол стены из газобетонных блоков" loading="lazy" decoding="async">
   <div class="cine__shade" aria-hidden="true"></div>
   <div class="wrap">
     <div class="cine__head">
@@ -1506,6 +1651,7 @@ html{scrollbar-color:rgba(30,33,29,.3) var(--cream)}
       </div>
       <p class="lead reveal" style="--i:3">Над каждым домом работают архитектор, руководитель проекта, инженер‑сметчик и наша бригада. Вы знаете каждого по имени.</p>
     </div>
+    <div class="team__swipe" aria-hidden="true"><span class="team__swipe-t">Листайте<svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M221.7 133.7l-72 72a8 8 0 0 1-11.4-11.4l58.4-58.3H40a8 8 0 0 1 0-16h156.7l-58.4-58.3a8 8 0 0 1 11.4-11.4l72 72a8 8 0 0 1 0 11.4z"/></svg></span><span class="team__track"><i></i></span></div>
     <div class="team__grid">
       <article class="person reveal"><div class="media reveal-img"><img src="assets/l-team-1.webp" alt="Алексей Воронцов" loading="lazy"></div>
         <p class="person__role">Основатель</p><h3>Алексей Воронцов</h3><p class="person__text">Строит дома с 2001 года и лично принимает каждый объект перед сдачей.</p></article>
@@ -1629,10 +1775,11 @@ html{scrollbar-color:rgba(30,33,29,.3) var(--cream)}
     <aside class="calc__side">
       <button class="modal__close modal__close--light" type="button" data-close aria-label="Закрыть калькулятор"><svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M205.7 194.3a8 8 0 0 1-11.4 11.4L128 139.3l-66.3 66.4a8 8 0 0 1-11.4-11.4l66.4-66.3-66.4-66.3a8 8 0 0 1 11.4-11.4l66.3 66.4 66.3-66.4a8 8 0 0 1 11.4 11.4L139.3 128z"/></svg></button>
       <div class="side__sum" aria-live="polite">
-        <span class="label">Предварительная стоимость</span>
-        <div class="calc__total">—</div>
-        <p class="calc__range"></p>
-        <p class="calc__sqm"></p>
+        <div class="side__head">
+          <div><span class="label">Предварительная стоимость</span><div class="calc__total">—</div></div>
+          <div class="side__meta"><p class="calc__range"></p><p class="calc__sqm"></p></div>
+        </div>
+        <div class="calc__stage" aria-hidden="true"></div>
         <dl class="calc__params"></dl>
         <p class="calc__note">Расчёт ориентировочный, точность ±7%. Цены для Москвы и области на ноябрь 2026 года. Не является публичной офертой.</p>
       </div>
@@ -1981,7 +2128,7 @@ steps.forEach(st => stepIO.observe(st));
 (() => {
   if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
   const place = (p, e) => {
-    const r = p.getBoundingClientRect(), Z = window.__Z || 1;
+    const r = p.getBoundingClientRect(), Z = p.currentCSSZoom || (window.__Z || 1) * (p.closest('.hero') ? parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hk')) || 1 : 1);
     p.style.setProperty('--x', (e.clientX - r.left) / Z + 'px');
     p.style.setProperty('--y', (e.clientY - r.top) / Z + 'px');
     const x = e.clientX - r.left, y = e.clientY - r.top; // circle just large enough to reach the farthest corner
@@ -1997,6 +2144,22 @@ steps.forEach(st => stepIO.observe(st));
     if (!p || p.contains(e.relatedTarget)) return;
     place(p, e); p.classList.remove('is-hover');
   });
+})();
+
+/* team on phones: the progress bar under "Листайте" follows the swipe */
+(() => {
+  const g = $('.team__grid'), bar = $('.team__track i');
+  if (!g || !bar) return;
+  let raf = 0;
+  const upd = () => {
+    raf = 0;
+    const max = g.scrollWidth - g.clientWidth, w = Math.min(1, g.clientWidth / g.scrollWidth), p = max > 0 ? g.scrollLeft / max : 0;
+    bar.style.width = (w * 100) + '%';
+    bar.style.transform = `translateX(${(p * (1 - w) / w * 100).toFixed(2)}%)`;
+  };
+  g.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(upd); }, { passive: true });
+  addEventListener('resize', upd);
+  upd();
 })();
 
 /* ================= links to pages that do not exist yet ================= */
@@ -2259,9 +2422,415 @@ function compute(s) {
   return { rows, subs, extras, total, months };
 }
 
+/* ================= calculator: the house assembles itself ================= */
+// A small isometric renderer. Every answer adds its part of the house; parts not chosen yet stay a dashed outline.
+// Units are metres; the model is fitted into the SVG box at the end.
+const HOUSE = (() => {
+  const CO = Math.cos(Math.PI / 6);
+  const LV = (() => { const v = [.3, .6, 1], m = Math.hypot(...v); return v.map(x => x / m); })();
+  const rgb = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+  const tone = (h, k) => 'rgb(' + rgb(h).map(c => Math.round(Math.min(255, c * k))).join(',') + ')';
+  const lit = n => .6 + .4 * Math.max(0, n[0] * LV[0] + n[1] * LV[1] + n[2] * LV[2]);
+  const PAL = {
+    concrete: '#aaa599', plinth: '#8e897f', gas: '#dcd7cb', ceramic: '#bf7a5b',
+    metal: '#6b7069', soft: '#8b5b49', flat: '#a39e93',
+    plaster: '#ece5d7', fiber: '#a97f59', clinker: '#a65a3f',
+    deck: '#b58f66', post: '#d3ccbc', carport: '#5f645d', meter: '#cbc5b8',
+    shrub: '#61774f', path: '#cbc3b2', hole: '#1e211c', glass: '#74828a', lit: '#f2c97c', door: '#6d5341', chimney: '#9c6a55', cap: '#4f544d', lid: '#7e796f',
+  };
+  const THEME = { dark: { ground: '#3b4236', soil: '#4c4336' }, light: { ground: '#dad3c3', soil: '#bcae95' } };
+  const TEXF = { gas: [.5, 1.25], ceramic: [.5, .75], fiber: [.24, 0], clinker: [.25, .62], plaster: null };
+  const money = n => n >= 1e6 ? (n / 1e6).toFixed(2).replace(/0$/, '').replace('.', ',') + ' млн ₽' : Math.round(n / 1000) + ' тыс. ₽';
+  const dec = n => String(Math.round(n * 10) / 10).replace('.', ',');
+  const NX = [1, 0, 0], NY = [0, 1, 0], NZ = [0, 0, 1];
+  const F = (p, n, c, ln, cls) => ({ t: 'f', p, n, c, ln, cls });
+  const vq = (ax, k, a0, a1, z0, z1) => ax === 'x' ? [[a0, k, z0], [a1, k, z0], [a1, k, z1], [a0, k, z1]] : [[k, a0, z0], [k, a1, z0], [k, a1, z1], [k, a0, z1]];
+  const vp = (ax, k, a, z) => ax === 'x' ? [a, k, z] : [k, a, z];
+  // horizontal courses (+ staggered vertical joints) on a vertical rectangle
+  function courses(mat, ax, k, a0, a1, z0, z1) {
+    const t = TEXF[mat]; if (!t) return null;
+    const [step, joint] = t, out = [];
+    for (let z = z0 + step; z < z1 - .03; z += step) out.push([vp(ax, k, a0, z), vp(ax, k, a1, z)]);
+    if (joint) for (let z = z0, row = 0; z < z1 - .03; z += step, row++) {
+      const zt = Math.min(z1, z + step);
+      for (let a = a0 + (row % 2 ? joint / 2 : joint); a < a1 - .06; a += joint) out.push([vp(ax, k, a, z), vp(ax, k, a, zt)]);
+    }
+    return out;
+  }
+  const wall = (mat, c, ax, k, a0, a1, z0, z1) => F(vq(ax, k, a0, a1, z0, z1), ax === 'x' ? NY : NX, c, courses(mat, ax, k, a0, a1, z0, z1));
+  function gable(mat, c, x, y0, y1, zt, zr) {
+    const ym = (y0 + y1) / 2, ln = [], t = TEXF[mat];
+    if (t) for (let z = zt + t[0]; z < zr - .05; z += t[0]) { const h = (ym - y0) * (1 - (z - zt) / (zr - zt)); ln.push([[x, ym - h, z], [x, ym + h, z]]); }
+    return F([[x, y0, zt], [x, y1, zt], [x, ym, zr]], NX, c, ln);
+  }
+  function box(x0, y0, z0, x1, y1, z1, c, mat) {
+    return [F([[x0, y0, z1], [x1, y0, z1], [x1, y1, z1], [x0, y1, z1]], NZ, c),
+      mat ? wall(mat, c, 'x', y1, x0, x1, z0, z1) : F(vq('x', y1, x0, x1, z0, z1), NY, c),
+      mat ? wall(mat, c, 'y', x1, y0, y1, z0, z1) : F(vq('y', x1, y0, y1, z0, z1), NX, c)];
+  }
+  const L = (p, cls) => ({ t: 'l', p, cls });
+  const disk = (cx, cy, z, r, n = 16) => Array.from({ length: n }, (_, i) => [cx + r * Math.cos(i / n * 2 * Math.PI), cy + r * Math.sin(i / n * 2 * Math.PI), z]);
+
+  function build(s, vis, cur, th) {
+    const a = s.area, f = s.floors, ex = new Set(s.extras), on = k => vis.has(k);
+    const fp = a / { '1': 1, '1.5': 1.6, '2': 2 }[f];
+    const D = Math.sqrt(fp / 1.55), W = fp / D;
+    const fnd = s.foundation, flat = s.roof === 'flat';
+    const z0 = { slab: .45, geo: .45, strip: .6, piles: .8 }[fnd];
+    const wallH = f === '2' ? 6 : f === '1.5' && !flat ? 4 : 3;
+    const zt = z0 + wallH;
+    const mat = s.walls === 'ceramic' ? 'ceramic' : 'gas', matC = PAL[mat];
+    const fac = on('facade'), facC = PAL[s.facade];
+    const off = fac ? .12 : 0, Wf = W + off, Df = D + off;
+    const cut = Math.min(1.7, D * .24);
+    const pitch = (f === '1.5' ? 42 : 30) * Math.PI / 180, tg = Math.tan(pitch);
+    const o = .55, ym = D / 2, ze = zt - o * tg, zr = zt + ym * tg;
+    const showX = k => on('extras') && ex.has(k);
+    const tw = Math.min(W - 1, 7.5), td = Math.max(2.8, Math.min(4.2, 30 / tw));
+    const terr = showX('terrace'), carp = showX('carport'), well = showX('water');
+    const front = Df + (terr ? td : 0);
+    const plot = { x0: -1.8, y0: -1.7, x1: Wf + (carp ? 8.6 : 2.2), y1: front + (well ? 4.2 : 2.3) };
+    const G = [], A = {};
+    const add = (key, items, opt = {}) => items.length && G.push({ key, items, sig: '', ...opt });
+    const PACKS_ = ['box', 'contour', 'pre', 'key'], lvl = PACKS_.indexOf(s.pack), packOn = on('pack');
+
+    // ground plot
+    add('ground', [F([[plot.x0, plot.y0, 0], [plot.x1, plot.y0, 0], [plot.x1, plot.y1, 0], [plot.x0, plot.y1, 0]], NZ, th.ground),
+      F(vq('x', plot.y1, plot.x0, plot.x1, -.55, 0), NY, th.soil), F(vq('y', plot.x1, plot.y0, plot.y1, -.55, 0), NX, th.soil)], { still: true });
+    // area: the footprint, with its size while the slider is in use
+    if (on('area')) {
+      const it = [L([[0, 0, .02], [W, 0, .02], [W, D, .02], [0, D, .02], [0, 0, .02]], 'hm-foot')];
+      if (cur === 'area') {
+        const dy = front + 1.2, dx = Wf + 1.2;
+        it.push(L([[0, dy, 0], [W, dy, 0]], 'hm-dim'), L([[0, dy - .35, 0], [0, dy + .35, 0]], 'hm-dim'), L([[W, dy - .35, 0], [W, dy + .35, 0]], 'hm-dim'),
+          L([[dx, 0, 0], [dx, D, 0]], 'hm-dim'), L([[dx - .35, 0, 0], [dx + .35, 0, 0]], 'hm-dim'), L([[dx - .35, D, 0], [dx + .35, D, 0]], 'hm-dim'),
+          { t: 'x', at: [W / 2, dy + 1.25, 0], s: dec(W) + ' м' }, { t: 'x', at: [dx + 1.5, D / 2, 0], s: dec(D) + ' м' });
+      }
+      add('area', it, { still: true });
+      A.area = [0, D, 0];
+    }
+
+    // foundation
+    const fi = [];
+    if (fnd === 'piles') {
+      const xs = []; for (let x = .35; x < W - .2; x += 2.3) xs.push(x);
+      xs.forEach(x => fi.push(...box(x - .15, D - .45, 0, x + .15, D - .15, .34, PAL.concrete), L([[x, D - .3, 0], [x, D - .3, -2.4]], 'hm-xray')));
+      for (let y = .35; y < D - 1; y += 2.3) fi.push(...box(W - .45, y - .15, 0, W - .15, y + .15, .34, PAL.concrete));
+      fi.push(...box(0, 0, .3, W, D, z0, PAL.concrete));
+      A.foundation = [W, D * .45, (.3 + z0) / 2];
+    } else if (fnd === 'strip') {
+      fi.push(...box(0, 0, 0, W, D, z0, PAL.plinth), L([[0, D, 0], [0, D, -1.6], [W, D, -1.6], [W, D, 0]], 'hm-xray'), L([[W, D, -1.6], [W, 0, -1.6], [W, 0, 0]], 'hm-xray'));
+      A.foundation = [W, D * .45, z0 * .5];
+    } else {
+      fi.push(...box(-.3, -.3, 0, W + .3, D + .3, z0, PAL.concrete));
+      if (fnd === 'geo') fi.push(L([[-.3, D + .3, -.9], [W + .3, D + .3, -.9], [W + .3, -.3, -.9]], 'hm-xray'));
+      A.foundation = [W + .3, D * .45, z0 * .5];
+    }
+    add('foundation', fi, { ghost: !on('foundation'), sig: fnd });
+
+    // walls (the main volume; with a flat roof and an attic floor the upper volume is drawn later)
+    const wi = [F([[0, 0, zt], [W, 0, zt], [W, D, zt], [0, D, zt]], NZ, matC), wall(mat, matC, 'x', D, 0, W, z0, zt), wall(mat, matC, 'y', W, 0, D, z0, zt)];
+    if (!flat) wi.push(gable(mat, matC, W, 0, D, zt, zr));
+    const levels = f === '1' ? [] : [z0 + 3];
+    if (on('floors') && !fac) levels.forEach(z => wi.push(L([[0, D + .02, z], [W + .02, D + .02, z], [W + .02, 0, z]], 'hm-lvl')));
+    add('walls', wi, { ghost: !on('walls'), mass: on('floors'), sig: s.walls });
+    A.floors = [W * .22, D, f === '1' ? z0 + 2.6 : z0 + 3];
+    A.walls = fac ? [W, D - cut / 2, z0 + wallH * .3] : [W * .5, D, z0 + wallH * .42];
+
+    // facade: a layer over the walls, cut back at the right front corner to show the wall inside
+    if (fac) {
+      const fx = [wall(s.facade, facC, 'x', Df, 0, Wf, z0, zt), wall(s.facade, facC, 'y', Wf, 0, D - cut, z0, zt),
+        F(vq('y', Wf, D, Df, z0, zt), NX, facC), F(vq('x', D - cut, W, Wf, z0, zt), NY, facC)];
+      if (!flat) fx.push(gable(s.facade, facC, Wf, 0, D, zt, zr));
+      add('facade', fx, { sig: s.facade });
+      A.facade = [Wf, D * .32, z0 + wallH * .55];
+    }
+
+    // gas: pipe up the side wall to the meter box
+    if (showX('gas')) {
+      add('x-gas', [...box(Wf, .45, z0 + .9, Wf + .28, 1.15, z0 + 1.7, PAL.meter), L([[plot.x1, .8, .03], [Wf + .14, .8, .03], [Wf + .14, .8, z0 + .9]], 'hm-gas')]);
+      A['x-gas'] = [Wf + .28, .8, z0 + 1.3];
+    }
+
+    // openings: dark holes for the shell, glazing from the warm contour on, lit windows when the house is finished
+    const glass = lvl === 0 ? PAL.hole : lvl === 3 ? PAL.lit : PAL.glass, wcls = lvl ? 'hm-win' : 'hm-hole';
+    const win = (ax, k, a0, a1, zA, zB) => F(vq(ax, k, a0, a1, zA, zB), ax === 'x' ? NY : NX, glass, lvl ? [[vp(ax, k, (a0 + a1) / 2, zA), vp(ax, k, (a0 + a1) / 2, zB)]] : null, wcls);
+    let doorX = W / 2;
+    if (packOn) {
+      const pi = [], fy = Df + .02, fx = Wf + .02, floorsZ = f === '2' ? [z0, z0 + 3] : [z0];
+      const nF = Math.max(1, Math.floor((W - .6) / 3.1)), doorI = nF > 2 ? 1 : 0;
+      floorsZ.forEach((zf, li) => { for (let i = 0; i < nF; i++) {
+        const cx = W * (i + .5) / nF;
+        if (li === 0 && i === doorI) { doorX = cx; pi.push(F(vq('x', fy, cx - .55, cx + .55, zf, zf + 2.3), NY, lvl ? PAL.door : PAL.hole, null, wcls)); continue; }
+        pi.push(win('x', fy, cx - .75, cx + .75, zf + .8, zf + 2.4));
+        if (!A.pack) A.pack = [cx, fy, zf + 1.6];
+      } });
+      const nR = Math.max(1, Math.floor((D - cut - .8) / 3));
+      let side = null;
+      floorsZ.forEach(zf => { for (let i = 0; i < nR; i++) { const cy = .5 + (D - cut - 1.1) * (i + .5) / nR; if (showX('gas') && cy < 1.9) continue; pi.push(win('y', fx, cy - .7, cy + .7, zf + .8, zf + 2.4)); if (!side) side = [fx, cy, zf + 1.6]; } });
+      if (side) A.pack = side;
+      if (!flat && zr - zt > 2.2) pi.push(win('y', fx + (fac ? 0 : 0), ym - .55, ym + .55, zt + .35, zt + 1.6));
+      if (lvl >= 2) pi.push(L([[W * .8, plot.y1, .03], [W * .8, Df, .03]], 'hm-net'), L([[W * .86, plot.y1, .03], [W * .86, Df, .03]], 'hm-net2'));
+      if (!A.pack) A.pack = [doorX, fy, z0 + 1.2];
+      add('pack', pi, { sig: s.pack });
+    }
+
+    // terrace
+    if (terr) {
+      const x0 = .5, x1 = .5 + tw, y0 = Df, y1 = Df + td, top = box(x0, y0, 0, x1, y1, z0, PAL.deck);
+      top[0].ln = []; for (let y = y0 + .3; y < y1 - .05; y += .3) top[0].ln.push([[x0, y, z0], [x1, y, z0]]);
+      const sx = Math.min(Math.max(doorX, x0 + .9), x1 - .9);
+      add('x-terrace', [...top, ...box(sx - .8, y1, 0, sx + .8, y1 + .55, z0 / 2, PAL.deck)]);
+      A['x-terrace'] = [x0 + tw * .3, y1, z0 * .6];
+    }
+
+    // roof
+    let roofTop = zt;
+    if (!flat) {
+      const sn = Math.sin(pitch), cs = Math.cos(pitch), x0 = -o, x1 = Wf + o, yb = -o, yf = D + o, rc = PAL[s.roof], tk = .22;
+      const lines = y0 => {
+        const out = [], len = Math.hypot(ym - y0, zr - ze), step = s.roof === 'soft' ? .3 : .4;
+        for (let u = step; u < len - .05; u += step) { const k = u / len; out.push([[x0, y0 + (ym - y0) * k, ze + (zr - ze) * k], [x1, y0 + (ym - y0) * k, ze + (zr - ze) * k]]); }
+        if (s.roof === 'metal') for (let x = x0 + .6; x < x1 - .05; x += .6) out.push([[x, y0, ze], [x, ym, zr]]);
+        return out;
+      };
+      const ri = [F([[x0, yb, ze], [x1, yb, ze], [x1, ym, zr], [x0, ym, zr]], [0, -sn, cs], rc, lines(yb)),
+        F([[x0, yf, ze], [x1, yf, ze], [x1, ym, zr], [x0, ym, zr]], [0, sn, cs], rc, lines(yf)),
+        F([[x1, yf, ze], [x1, ym, zr], [x1, ym, zr - tk], [x1, yf, ze - tk]], NX, rc),
+        F([[x1, yb, ze], [x1, ym, zr], [x1, ym, zr - tk], [x1, yb, ze - tk]], NX, rc),
+        F([[x0, yf, ze - tk], [x1, yf, ze - tk], [x1, yf, ze], [x0, yf, ze]], NY, rc)];
+      add('roof', ri, { ghost: !on('roof'), sig: s.roof });
+      A.roof = [W * .34, (ym + yf) / 2, (ze + zr) / 2];
+      roofTop = zr;
+      // attic: roof windows
+      if (packOn && f === '1.5') {
+        const sk = [], k0 = .3, k1 = .52, pz = k => [yf + (ym - yf) * k, ze + (zr - ze) * k + .04];
+        [W * .3, W * .72].forEach(cx => { const [ya, za] = pz(k0), [yb2, zb] = pz(k1); sk.push(F([[cx - .5, ya, za], [cx + .5, ya, za], [cx + .5, yb2, zb], [cx - .5, yb2, zb]], [0, sn, cs], glass, null, wcls)); });
+        add('pack', sk, { sig: s.pack });
+      }
+      if (showX('fireplace')) {
+        const cx0 = W * .66, cx1 = cx0 + .75, cy0 = ym + .3, cy1 = cy0 + .75, top = zr + 1.1, rz = y => zr - (y - ym) * tg;
+        const ch = [F([[cx0, cy1, rz(cy1)], [cx1, cy1, rz(cy1)], [cx1, cy1, top], [cx0, cy1, top]], NY, PAL.chimney, courses('clinker', 'x', cy1, cx0, cx1, rz(cy1), top)),
+          F([[cx1, cy0, rz(cy0)], [cx1, cy1, rz(cy1)], [cx1, cy1, top], [cx1, cy0, top]], NX, PAL.chimney),
+          ...box(cx0 - .09, cy0 - .09, top, cx1 + .09, cy1 + .09, top + .13, PAL.cap)];
+        [[.95, .3], [1.75, .42], [2.6, .52]].forEach(([dz, r], i) => ch.push({ t: 'd', c: [(cx0 + cx1) / 2, (cy0 + cy1) / 2, top + dz], r, cls: 'hm-smoke hm-smoke--' + (i + 1) }));
+        add('x-fireplace', ch);
+        A['x-fireplace'] = [cx1, cy1, top];
+      }
+    } else {
+      const slab = box(-.25, -.25, zt, Wf + .25, Df + .25, zt + .32, PAL.flat);
+      slab[0].ln = []; for (let x = .8; x < Wf; x += 1.1) slab[0].ln.push([[x, -.25, zt + .32], [x, Df + .25, zt + .32]]);
+      add('roof', slab, { ghost: !on('roof'), sig: s.roof });
+      A.roof = [Wf * .82, Df * .55, zt + .32];
+      roofTop = zt + .32;
+      if (f === '1.5') { // attic floor as a smaller upper volume on the flat roof
+        const ub = W * .58, u0 = zt + .32, u1 = u0 + 2.8;
+        add('walls', [F([[0, 0, u1], [ub, 0, u1], [ub, D, u1], [0, D, u1]], NZ, matC), wall(mat, matC, 'x', D, 0, ub, u0, u1), wall(mat, matC, 'y', ub, 0, D, u0, u1)], { ghost: !on('walls'), mass: on('floors'), sig: s.walls });
+        if (fac) add('facade', [wall(s.facade, facC, 'x', Df, 0, ub + off, u0, u1), wall(s.facade, facC, 'y', ub + off, 0, D, u0, u1), F(vq('y', ub + off, D, Df, u0, u1), NX, facC)], { sig: s.facade });
+        if (packOn) {
+          const n = Math.max(1, Math.floor(ub / 3)), pi = [];
+          for (let i = 0; i < n; i++) { const cx = ub * (i + .5) / n; pi.push(win('x', Df + .02, cx - .75, cx + .75, u0 + .8, u0 + 2.3)); }
+          pi.push(win('y', ub + off + .02, ym - .7, ym + .7, u0 + .8, u0 + 2.3));
+          add('pack', pi, { sig: s.pack });
+        }
+        add('roof', box(-.2, -.2, u1, ub + off + .2, Df + .2, u1 + .3, PAL.flat), { ghost: !on('roof'), sig: s.roof });
+        roofTop = u1 + .3;
+      }
+      if (showX('fireplace')) {
+        const cx0 = Wf * .76, cy0 = D * .3, base = zt + .32, top = base + 1.3, ch = box(cx0, cy0, base, cx0 + .75, cy0 + .75, top, PAL.chimney, 'clinker');
+        ch.push(...box(cx0 - .09, cy0 - .09, top, cx0 + .84, cy0 + .84, top + .13, PAL.cap));
+        [[.9, .3], [1.7, .42], [2.5, .52]].forEach(([dz, r], i) => ch.push({ t: 'd', c: [cx0 + .37, cy0 + .37, top + dz], r, cls: 'hm-smoke hm-smoke--' + (i + 1) }));
+        add('x-fireplace', ch);
+        A['x-fireplace'] = [cx0 + .75, cy0 + .75, top];
+      }
+    }
+
+    // well and septic
+    if (well) {
+      const wy = front + 2.1;
+      add('x-water', [L([[1, wy, 0], [1, wy, -3.2]], 'hm-xray'), L([[2.2, wy - .7, -1.8], [4.4, wy - .7, -1.8], [4.4, wy + .7, -1.8]], 'hm-xray'),
+        { t: 'f', p: disk(2.75, wy, .03, .42), n: NZ, c: PAL.lid }, { t: 'f', p: disk(3.85, wy, .03, .42), n: NZ, c: PAL.lid },
+        ...box(.6, wy - .4, 0, 1.4, wy + .4, .75, PAL.concrete), ...box(.52, wy - .48, .75, 1.48, wy + .48, .87, PAL.cap)]);
+      A['x-water'] = [1.4, wy, .8];
+    }
+
+    // finished house: a path to the door and planting
+    if (packOn && lvl === 3) {
+      const py0 = terr ? front + .55 : Df, ls = [F([[doorX - .6, py0, .02], [doorX + .6, py0, .02], [doorX + .6, plot.y1, .02], [doorX - .6, plot.y1, .02]], NZ, PAL.path)];
+      [[W * .12, front + 1.2, .6], [W * .9, front + 1.1, .7], [W * .55, front + 1.5, .5], [Wf + 1.1, D * .45, .65], [Wf + 1.2, D * .12, .5]]
+        .filter(([x, y]) => Math.abs(x - doorX) > 1.4 && !(well && x < 5 && y > front + 1) && !(carp && x > Wf))
+        .forEach(([x, y, r]) => ls.push({ t: 'd', c: [x, y, r * .8], r, fill: PAL.shrub }));
+      add('pack', ls, { sig: s.pack });
+    }
+
+    // carport
+    if (carp) {
+      const x0 = Wf + 1.3, x1 = x0 + 6, y1 = Df, y0 = y1 - 6, cp = [];
+      [[x0, y0], [x1, y0], [x0, y1], [x1, y1]].forEach(([x, y]) => cp.push(...box(x - .18, y - .18, 0, x, y, 2.6, PAL.post)));
+      cp.push(...box(x0 - .45, y0 - .45, 2.6, x1 + .25, y1 + .25, 2.84, PAL.carport));
+      add('x-carport', cp);
+      A['x-carport'] = [x1 + .25, y1 - 1.5, 2.84];
+    }
+    return { G, A, W, D, roofTop };
+  }
+
+  // callout text for each part
+  function info(s, key, r) {
+    const cost = p => (r.rows.find(x => x[0].startsWith(p)) || [0, 0])[1];
+    const fp = s.area / { '1': 1, '1.5': 1.6, '2': 2 }[s.floors], D = Math.sqrt(fp / 1.55), W = fp / D;
+    switch (key) {
+      case 'area': return ['Площадь', s.area + ' м²', 'пятно ' + dec(W) + ' × ' + dec(D) + ' м'];
+      case 'floors': return ['Этажность', LABELS.floors[s.floors], 'перекрытия ' + money(cost('Перекрытия'))];
+      case 'walls': return ['Стены', { gas: 'Газобетон D500', ceramic: 'Тёплая керамика', unsure: 'Газобетон, подберём' }[s.walls], money(cost('Стены'))];
+      case 'foundation': return ['Фундамент', { slab: 'Монолитная плита', strip: 'Ленточный', piles: 'Сваи и ростверк', geo: 'По геологии' }[s.foundation], money(cost('Фундамент'))];
+      case 'roof': return ['Кровля', { metal: 'Металлочерепица', soft: 'Гибкая черепица', flat: 'Плоская кровля' }[s.roof], money(cost('Кровля'))];
+      case 'facade': return ['Фасад', { plaster: 'Штукатурка', fiber: 'Фиброцемент', clinker: 'Клинкер' }[s.facade], money(cost('Фасад'))];
+      case 'pack': return ['Комплектация', PACK_T[s.pack], 'срок ≈ ' + String(r.months).replace('.', ',') + ' мес.'];
+      case 'extras': return ['Дополнительно', s.extras.length ? s.extras.length + ' поз.' : 'Ничего', s.extras.length ? '+ ' + money(r.extras.reduce((t, e) => t + e[1], 0)) : 'можно добавить позже'];
+      default: { const e = R.extras[key.slice(2)]; return ['Опция', e[0], '+ ' + money(e[1])]; }
+    }
+  }
+  const ORDER = ['area', 'floors', 'walls', 'foundation', 'roof', 'facade', 'pack', 'x-terrace', 'x-carport', 'x-water', 'x-gas', 'x-fireplace'];
+  const memo = {};
+  const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+
+  function svg(s, vis, cur, o) {
+    const th = THEME[o.theme], m = build(s, vis, cur, th), r = compute(s);
+    const P0 = p => [(p[0] - p[1]) * CO, (p[0] + p[1]) * .5 - p[2]];
+    let bx0 = 1e9, by0 = 1e9, bx1 = -1e9, by1 = -1e9;
+    m.G.forEach(g => g.items.forEach(it => { if (it.t === 'x' || it.cls && it.cls.startsWith('hm-smoke')) return; (it.p || [it.c]).forEach(p => { const [x, y] = P0(p); bx0 = Math.min(bx0, x); bx1 = Math.max(bx1, x); by0 = Math.min(by0, y); by1 = Math.max(by1, y); }); }));
+    const t = Math.min(1, Math.max(0, (s.area - 60) / 390));
+    const colOff = Math.min(o.VW / 2 - 185, 240);
+    const tw = o.labels ? Math.min(2 * colOff - 60, 380 + 70 * t) : o.VW * (.6 + .3 * t), th2 = o.VH - (o.labels ? 80 : 30);
+    const sc = Math.min(tw / (bx1 - bx0), th2 / (by1 - by0));
+    const tx = o.VW / 2 - (bx0 + bx1) / 2 * sc, ty = o.VH / 2 - (by0 + by1) / 2 * sc + (o.labels ? 14 : 0);
+    const P = p => { const [x, y] = P0(p); return [x * sc + tx, y * sc + ty]; };
+    const pts = a => a.map(p => P(p).map(v => v.toFixed(1)).join(',')).join(' ');
+    const depth = it => { const ps = it.p || [it.c]; return ps.reduce((t, p) => t + p[0] + p[1] + p[2], 0) / ps.length; };
+
+    const st = memo[o.id] || (memo[o.id] = { keys: new Set(), sig: {}, calls: new Set(), first: true });
+    const now = new Set(), sigs = {};
+    let out = '', ni = 0;
+    m.G.forEach(g => {
+      const solid = !g.ghost && !g.still;
+      let anim = '';
+      if (solid) {
+        now.add(g.key); sigs[g.key] = g.sig;
+        if (!st.keys.has(g.key)) anim = ' is-new';
+        else if (st.sig[g.key] !== g.sig) anim = ' is-swap';
+      }
+      const delay = anim === ' is-new' && st.first ? ` style="animation-delay:${ni++ * 110}ms"` : '';
+      const faces = g.items.filter(i => i.t === 'f' || i.t === 'd').sort((a, b) => depth(a) - depth(b));
+      const rest = g.items.filter(i => i.t === 'l' || i.t === 'x');
+      let h = '';
+      faces.forEach(it => {
+        if (it.t === 'd') {
+          const [x, y] = P(it.c);
+          h += it.cls ? `<circle class="${it.cls}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${(it.r * sc).toFixed(1)}"/>`
+            : `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${(it.r * sc).toFixed(1)}" fill="${tone(it.fill, 1)}" stroke="${tone(it.fill, .72)}" stroke-width="1"/>`;
+          return;
+        }
+        if (g.ghost) { const k = lit(it.n), fo = (g.mass ? .085 : .04) + (k - .6) * (g.mass ? .2 : .1); h += `<polygon class="hm-g" points="${pts(it.p)}" fill-opacity="${fo.toFixed(3)}"/>`; return; }
+        const k = lit(it.n), col = tone(it.c, k);
+        h += `<polygon points="${pts(it.p)}" fill="${col}" stroke="${it.cls === 'hm-win' ? '#efe9dc' : col}" stroke-width="${it.cls === 'hm-win' ? 1.3 : .6}" stroke-linejoin="round"/>`;
+        if (it.ln && it.ln.length) h += `<path class="hm-tex" stroke="${it.cls === 'hm-win' ? '#efe9dc' : tone(it.c, k * .8)}" d="${it.ln.map(([a, b]) => { const p = P(a), q = P(b); return `M${p[0].toFixed(1)} ${p[1].toFixed(1)}L${q[0].toFixed(1)} ${q[1].toFixed(1)}`; }).join('')}"/>`;
+      });
+      rest.forEach(it => {
+        if (g.ghost && it.cls !== 'hm-lvl') return;
+        if (it.t === 'x') { const [x, y] = P(it.at); h += `<text class="hm-dimt" x="${x.toFixed(1)}" y="${y.toFixed(1)}">${it.s}</text>`; }
+        else h += `<polyline class="${it.cls}" points="${pts(it.p)}"/>`;
+      });
+      out += `<g class="hm-p hm-p--${g.key}${g.ghost ? ' is-ghost' : ''}${g.ghost && g.mass ? ' is-mass' : ''}${anim}"${delay}>${h}</g>`;
+    });
+
+    // callouts. Each label sits in a column beside the house at (almost) the height of its part, so the leader
+    // runs straight out: dot -> horizontally to just past the house -> a short bend -> the label.
+    // Parts keep their side (left half of the house -> left column), so leaders never cross the house.
+    let calls = '';
+    const callKeys = new Set();
+    if (o.labels || o.hot) {
+      const list = ORDER.filter(k => m.A[k] && (k.startsWith('x-') ? true : vis.has(k))).map(k => ({ k, a: P(m.A[k]), t: info(s, k, r) }));
+      if (o.labels && vis.has('extras') && !s.extras.length) list.push({ k: 'extras', a: P([m.W * .5, m.D + 2, 0]), t: info(s, 'extras', r) });
+      if (o.hot) {
+        // result: just points of interest, the details appear on hover
+        list.forEach(l => {
+          const [x, y] = l.a;
+          calls += `<g class="hm-hot" tabindex="0" data-x="${x.toFixed(1)}" data-y="${y.toFixed(1)}" data-k="${esc(l.t[0]).replace(/"/g, '&quot;')}" data-v="${esc(l.t[1]).replace(/"/g, '&quot;')}" data-p="${esc(l.t[2]).replace(/"/g, '&quot;')}" aria-label="${esc(l.t[0] + ': ' + l.t[1] + ', ' + l.t[2]).replace(/"/g, '&quot;')}">
+            <circle class="hm-hot__hit" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="16"/><circle class="hm-hot__ring" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="9"/><circle class="hm-hot__dot" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4.5"/></g>`;
+        });
+      } else {
+        // the house's own outline (without the plot), to know where the leaders leave it
+        let hx0 = 1e9, hx1 = -1e9;
+        m.G.forEach(g => { if (g.key === 'ground' || g.key === 'area') return; g.items.forEach(it => { if (it.t !== 'f') return; it.p.forEach(q => { const x = P(q)[0]; hx0 = Math.min(hx0, x); hx1 = Math.max(hx1, x); }); }); });
+        const cx = (hx0 + hx1) / 2;
+        list.forEach(l => l.side = l.a[0] < cx ? 0 : 1);
+        const H = 70, top = 16, bottom = o.VH - 40, cap = Math.floor((bottom - top) / H) + 1;
+        // only when one column cannot hold its labels, move the ones closest to the middle across
+        for (let guard = 0; guard < 12; guard++) {
+          const n0 = list.filter(l => !l.side).length, n1 = list.length - n0, from = n0 > n1 + 1 ? 0 : n1 > n0 + 1 ? 1 : -1;
+          if (from < 0) break;
+          const c = list.filter(l => l.side === from).sort((p, q) => Math.abs(p.a[0] - cx) - Math.abs(q.a[0] - cx))[0];
+          if (Math.abs(c.a[0] - cx) > (hx1 - hx0) * .22 && n0 <= cap && n1 <= cap) break;
+          c.side = 1 - from;
+        }
+        [0, 1].forEach(side => {
+          const col = list.filter(l => l.side === side).sort((p, q) => p.a[1] - q.a[1]);
+          col.forEach(l => l.y = Math.min(bottom, Math.max(top, l.a[1])));
+          for (let i = 1; i < col.length; i++) col[i].y = Math.max(col[i].y, col[i - 1].y + H);
+          for (let i = col.length - 1; i >= 0; i--) col[i].y = Math.min(col[i].y, i === col.length - 1 ? bottom : col[i + 1].y - H);
+          for (let i = 0; i < col.length; i++) col[i].y = Math.max(col[i].y, i ? col[i - 1].y + H : top);
+          // centre the stack on its parts, so labels sit above and below them rather than all below
+          if (col.length > 1) {
+            const shift = col.reduce((t, l) => t + l.y - l.a[1], 0) / col.length;
+            const lo = top - col[0].y, hi = bottom - col[col.length - 1].y;
+            const d = Math.min(hi, Math.max(lo, -shift));
+            col.forEach(l => l.y += d);
+          }
+        });
+        list.forEach(l => {
+          const left = !l.side, tx2 = left ? o.VW / 2 - colOff : o.VW / 2 + colOff, anchor = left ? 'end' : 'start', [ax, ay] = l.a, y = l.y;
+          const out1 = left ? Math.min(ax, hx0 - 10) : Math.max(ax, hx1 + 10);       // leave the house horizontally
+          const bend = left ? Math.max(tx2 + 14, out1 - 8 - Math.abs(y - ay)) : Math.min(tx2 - 14, out1 + 8 + Math.abs(y - ay));
+          const end = left ? tx2 + 6 : tx2 - 6;
+          const d = Math.abs(y - ay) < .5 ? `M${ax.toFixed(1)} ${ay.toFixed(1)}L${end} ${y.toFixed(1)}`
+            : `M${ax.toFixed(1)} ${ay.toFixed(1)}L${out1.toFixed(1)} ${ay.toFixed(1)}L${bend.toFixed(1)} ${y.toFixed(1)}L${end} ${y.toFixed(1)}`;
+          const isCur = cur === l.k || (cur === 'extras' && l.k.startsWith('x-'));
+          callKeys.add(l.k);
+          calls += `<g class="hm-c${isCur ? ' is-cur' : ''}${!st.calls.has(l.k) ? ' is-new' : ''}">
+            <path pathLength="1" d="${d}"/>
+            <circle class="hm-dot" cx="${ax.toFixed(1)}" cy="${ay.toFixed(1)}" r="3"/>
+            <text class="hm-ck" x="${tx2}" y="${(y - 6).toFixed(1)}" text-anchor="${anchor}">${esc(l.t[0].toUpperCase())}</text>
+            <text class="hm-cv" x="${tx2}" y="${(y + 13).toFixed(1)}" text-anchor="${anchor}">${esc(l.t[1])}</text>
+            <text class="hm-cp" x="${tx2}" y="${(y + 29).toFixed(1)}" text-anchor="${anchor}">${esc(l.t[2])}</text></g>`;
+        });
+      }
+    }
+    st.keys = now; st.sig = sigs; st.calls = callKeys; st.first = false;
+    return `<svg class="hm hm--${o.theme}" viewBox="0 0 ${o.VW} ${o.VH}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Модель дома по выбранным параметрам">${out}${calls}</svg>`;
+  }
+  return { svg, info: (s, k) => info(s, k, compute(s)), forget: id => { if (id) delete memo[id]; else Object.keys(memo).forEach(k => delete memo[k]); } };
+})();
+
 const calc = $('#calc'), body = $('#calc-body');
 const back = $('.calc__back', calc), next = $('.calc__next', calc), nextT = $('.calc__next-t', calc);
 const totalEl = $('.calc__total', calc);
+const stage = $('.calc__stage', calc);
+const narrow = matchMedia('(max-width: 1199px)');
+// the model is a desktop feature: phones and tablets keep the plain questionnaire
+function renderModel() {
+  if (qi >= Q.length || narrow.matches) { stage.innerHTML = ''; return; }
+  const cur = Q[qi].key, vis = new Set(answered); vis.add(cur);
+  // the SVG box follows the stage's proportions (before the dialog opens its size is estimated from the popup size)
+  let { width: w, height: h } = stage.getBoundingClientRect();
+  if (h < 50) {
+    const cs = getComputedStyle(document.documentElement), Z = window.__Z || 1;
+    const vw = parseFloat(cs.getPropertyValue('--vw')) || innerWidth / Z, vh = parseFloat(cs.getPropertyValue('--vh')) || innerHeight / Z;
+    w = Math.min(1640, vw * .94) - 640 - 64; h = Math.min(900, vh * .94) - 210;
+  }
+  const VH = 620, VW = Math.round(Math.min(1150, Math.max(700, VH * w / h)));
+  stage.innerHTML = HOUSE.svg(S, vis, cur, { id: 'stage', VW, VH, labels: true, theme: 'dark' });
+}
+narrow.addEventListener('change', () => { if (calc.open) { HOUSE.forget(); renderModel(); } });
 
 function tweenTotal(to) {
   const from = shownTotal; shownTotal = to;
@@ -2286,6 +2855,7 @@ function renderSide() {
   $('.calc__params', calc).innerHTML = p.length ? p.map(([key, k, v]) => `<div class="${shownKeys.has(k) ? '' : 'is-new'}"><dt>${k}</dt><dd>${v}</dd></div>`).join('')
     : '<p class="calc__empty">Параметры появятся здесь по мере ответов.</p>';
   shownKeys = new Set(p.map(x => x[1]));
+  renderModel();
 }
 function renderStep() {
   const done = qi === Q.length;
@@ -2370,6 +2940,7 @@ function resultHTML() {
       <div><span class="label">Срок</span><b>≈ ${m} мес.</b></div>
       <div><span class="label">Предоплата</span><b>0 ₽</b></div>
     </div>
+    ${narrow.matches ? '' : `<figure class="res__house">${(HOUSE.forget('res'), HOUSE.svg(S, new Set(Q.map(q => q.key)), null, { id: 'res', VW: 700, VH: 440, labels: false, hot: true, theme: 'light' }))}<div class="res__tip" aria-hidden="true"></div><figcaption class="res__hint">Наведите на точку, чтобы увидеть деталь</figcaption></figure>`}
     <div class="res__groups">
       <div class="res__group"><h4>Дом</h4><dl>${row('Площадь', S.area + ' м²')}${row('Этажность', LABELS.floors[S.floors])}${row('Стены', LABELS.walls[S.walls])}</dl></div>
       <div class="res__group"><h4>Конструктив и фасад</h4><dl>${row('Фундамент', LABELS.foundation[S.foundation])}${row('Кровля', LABELS.roof[S.roof])}${row('Фасад', LABELS.facade[S.facade])}</dl></div>
@@ -2381,6 +2952,22 @@ function resultHTML() {
     </div>
     <p class="res__note">Расчёт ориентировочный, точность ±7%. Цены для Москвы и области на ноябрь 2026 года. Точную смету архитектор составит после встречи. Не является публичной офертой.</p>`;
 }
+
+// result model: hover or focus a point of interest to see what it is and what it costs
+(() => {
+  const show = h => {
+    const fig = h.closest('.res__house'), tip = $('.res__tip', fig), x = +h.dataset.x, y = +h.dataset.y;
+    tip.innerHTML = `<span class="label">${h.dataset.k}</span><b>${h.dataset.v}</b><span>${h.dataset.p}</span>`;
+    tip.style.left = (x / 700 * 100) + '%'; tip.style.top = (y / 440 * 100) + '%';
+    tip.classList.toggle('is-left', x > 440);
+    tip.classList.add('is-on'); h.classList.add('is-on');
+  };
+  const hide = h => { const fig = h.closest('.res__house'); if (fig) $('.res__tip', fig).classList.remove('is-on'); h.classList.remove('is-on'); };
+  body.addEventListener('pointerover', e => { const h = e.target.closest('.hm-hot'); if (h) show(h); });
+  body.addEventListener('pointerout', e => { const h = e.target.closest('.hm-hot'); if (h && !h.contains(e.relatedTarget)) hide(h); });
+  body.addEventListener('focusin', e => { const h = e.target.closest('.hm-hot'); if (h) show(h); });
+  body.addEventListener('focusout', e => { const h = e.target.closest('.hm-hot'); if (h) hide(h); });
+})();
 
 // form on the dark side
 const sideForm = $('#side-form');
@@ -2400,7 +2987,7 @@ back.addEventListener('click', () => { if (qi > 0) { qi--; renderStep(); } });
 next.addEventListener('click', () => { if (qi < Q.length) { answered.add(Q[qi].key); qi++; renderStep(); } });
 function openCalc(preset) {
   S = { ...DEF, ...(preset || {}), extras: [...((preset && preset.extras) || [])] };
-  qi = 0; shownTotal = 0; shownKeys = new Set();
+  qi = 0; shownTotal = 0; shownKeys = new Set(); HOUSE.forget();
   answered = new Set(preset ? Q.map(q => q.key) : []);
   sideForm.classList.remove('is-sent'); resForm.reset();
   $$('.field', resForm).forEach(f => { f.classList.remove('has-error'); $('.field__err', f).textContent = ''; });
