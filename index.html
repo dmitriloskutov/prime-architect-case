@@ -1580,33 +1580,14 @@ html{touch-action:manipulation}
   .case__more svg{animation:moreBob 1.8s var(--ease-in-out) infinite}
   .case.is-scrolled .case__more{opacity:0;transform:translateY(12px)}
 
-  /* buttons with a round arrow: now and then the circle slides right and springs back */
-  /* now and then the round arrow springs right and the button's left edge follows it; the right edge stays put */
-  .pill--solid{--pbg:var(--cream)}
-  .pill--dark{--pbg:var(--ink)}
-  .pill:not(.pill--noico){background:none}
-  .pill:not(.pill--noico)::after{z-index:-2;background:var(--pbg,transparent);transform-origin:100% 50%}
-  .pill.is-live:not(.pill--noico)::after{animation:edgeNudge 4.4s cubic-bezier(.45,0,.25,1) 2s infinite}
-  /* the circle runs into an invisible wall on its right: it squashes, bounces back stretched and wobbles to rest */
-  .pill:not(.pill--noico) .pill__ico{transform-origin:100% 50%}
-  .pill.is-live:not(.pill--noico) .pill__ico{animation:icoSquish 4.4s cubic-bezier(.45,0,.25,1) 2s infinite}
-  .header__cta .pill::after,.header__cta .pill__ico,.calc .pill::after,.calc .pill__ico{animation:none!important}
 
   /* menu button: the site's dark green */
   .burger{background:#2c3128;border-color:#cdb989}
   .burger span{background:var(--cream)}
 }
-@keyframes edgeNudge{0%,70%,91%,100%{transform:scaleX(1)}79%{transform:scaleX(calc(1 - var(--ef,.04) * .6))}83%{transform:scaleX(calc(1 - var(--ef,.04)))}87%{transform:scaleX(calc(1 - var(--ef,.04) * .3))}95%{transform:scaleX(calc(1 - var(--ef,.04) * .1))}}
-@keyframes icoSquish{
-  0%,70%,100%{transform:translateX(0) scale(1,1)}
-  79%{transform:translateX(calc(var(--nx,8px) * .83)) scale(1.05,.97)}
-  83%{transform:translateX(var(--nx,8px)) scale(.86,.96)}
-  87%{transform:translateX(calc(var(--nx,8px) * .42)) scale(1.04,.98)}
-  91%{transform:translateX(-1px) scale(.98,1)}
-  95%{transform:translateX(1px) scale(1.01,1)}}
 @keyframes moreBob{0%,100%{transform:none}50%{transform:translateY(4px)}}
 @keyframes icoNudge{0%,78%,100%{transform:translateX(0)}86%{transform:translateX(10px)}92%{transform:translateX(-2px)}96%{transform:translateX(2px)}}
-@media (prefers-reduced-motion:reduce){ .pill::after,.pill .pill__ico,.case__more svg{animation:none!important} }
+@media (prefers-reduced-motion:reduce){ .pill .pill__ico,.pill .pill__ico svg,.case__more svg{animation:none!important} }
 
 </style>
 <script>
@@ -3514,26 +3495,7 @@ form.addEventListener('submit', e => {
   panel.classList.add('is-sent');
 });
 
-/* phones: the arrow buttons spring only while on screen, and each one's swing is sized to the room
-   between its circle and its label, so short buttons move less and never touch the text */
-(() => {
-  if (!('IntersectionObserver' in window)) return;
-  const size = b => {
-    const ico = b.querySelector('.pill__ico'); if (!ico) return;
-    const r = document.createRange(); r.setStartAfter(ico); r.setEnd(b, b.childNodes.length);
-    const t = r.getBoundingClientRect(), i = ico.getBoundingClientRect(), w = b.getBoundingClientRect().width;
-    if (!w || !t.width) return;
-    const room = t.left - i.right, nx = Math.max(2, Math.min(12, room * .45));
-    b.style.setProperty('--nx', nx.toFixed(1) + 'px');
-    b.style.setProperty('--ef', ((nx + 5) / w).toFixed(4));
-  };
-  const io = new IntersectionObserver(es => es.forEach(e => {
-    if (e.isIntersecting) size(e.target);
-    e.target.classList.toggle('is-live', e.isIntersecting);
-  }));
-  document.querySelectorAll('.pill:not(.pill--noico)').forEach(b => io.observe(b));
-  addEventListener('resize', () => document.querySelectorAll('.pill.is-live').forEach(size), { passive: true });
-})();
+
 </script>
 </body>
 </html>
