@@ -210,7 +210,7 @@ button,.pill,.chip,.filter,.opt,.card,.textlink,.nav a,.logo,.modal__close,.soci
 
 /* ---------- 03 APPROACH ---------- */
 .approach{padding:160px 0}
-.approach__grid{display:grid;grid-template-columns:1fr 1fr;gap:120px;align-items:start}
+.approach__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:120px;align-items:start}
 .approach__head{display:flex;flex-direction:column;gap:44px}
 .approach .lead{color:var(--ink-70);max-width:560px}
 .benefits{list-style:none;margin-top:16px;border-top:1px solid var(--ink-line)}
@@ -298,7 +298,7 @@ button,.pill,.chip,.filter,.opt,.card,.textlink,.nav a,.logo,.modal__close,.soci
 .step__n{font-family:var(--serif);font-style:normal;font-variant-numeric:lining-nums;font-weight:300;font-size:64px;line-height:.85;color:var(--ink-55);transition:color 200ms ease}
 .step h3{font-family:var(--serif);font-weight:400;font-size:34px;line-height:1.05;letter-spacing:-.02em}
 .step p{margin-top:10px;font-size:16px;line-height:26px;color:var(--ink-70);max-width:560px;transition:color 200ms ease}
-.step ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:6px 28px;margin-top:14px;max-width:620px}
+.step ul{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 28px;margin-top:14px;max-width:620px}
 .step li{display:flex;gap:10px;font-size:14px;line-height:20px;color:var(--ink-70)}
 .step li::before{content:"";flex:none;width:5px;height:5px;margin-top:8px;border-radius:50%;background:var(--clay)}
 .step__res{display:block;margin-top:14px;font-size:13px;line-height:20px;color:var(--ink-55);transition:color 200ms ease}
@@ -317,7 +317,7 @@ button,.pill,.chip,.filter,.opt,.card,.textlink,.nav a,.logo,.modal__close,.soci
 .cine .eyebrow{color:var(--gold);border-color:rgba(205,185,143,.45)}
 .cine .h2 em{color:var(--gold)}
 .cine .lead{color:var(--w-80);max-width:620px}
-.materials{display:grid;grid-template-columns:1fr 1fr;gap:64px;max-width:1100px}
+.materials{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:64px;max-width:1100px}
 .material{border-top:1px solid var(--w-line);padding-top:32px}
 .material h3{font-family:var(--serif);font-size:44px;line-height:1;letter-spacing:-.02em}
 .material h3 em{font-style:italic;color:var(--gold)}
@@ -333,7 +333,7 @@ button,.pill,.chip,.filter,.opt,.card,.textlink,.nav a,.logo,.modal__close,.soci
 
 
 /* ---------- TECH BOOK ---------- */
-.band--book .wrap{grid-template-columns:1fr 1fr;padding-top:88px;padding-bottom:88px}
+.band--book .wrap{grid-template-columns:repeat(2,minmax(0,1fr));padding-top:88px;padding-bottom:88px}
 .band__note{font-size:13px;line-height:20px;color:rgba(241,238,231,.55)}
 .book-side{display:flex;justify-content:center;align-items:center;min-height:580px;transform:translateX(-96px)}
 .ob-tilt{will-change:transform}
@@ -738,7 +738,7 @@ html.has-modal .header{right:var(--sbw,0px)}
 .res__est{margin-top:32px}
 .res__est > h4{display:flex;justify-content:space-between;font-size:10px;line-height:16px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--clay)}
 .res__est > h4 span{color:var(--ink-55);font-weight:500}
-.packs{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;margin-top:12px}
+.packs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 24px;margin-top:12px}
 .pack{border-top:1px solid var(--ink);padding-top:10px}
 .pack__head{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--serif);font-size:20px;line-height:1.2}
 .pack__head b{font-weight:400;font-variant-numeric:tabular-nums}
@@ -769,7 +769,7 @@ html.has-modal .header{right:var(--sbw,0px)}
 .side__form{left:calc(100% - 560px)}
 .calc__q{font-size:52px}
 .opts{gap:12px;margin-top:32px}
-.opts--3{grid-template-columns:1fr}
+.opts--3{grid-template-columns:minmax(0,1fr)}
 .opts--5{grid-template-columns:repeat(2,1fr)}
 .opt{padding:18px 20px 18px 56px;gap:6px}
 .opt__mark{left:20px;top:21px}
@@ -883,12 +883,12 @@ html{scrollbar-color:rgba(30,33,29,.3) var(--cream)}
 .case__title em{color:var(--clay)}
 .case__place{margin-top:20px}
 .case__lead{margin-top:28px;font-size:18px;line-height:30px;color:var(--ink-70)}
-.case__specs{display:grid;grid-template-columns:1fr 1fr;column-gap:32px;margin-top:36px;border-top:1px solid var(--ink-line)}
+.case__specs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:32px;margin-top:36px;border-top:1px solid var(--ink-line)}
 .case__specs div{padding:14px 0;border-bottom:1px solid var(--ink-line)}
 .case__specs dt{font-size:10px;line-height:16px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-55)}
 .case__specs dd{font-family:var(--serif);font-size:22px;line-height:1.2;margin-top:4px}
 .case__specs .hl dd{color:var(--clay)}
-.case__blocks{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:36px}
+.case__blocks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px;margin-top:36px}
 .case__blocks .label{color:var(--clay)}
 .case__blocks p:not(.label){margin-top:10px;font-size:15px;line-height:24px;color:var(--ink-70)}
 .case__quote{margin-top:36px;padding:28px 32px;background:var(--paper);font-family:var(--serif);font-style:italic;font-size:24px;line-height:1.35}
@@ -987,13 +987,13 @@ html{scrollbar-color:rgba(30,33,29,.3) var(--cream)}
   .filters::-webkit-scrollbar{display:none}
   .filter{flex:none;white-space:nowrap;padding-bottom:16px}
   .filter::after{bottom:0}
-  .grid{grid-template-columns:1fr;gap:40px;margin-top:28px}
+  .grid{grid-template-columns:minmax(0,1fr);gap:40px;margin-top:28px}
   .card__more{opacity:1;transform:none;left:12px;bottom:12px}
   .card h3{font-size:24px}
   .empty{font-size:22px;margin-top:40px;padding:32px 0}
 
   /* ---------- bands (calculator, tech book) ---------- */
-  .band .wrap{grid-template-columns:1fr;gap:40px;padding-top:64px;padding-bottom:64px}
+  .band .wrap{grid-template-columns:minmax(0,1fr);gap:40px;padding-top:64px;padding-bottom:64px}
   .band h2{font-size:clamp(34px,9.6vw,56px)}
   .band p.lead{margin-top:18px;max-width:none}
   .band__cta{flex-direction:column;align-items:stretch;gap:12px;margin-top:28px}
@@ -1002,7 +1002,7 @@ html{scrollbar-color:rgba(30,33,29,.3) var(--cream)}
   .band__list li{gap:16px;padding:18px 0}
   .band__list span{font-size:20px;min-width:30px}
   .band__list b{font-size:22px}
-  .band--book .wrap{grid-template-columns:1fr;gap:32px;padding-top:64px;padding-bottom:56px}
+  .band--book .wrap{grid-template-columns:minmax(0,1fr);gap:32px;padding-top:64px;padding-bottom:56px}
   .band--book{overflow:hidden} /* the page stack and the stage's anti-alias frame stick out a few px */
   .book-side{transform:none;min-height:0;padding:4px 0 8px}
   .ob-stage--band{--pw:min(calc((var(--vw,100vw) - 2 * var(--pad)) / 2), 280px)}
@@ -1026,7 +1026,7 @@ html{scrollbar-color:rgba(30,33,29,.3) var(--cream)}
 
   /* ---------- life: two-column mosaic ---------- */
   .life{padding:72px 0 0}
-  .bento{grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:10px;margin-top:40px}
+  .bento{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:auto;gap:10px;margin-top:40px}
   .bento .cell{grid-column:span 2;grid-row:auto;min-height:260px}
   .bento .cell--a{min-height:400px}
   .bento .cell--b,.bento .cell--c,.bento .cell--f,.bento .cell--g{grid-column:span 1;min-height:230px}
@@ -1043,7 +1043,7 @@ html{scrollbar-color:rgba(30,33,29,.3) var(--cream)}
 
   /* ---------- steps: every step with its own photo ---------- */
   .steps{padding:72px 0}
-  .steps__grid{grid-template-columns:1fr;gap:28px}
+  .steps__grid{grid-template-columns:minmax(0,1fr);gap:28px}
   .steps__aside{position:static;gap:20px}
   .steps__frame,.steps__aside .caption{display:none}
   .step{display:flex;flex-direction:column;gap:0;padding:28px 0 32px}
@@ -1054,20 +1054,20 @@ html{scrollbar-color:rgba(30,33,29,.3) var(--cream)}
   .step__n{font-size:30px;margin-bottom:10px}
   .step h3{font-size:26px}
   .step p{font-size:15px;line-height:24px;max-width:none}
-  .step ul{grid-template-columns:1fr;max-width:none}
+  .step ul{grid-template-columns:minmax(0,1fr);max-width:none}
 
   /* ---------- materials ---------- */
   .cine__shade{background:linear-gradient(180deg,rgba(19,22,18,.7),rgba(19,22,18,.86))}
   .cine .wrap{padding-top:72px;padding-bottom:72px;gap:40px}
   .cine__head{gap:20px}
-  .materials{grid-template-columns:1fr;gap:32px}
+  .materials{grid-template-columns:minmax(0,1fr);gap:32px}
   .material{padding-top:24px}
   .material h3{font-size:32px}
   .material p{margin-top:14px;font-size:15px;line-height:24px}
 
   /* ---------- guarantees ---------- */
   .guar{padding:72px 0}
-  .guar__grid{grid-template-columns:1fr;gap:32px;margin-top:40px}
+  .guar__grid{grid-template-columns:minmax(0,1fr);gap:32px;margin-top:40px}
   .g{padding-top:20px}
   .g__n{font-size:44px}
   .g h3{font-size:26px;margin-top:14px}
@@ -1082,7 +1082,7 @@ html{scrollbar-color:rgba(30,33,29,.3) var(--cream)}
 
   /* ---------- FAQ ---------- */
   .faq{padding:72px 0}
-  .faq__grid{grid-template-columns:1fr;gap:36px}
+  .faq__grid{grid-template-columns:minmax(0,1fr);gap:36px}
   .faq__head{position:static;gap:20px}
   .faq .lead{max-width:none}
   .qa__q{font-size:20px;line-height:1.2;gap:16px;padding:20px 0}
@@ -1095,7 +1095,7 @@ html{scrollbar-color:rgba(30,33,29,.3) var(--cream)}
   .contact__l{display:contents}
   .contact .lead{max-width:none}
   .panel{order:1;margin-top:12px;padding:32px 20px 28px}
-  .details{order:2;grid-template-columns:1fr;gap:20px;margin-top:20px;padding-top:28px}
+  .details{order:2;grid-template-columns:minmax(0,1fr);gap:20px;margin-top:20px;padding-top:28px}
   .details a,.details p{font-size:22px}
   .footer{padding:40px 0 calc(40px + env(safe-area-inset-bottom))}
   .footer .wrap{flex-direction:column;align-items:flex-start;gap:18px;letter-spacing:.12em;line-height:18px}
@@ -1118,21 +1118,21 @@ html{scrollbar-color:rgba(30,33,29,.3) var(--cream)}
   .vmodal__bar .pill{justify-content:center}
 
   /* case */
-  .case__grid{grid-template-columns:1fr;height:auto}
+  .case__grid{grid-template-columns:minmax(0,1fr);height:auto}
   .case__media{height:44vh;min-height:240px;max-height:420px}
   .case__body{overflow:visible;padding:28px var(--pad) calc(48px + env(safe-area-inset-bottom))}
   .case__title{font-size:clamp(32px,9vw,52px);margin-top:14px}
   .case__lead{margin-top:20px;font-size:16px;line-height:26px}
   .case__specs{column-gap:20px;margin-top:28px}
   .case__specs dd{font-size:18px}
-  .case__blocks{grid-template-columns:1fr;gap:20px;margin-top:28px}
+  .case__blocks{grid-template-columns:minmax(0,1fr);gap:20px;margin-top:28px}
   .case__quote{margin-top:28px;padding:20px;font-size:20px}
   .case__actions{flex-direction:column;align-items:stretch;gap:20px;margin-top:28px}
   .case__actions .pill{justify-content:center}
   .case__actions .textlink{align-self:center}
 
   /* book */
-  .bookm__grid{grid-template-columns:1fr}
+  .bookm__grid{grid-template-columns:minmax(0,1fr)}
   .bookm__side{padding:22px 0 10px}
   .ob-stage--modal{--pw:min(108px,29vw)}
   .bookm__main{padding:32px var(--pad) calc(40px + env(safe-area-inset-bottom))}
@@ -1146,7 +1146,7 @@ html{scrollbar-color:rgba(30,33,29,.3) var(--cream)}
   .calc__body{padding:28px 0 20px}
   .calc__q{font-size:clamp(30px,8.6vw,48px)}
   .calc__hint{font-size:15px;line-height:24px}
-  .opts,.opts--2,.opts--3,.opts--4,.opts--5{grid-template-columns:1fr;gap:10px;margin-top:24px}
+  .opts,.opts--2,.opts--3,.opts--4,.opts--5{grid-template-columns:minmax(0,1fr);gap:10px;margin-top:24px}
   .opt{padding:16px 16px 16px 50px;gap:4px}
   .opt__mark{left:17px;top:19px}
   .opt__t{font-size:21px}
@@ -1176,15 +1176,15 @@ html{scrollbar-color:rgba(30,33,29,.3) var(--cream)}
   .kpi .label{white-space:normal;letter-spacing:.12em}
   .kpi b{font-size:19px;white-space:normal}
   .kpi__total{font-size:48px!important}
-  .res__groups{grid-template-columns:1fr;gap:20px}
-  .packs{grid-template-columns:1fr}
+  .res__groups{grid-template-columns:minmax(0,1fr);gap:20px}
+  .packs{grid-template-columns:minmax(0,1fr)}
 }
 /* larger phones in landscape and tablets */
 @media (min-width:640px) and (max-width:1199px){
   :root{--pad:40px}
-  .grid{grid-template-columns:1fr 1fr;gap:48px 24px}
-  .guar__grid{grid-template-columns:1fr 1fr;gap:40px 32px}
-  .materials{grid-template-columns:1fr 1fr}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:48px 24px}
+  .guar__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:40px 32px}
+  .materials{grid-template-columns:repeat(2,minmax(0,1fr))}
   .team__grid{grid-auto-columns:40%}
   .bento .cell{min-height:320px}
   .bento .cell--a{min-height:480px}
@@ -1566,6 +1566,42 @@ html{touch-action:manipulation}
 }
 @keyframes jumpShine{0%,62%{transform:translateX(0) skewX(-12deg)}86%,100%{transform:translateX(420%) skewX(-12deg)}}
 @media (prefers-reduced-motion:reduce){ .side__jump button::after{animation:none;display:none} }
+
+
+.case__more{display:none}
+@media (max-width:1199px){
+  .steps__grid,.step{min-width:0}
+  .step__ph,.step__ph img{max-width:100%}
+
+  /* case popup: a soft cream fade at the bottom with "листайте вниз" */
+  .case__more{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:4;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px;height:120px;
+    padding-bottom:calc(18px + env(safe-area-inset-bottom));background:linear-gradient(180deg,rgba(241,238,231,0),rgba(241,238,231,.92) 55%,var(--cream));
+    font-size:11px;line-height:16px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--clay);pointer-events:none;transition:opacity 260ms ease,transform 320ms var(--ease-out)}
+  .case__more svg{animation:moreBob 1.8s var(--ease-in-out) infinite}
+  .case.is-scrolled .case__more{opacity:0;transform:translateY(12px)}
+
+  /* buttons with a round arrow: now and then the circle slides right and springs back */
+  /* now and then the round arrow springs right and the button's left edge follows it; the right edge stays put */
+  .pill:not(.pill--noico){animation:edgeNudge 4.4s cubic-bezier(.45,0,.25,1) 2s infinite}
+  /* the circle runs into an invisible wall on its right: it squashes, bounces back stretched and wobbles to rest */
+  .pill:not(.pill--noico) .pill__ico{transform-origin:100% 50%;animation:icoSquish 4.4s cubic-bezier(.45,0,.25,1) 2s infinite}
+  .header__cta .pill,.header__cta .pill__ico,.calc .pill,.calc .pill__ico{animation:none!important}
+
+  /* menu button: the site's dark green */
+  .burger{background:#2c3128;border-color:#cdb989}
+  .burger span{background:var(--cream)}
+}
+@keyframes edgeNudge{0%,70%,100%{clip-path:inset(0 0 0 0 round 999px)}79%{clip-path:inset(0 0 0 10px round 999px)}83%{clip-path:inset(0 0 0 17px round 999px)}87%{clip-path:inset(0 0 0 5px round 999px)}91%{clip-path:inset(0 0 0 0 round 999px)}95%{clip-path:inset(0 0 0 2px round 999px)}}
+@keyframes icoSquish{
+  0%,70%,100%{transform:translateX(0) scale(1,1);border-radius:50%}
+  79%{transform:translateX(10px) scale(1.05,.97);border-radius:56% 44% 44% 56% / 50%}
+  83%{transform:translateX(12px) scale(.84,.95);border-radius:64% 14% 14% 64% / 50%}
+  87%{transform:translateX(5px) scale(1.04,.98);border-radius:42% 58% 58% 42% / 50%}
+  91%{transform:translateX(-1px) scale(.97,1);border-radius:54% 46% 46% 54% / 50%}
+  95%{transform:translateX(1px) scale(1.01,1);border-radius:48% 52% 52% 48% / 50%}}
+@keyframes moreBob{0%,100%{transform:none}50%{transform:translateY(4px)}}
+@keyframes icoNudge{0%,78%,100%{transform:translateX(0)}86%{transform:translateX(10px)}92%{transform:translateX(-2px)}96%{transform:translateX(2px)}}
+@media (prefers-reduced-motion:reduce){ .pill,.pill .pill__ico,.case__more svg{animation:none!important} }
 
 </style>
 <script>
@@ -1971,15 +2007,15 @@ html{touch-action:manipulation}
     </div>
     <div class="team__swipe" aria-hidden="true"><div class="team__swipe-row"><span class="team__swipe-t">Листайте<svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M221.7 133.7l-72 72a8 8 0 0 1-11.4-11.4l58.4-58.3H40a8 8 0 0 1 0-16h156.7l-58.4-58.3a8 8 0 0 1 11.4-11.4l72 72a8 8 0 0 1 0 11.4z"/></svg></span><span class="team__count"><b>1</b> / 5</span></div><span class="team__track"><i></i></span></div>
     <div class="team__grid">
-      <article class="person reveal"><div class="media reveal-img"><img src="assets/l-team-1.webp" alt="Алексей Воронцов" loading="lazy"></div>
+      <article class="person reveal"><div class="media reveal-img"><img src="assets/l-team-1.webp" alt="Алексей Воронцов"></div>
         <p class="person__role">Основатель</p><h3>Алексей Воронцов</h3><p class="person__text">Строит дома с 2001 года и лично принимает каждый объект перед сдачей.</p></article>
-      <article class="person reveal"><div class="media reveal-img"><img src="assets/l-team-2.webp" alt="Михаил Ярцев" loading="lazy"></div>
+      <article class="person reveal"><div class="media reveal-img"><img src="assets/l-team-2.webp" alt="Михаил Ярцев"></div>
         <p class="person__role">Главный архитектор</p><h3>Михаил Ярцев</h3><p class="person__text">Ведёт проект от первого эскиза до 3D‑модели и следит за ним на стройке.</p></article>
-      <article class="person reveal"><div class="media reveal-img"><img src="assets/l-team-3.webp" alt="Анна Лебедева" loading="lazy"></div>
+      <article class="person reveal"><div class="media reveal-img"><img src="assets/l-team-3.webp" alt="Анна Лебедева"></div>
         <p class="person__role">Руководитель проектов</p><h3>Анна Лебедева</h3><p class="person__text">Ваш главный контакт: график, фотоотчёты и ответы на вопросы.</p></article>
-      <article class="person reveal"><div class="media reveal-img"><img src="assets/l-team-4.webp" alt="Елена Корнеева" loading="lazy"></div>
+      <article class="person reveal"><div class="media reveal-img"><img src="assets/l-team-4.webp" alt="Елена Корнеева"></div>
         <p class="person__role">Инженер‑сметчик</p><h3>Елена Корнеева</h3><p class="person__text">Считает смету по этапам и следит, чтобы она не менялась.</p></article>
-      <article class="person reveal"><div class="media reveal-img"><img src="assets/l-team-5.webp" alt="Сергей Крылов" loading="lazy"></div>
+      <article class="person reveal"><div class="media reveal-img"><img src="assets/l-team-5.webp" alt="Сергей Крылов"></div>
         <p class="person__role">Прораб</p><h3>Сергей Крылов</h3><p class="person__text">Каждый день руководит нашей бригадой на участке.</p></article>
     </div>
   </div>
@@ -2169,6 +2205,7 @@ html{touch-action:manipulation}
     <div class="case__media"><img alt=""><p class="caption"><span class="case__cap"></span><span>Фото: Unsplash</span></p></div>
     <div class="case__body" id="case-body"></div>
   </div>
+  <div class="case__more" aria-hidden="true"><span>Листайте вниз</span><svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M213.7 101.7l-80 80a8 8 0 0 1-11.4 0l-80-80a8 8 0 0 1 11.4-11.4L128 164.7l74.3-74.4a8 8 0 0 1 11.4 11.4z"/></svg></div>
 </dialog>
 
 <script>
@@ -2647,6 +2684,8 @@ filters.forEach(f => f.addEventListener('click', () => {
 }));
 
 const caseModal = $('#case-modal');
+// phones: the "scroll down" hint hides once the reader has scrolled a little, and comes back at the top
+caseModal.addEventListener('scroll', () => caseModal.classList.toggle('is-scrolled', caseModal.scrollTop > 40), { passive: true });
 const caseBody = $('#case-body');
 const caseImg = $('.case__media img', caseModal);
 function openCase(i) {
@@ -2676,7 +2715,7 @@ function openCase(i) {
       <button class="pill pill--dark" type="button" data-preset="${i}"><span class="pill__ico" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M221.7 133.7l-72 72a8 8 0 0 1-11.4-11.4l58.4-58.3H40a8 8 0 0 1 0-16h156.7l-58.4-58.3a8 8 0 0 1 11.4-11.4l72 72a8 8 0 0 1 0 11.4z"/></svg></span>Рассчитать похожий дом</button>
       <a class="textlink" href="#contact" data-close>Записаться на экскурсию</a>
     </div>`;
-  caseBody.scrollTop = 0;
+  caseBody.scrollTop = 0; caseModal.scrollTop = 0; caseModal.classList.remove('is-scrolled');
   openModal(caseModal);
 }
 grid.addEventListener('click', e => { const b = e.target.closest('[data-case]'); if (b) openCase(+b.dataset.case); });
