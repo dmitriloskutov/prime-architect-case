@@ -9,9 +9,11 @@
 <meta name="yandex" content="noindex, nofollow">
 <title>Prime Architect — каменные дома под ключ</title>
 <meta name="description" content="Проектируем и строим дома из газобетона и тёплой керамики под ключ в Москве и области. Смета и сроки фиксируются в договоре, без предоплаты.">
+<link rel="preload" as="image" href="assets/l-hero-m.webp" media="(max-width:1199px)" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" onload="this.onload=null;this.rel='stylesheet';window.__fcss=1;dispatchEvent(new Event('fontcss'))">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap"></noscript>
 <style>
 :root{
   --cream:#f1eee7;
@@ -1661,7 +1663,9 @@ html{touch-action:manipulation}
     if (i < word.length) setTimeout(type, 30);
     else setTimeout(whenLoaded, 300);
   }
-  var fonts = document.fonts ? Promise.race([document.fonts.ready, new Promise(function (r) { setTimeout(r, 500); })]) : Promise.resolve();
+  var css = new Promise(function (r) { if (window.__fcss) r(); else addEventListener('fontcss', r, { once: true }); });
+  var fonts = document.fonts ? Promise.race([css.then(function () { return document.fonts.load('400 56px "Cormorant Garamond"'); }).then(function () { return document.fonts.ready; }),
+    new Promise(function (r) { setTimeout(r, 600); })]) : Promise.resolve();
   fonts.then(function () {
     if (rm) { out.textContent = word; el.style.setProperty('--p', 1); setTimeout(whenLoaded, 300); }
     else setTimeout(type, 120);
@@ -1699,7 +1703,7 @@ html{touch-action:manipulation}
 <main id="main">
 <!-- 01 HERO -->
 <section class="hero" id="top" aria-labelledby="hero-title">
-  <img class="hero__img" src="assets/l-hero.webp" alt="Современный двухэтажный дом среди сосен на краю луга" fetchpriority="high">
+  <img class="hero__img" src="assets/l-hero.webp" srcset="assets/l-hero-m.webp 1200w, assets/l-hero.webp 2400w" sizes="(max-width:1199px) 300px, 1920px" alt="Современный двухэтажный дом среди сосен на краю луга" fetchpriority="high">
   <div class="hero__shade" aria-hidden="true"></div>
   <div class="hero__dim" aria-hidden="true"></div>
   <div class="wrap">
@@ -1788,7 +1792,7 @@ html{touch-action:manipulation}
       </ul>
     </div>
     <figure class="approach__media">
-      <div class="media reveal-img"><img src="assets/l-interior.webp" alt="Светлая гостиная со вторым светом и видом на лес" loading="lazy"></div>
+      <div class="media reveal-img"><img src="assets/l-interior.webp" srcset="assets/l-interior-m.webp 1000w, assets/l-interior.webp 1400w" sizes="(max-width:1199px) 300px, 1920px" alt="Светлая гостиная со вторым светом и видом на лес" loading="lazy"></div>
       <figcaption class="caption"><span>Интерьер с видом на лес</span><span>Фото: Unsplash</span></figcaption>
     </figure>
   </div>
@@ -1808,7 +1812,7 @@ html{touch-action:manipulation}
 
     <div class="bento">
       <div class="cell cell--a reveal"><article class="tile tile--photo">
-        <img class="tile__img" src="assets/l-life-family.webp" alt="Семья обедает за большим столом в саду под деревом" loading="lazy">
+        <img class="tile__img" src="assets/l-life-family.webp" srcset="assets/l-life-family-m.webp 1000w, assets/l-life-family.webp 1400w" sizes="(max-width:1199px) 300px, 1920px" alt="Семья обедает за большим столом в саду под деревом" loading="lazy">
         <span class="label">Семья и друзья</span>
         <h3>Отдыхать с семьёй и встречать друзей</h3>
         <p>Большой стол в саду, терраса для летних вечеров и гостиная, где всем хватает места.</p>
@@ -1824,13 +1828,13 @@ html{touch-action:manipulation}
         <p>Только тишина и лес.</p>
       </article></div>
       <div class="cell cell--d reveal"><article class="tile tile--photo">
-        <img class="tile__img" src="assets/l-life-sauna.webp" alt="Деревянная баня с панорамным окном" loading="lazy">
+        <img class="tile__img" src="assets/l-life-sauna.webp" srcset="assets/l-life-sauna-m.webp 1000w, assets/l-life-sauna.webp 1200w" sizes="(max-width:1199px) 300px, 1920px" alt="Деревянная баня с панорамным окном" loading="lazy">
         <span class="label">Восстановиться</span>
         <h3>Париться в бане после рабочей недели</h3>
         <p>Своя баня на участке, а не по записи в выходные.</p>
       </article></div>
       <div class="cell cell--e reveal"><article class="tile tile--photo">
-        <img class="tile__img" src="assets/l-life-fire.webp" alt="Женщина отдыхает у горящего камина" loading="lazy">
+        <img class="tile__img" src="assets/l-life-fire.webp" srcset="assets/l-life-fire-m.webp 1000w, assets/l-life-fire.webp 1100w" sizes="(max-width:1199px) 300px, 1920px" alt="Женщина отдыхает у горящего камина" loading="lazy">
         <span class="label">Вечер</span>
         <h3>Читать книгу у камина</h3>
         <p>Тёплые каменные стены и огонь, когда за окном снег.</p>
@@ -1845,7 +1849,7 @@ html{touch-action:manipulation}
         <h3>Смотреть кино в домашнем кинотеатре</h3>
       </article></div>
       <div class="cell cell--h reveal"><article class="tile tile--photo">
-        <img class="tile__img" src="assets/l-life-kids.webp" alt="Девочка смеётся на качелях во дворе" loading="lazy">
+        <img class="tile__img" src="assets/l-life-kids.webp" srcset="assets/l-life-kids-m.webp 1000w, assets/l-life-kids.webp 1200w" sizes="(max-width:1199px) 300px, 1920px" alt="Девочка смеётся на качелях во дворе" loading="lazy">
         <span class="label">Дети</span>
         <h3>Подарить детям детство, о котором мечтали сами</h3>
         <p>Своя комната каждому, качели и площадка во дворе.</p>
@@ -1871,14 +1875,14 @@ html{touch-action:manipulation}
       <p class="eyebrow reveal" style="--i:1">Полный цикл работ</p>
       <h2 class="display h2 reveal" style="--i:2" id="steps-title">Восемь шагов <br><em>до ключей.</em></h2>
       <div class="steps__frame reveal-img" aria-hidden="true">
-        <img class="is-shown" src="assets/l-step-1.webp" alt="" style="z-index:1">
-        <img src="assets/l-step-2.webp" alt="">
-        <img src="assets/l-step-3.webp" alt="">
-        <img src="assets/l-step-site.webp" alt="">
-        <img src="assets/l-step-4.webp" alt="">
-        <img src="assets/l-step-mep.webp" alt="">
-        <img src="assets/l-step-finish2.webp" alt="">
-        <img src="assets/l-step-5.webp" alt="">
+        <img fetchpriority="low" decoding="async" class="is-shown" src="assets/l-step-1.webp" srcset="assets/l-step-1-m.webp 800w, assets/l-step-1.webp 900w" sizes="(max-width:1199px) 300px, 1920px" alt="" style="z-index:1">
+        <img fetchpriority="low" decoding="async" src="assets/l-step-2.webp" srcset="assets/l-step-2-m.webp 800w, assets/l-step-2.webp 900w" sizes="(max-width:1199px) 300px, 1920px" alt="">
+        <img fetchpriority="low" decoding="async" src="assets/l-step-3.webp" srcset="assets/l-step-3-m.webp 800w, assets/l-step-3.webp 900w" sizes="(max-width:1199px) 300px, 1920px" alt="">
+        <img fetchpriority="low" decoding="async" src="assets/l-step-site.webp" srcset="assets/l-step-site-m.webp 800w, assets/l-step-site.webp 900w" sizes="(max-width:1199px) 300px, 1920px" alt="">
+        <img fetchpriority="low" decoding="async" src="assets/l-step-4.webp" srcset="assets/l-step-4-m.webp 800w, assets/l-step-4.webp 900w" sizes="(max-width:1199px) 300px, 1920px" alt="">
+        <img fetchpriority="low" decoding="async" src="assets/l-step-mep.webp" srcset="assets/l-step-mep-m.webp 800w, assets/l-step-mep.webp 900w" sizes="(max-width:1199px) 300px, 1920px" alt="">
+        <img fetchpriority="low" decoding="async" src="assets/l-step-finish2.webp" srcset="assets/l-step-finish2-m.webp 800w, assets/l-step-finish2.webp 900w" sizes="(max-width:1199px) 300px, 1920px" alt="">
+        <img fetchpriority="low" decoding="async" src="assets/l-step-5.webp" srcset="assets/l-step-5-m.webp 800w, assets/l-step-5.webp 900w" sizes="(max-width:1199px) 300px, 1920px" alt="">
       </div>
       <p class="caption"><span class="steps__cap">Этап 01 · Знакомство и консультация</span><span>Фото: Unsplash</span></p>
     </div>
@@ -1929,7 +1933,7 @@ html{touch-action:manipulation}
 
 <!-- 05 MATERIALS -->
 <section class="cine" id="materials" aria-labelledby="materials-title">
-  <img class="cine__img" src="assets/l-materials.webp" alt="Угол стены из газобетонных блоков" loading="lazy" decoding="async">
+  <img class="cine__img" src="assets/l-materials.webp" srcset="assets/l-materials-m.webp 1000w, assets/l-materials.webp 1800w" sizes="(max-width:1199px) 300px, 1920px" alt="Угол стены из газобетонных блоков" loading="lazy" decoding="async">
   <div class="cine__shade" aria-hidden="true"></div>
   <div class="wrap">
     <div class="cine__head">
@@ -1993,15 +1997,15 @@ html{touch-action:manipulation}
     </div>
     <div class="team__swipe" aria-hidden="true"><div class="team__swipe-row"><span class="team__swipe-t">Листайте<svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M221.7 133.7l-72 72a8 8 0 0 1-11.4-11.4l58.4-58.3H40a8 8 0 0 1 0-16h156.7l-58.4-58.3a8 8 0 0 1 11.4-11.4l72 72a8 8 0 0 1 0 11.4z"/></svg></span><span class="team__count"><b>1</b> / 5</span></div><span class="team__track"><i></i></span></div>
     <div class="team__grid">
-      <article class="person reveal"><div class="media reveal-img"><img src="assets/l-team-1.webp" alt="Алексей Воронцов"></div>
+      <article class="person reveal"><div class="media reveal-img"><img fetchpriority="low" decoding="async" src="assets/l-team-1.webp" srcset="assets/l-team-1-m.webp 800w, assets/l-team-1.webp 900w" sizes="(max-width:1199px) 300px, 1920px" alt="Алексей Воронцов"></div>
         <p class="person__role">Основатель</p><h3>Алексей Воронцов</h3><p class="person__text">Строит дома с 2001 года и лично принимает каждый объект перед сдачей.</p></article>
-      <article class="person reveal"><div class="media reveal-img"><img src="assets/l-team-2.webp" alt="Михаил Ярцев"></div>
+      <article class="person reveal"><div class="media reveal-img"><img fetchpriority="low" decoding="async" src="assets/l-team-2.webp" srcset="assets/l-team-2-m.webp 800w, assets/l-team-2.webp 900w" sizes="(max-width:1199px) 300px, 1920px" alt="Михаил Ярцев"></div>
         <p class="person__role">Главный архитектор</p><h3>Михаил Ярцев</h3><p class="person__text">Ведёт проект от первого эскиза до 3D‑модели и следит за ним на стройке.</p></article>
-      <article class="person reveal"><div class="media reveal-img"><img src="assets/l-team-3.webp" alt="Анна Лебедева"></div>
+      <article class="person reveal"><div class="media reveal-img"><img fetchpriority="low" decoding="async" src="assets/l-team-3.webp" srcset="assets/l-team-3-m.webp 800w, assets/l-team-3.webp 900w" sizes="(max-width:1199px) 300px, 1920px" alt="Анна Лебедева"></div>
         <p class="person__role">Руководитель проектов</p><h3>Анна Лебедева</h3><p class="person__text">Ваш главный контакт: график, фотоотчёты и ответы на вопросы.</p></article>
-      <article class="person reveal"><div class="media reveal-img"><img src="assets/l-team-4.webp" alt="Елена Корнеева"></div>
+      <article class="person reveal"><div class="media reveal-img"><img fetchpriority="low" decoding="async" src="assets/l-team-4.webp" srcset="assets/l-team-4-m.webp 800w, assets/l-team-4.webp 900w" sizes="(max-width:1199px) 300px, 1920px" alt="Елена Корнеева"></div>
         <p class="person__role">Инженер‑сметчик</p><h3>Елена Корнеева</h3><p class="person__text">Считает смету по этапам и следит, чтобы она не менялась.</p></article>
-      <article class="person reveal"><div class="media reveal-img"><img src="assets/l-team-5.webp" alt="Сергей Крылов"></div>
+      <article class="person reveal"><div class="media reveal-img"><img fetchpriority="low" decoding="async" src="assets/l-team-5.webp" srcset="assets/l-team-5-m.webp 800w, assets/l-team-5.webp 900w" sizes="(max-width:1199px) 300px, 1920px" alt="Сергей Крылов"></div>
         <p class="person__role">Прораб</p><h3>Сергей Крылов</h3><p class="person__text">Каждый день руководит нашей бригадой на участке.</p></article>
     </div>
   </div>
@@ -2060,7 +2064,7 @@ html{touch-action:manipulation}
 
 <!-- 07 CONTACT -->
 <section class="contact" id="contact" aria-labelledby="contact-title">
-  <img class="contact__img" src="assets/l-dusk.webp" alt="" loading="lazy">
+  <img class="contact__img" src="assets/l-dusk.webp" srcset="assets/l-dusk-m.webp 1000w, assets/l-dusk.webp 2200w" sizes="(max-width:1199px) 300px, 1920px" alt="" loading="lazy">
   <div class="contact__shade" aria-hidden="true"></div>
   <div class="wrap">
     <div class="contact__l">
@@ -2206,7 +2210,7 @@ const enter = el => el.animate(reduced ? [{ opacity: 0 }, { opacity: 1 }] : [{ o
 
 /* ================= cases data ================= */
 const CASES = [
-  { material: 'gas', img: 'assets/l-case-1.webp', alt: 'Двухэтажный дом с деревянным потолком террасы и панорамным остеклением',
+  { material: 'gas', img: 'assets/l-case-1.webp', m: 'assets/l-case-1-m.webp', mw: 900, ow: 1600, alt: 'Двухэтажный дом с деревянным потолком террасы и панорамным остеклением',
     place: 'КП «Лесные озёра», Истринский р‑н', short: 'Истринский р‑н', year: 2025,
     title: 'Дом 214 м²', em: 'с террасой и вторым светом', area: 214, floors: '2 этажа', walls: 'Газобетон D500', foundation: 'Монолитная плита',
     roof: 'Плоская кровля', facade: 'Штукатурка и термодерево', rooms: '4 спальни · 3 санузла', term: '7 месяцев', price: 23480000,
@@ -2215,7 +2219,7 @@ const CASES = [
     solution: 'Газобетон на монолитной плите, панорамное остекление гостиной на два этажа, терраса под общей кровлей. Смету закрыли без доплат.',
     quote: 'Боялись, что смета поползёт, как у соседей. Не поползла: сдали в те же деньги, что и подписали. Фотоотчёты смотрели каждый вечер, как сериал.',
     preset: { area: 214, floors: '2', walls: 'gas', foundation: 'slab', roof: 'flat', facade: 'plaster', pack: 'key', extras: ['terrace'] } },
-  { material: 'ceramic', img: 'assets/l-case-6.webp', alt: 'Одноэтажный дом среди сосен',
+  { material: 'ceramic', img: 'assets/l-case-6.webp', m: 'assets/l-case-6-m.webp', mw: 900, ow: 1000, alt: 'Одноэтажный дом среди сосен',
     place: 'Новорижское ш., 32 км', short: 'Новорижское ш.', year: 2025,
     title: 'Одноэтажный дом 168 м²', em: 'в сосновом лесу', area: 168, floors: '1 этаж', walls: 'Тёплая керамика', foundation: 'Монолитная плита',
     roof: 'Гибкая черепица', facade: 'Фиброцементные панели', rooms: '3 спальни · 2 санузла', term: '6 месяцев', price: 20960000,
@@ -2224,7 +2228,7 @@ const CASES = [
     solution: 'Пятно застройки сдвинули на шесть метров, и ни одно дерево не пострадало. Тёплая керамика держит стабильную влажность, широкие свесы кровли защищают фасад.',
     quote: 'Мы хотели жить в лесу, а не на стройке. Сосны на месте, а дом получился тёплым уже в первую зиму.',
     preset: { area: 168, floors: '1', walls: 'ceramic', foundation: 'slab', roof: 'soft', facade: 'fiber', pack: 'key', extras: ['water'] } },
-  { material: 'gas', img: 'assets/l-case-2.webp', alt: 'Дом с панорамными окнами среди высоких деревьев',
+  { material: 'gas', img: 'assets/l-case-2.webp', m: 'assets/l-case-2-m.webp', mw: 900, ow: 1000, alt: 'Дом с панорамными окнами среди высоких деревьев',
     place: 'Калужское ш., 24 км', short: 'Калужское ш.', year: 2024,
     title: 'Дом 286 м²', em: 'с панорамными окнами', area: 286, floors: '2 этажа', walls: 'Газобетон D500', foundation: 'Монолитная плита',
     roof: 'Плоская кровля', facade: 'Штукатурка и фасадная доска', rooms: '5 спален · 4 санузла', term: '9 месяцев', price: 29740000,
@@ -2233,7 +2237,7 @@ const CASES = [
     solution: 'Двухсветная гостиная с остеклением в пол, гостевой блок со своим входом. Подготовили документы для банка‑партнёра, кредит одобрили до начала работ.',
     quote: 'Кредит одобрили быстрее, чем мы успели выбрать плитку. Дальше просто следили за фотоотчётами.',
     preset: { area: 286, floors: '2', walls: 'gas', foundation: 'slab', roof: 'flat', facade: 'plaster', pack: 'key', extras: ['water', 'gas'] } },
-  { material: 'ceramic', img: 'assets/l-case-3.webp', alt: 'Дом с каменной отделкой фасада и дымоходом',
+  { material: 'ceramic', img: 'assets/l-case-3.webp', m: 'assets/l-case-3-m.webp', mw: 900, ow: 1000, alt: 'Дом с каменной отделкой фасада и дымоходом',
     place: 'Дмитровское ш., 41 км', short: 'Дмитровское ш.', year: 2024,
     title: 'Дом 192 м²', em: 'с каменным фасадом', area: 192, floors: 'Этаж и мансарда', walls: 'Тёплая керамика', foundation: 'Ленточный',
     roof: 'Гибкая черепица', facade: 'Камень и штукатурка', rooms: '4 спальни · 2 санузла', term: '8 месяцев', price: 22080000,
@@ -2242,7 +2246,7 @@ const CASES = [
     solution: 'Мансардный этаж под крутой кровлей, камин с отдельным дымоходом, цоколь и углы отделаны натуральным камнем.',
     quote: 'Архитектор показал дом в 3D ещё до фундамента. Поменяли лестницу и окна, и это ничего не стоило, потому что всё решили на модели.',
     preset: { area: 192, floors: '1.5', walls: 'ceramic', foundation: 'strip', roof: 'soft', facade: 'clinker', pack: 'key', extras: ['fireplace'] } },
-  { material: 'gas', img: 'assets/l-case-4.webp', alt: 'Тёмный дом с террасой зимой',
+  { material: 'gas', img: 'assets/l-case-4.webp', m: 'assets/l-case-4-m.webp', mw: 900, ow: 1000, alt: 'Тёмный дом с террасой зимой',
     place: 'Ярославское ш., 28 км', short: 'Ярославское ш.', year: 2023,
     title: 'Дом 134 м²', em: 'с террасой', area: 134, floors: '1 этаж', walls: 'Газобетон D500', foundation: 'Свайно‑ростверковый',
     roof: 'Односкатная, фальц', facade: 'Фасадная доска', rooms: '2 спальни · кабинет', term: '5 месяцев', price: 15810000,
@@ -2251,7 +2255,7 @@ const CASES = [
     solution: 'Свайно‑ростверковый фундамент выровнял перепад без подпорных стен. Терраса вдоль всего фасада, большое остекление кабинета.',
     quote: 'Зимой сдали, весной я уже работал с террасы. Сроки, которые обещали, совпали до недели.',
     preset: { area: 134, floors: '1', walls: 'gas', foundation: 'piles', roof: 'metal', facade: 'fiber', pack: 'key', extras: ['terrace'] } },
-  { material: 'ceramic', img: 'assets/l-case-5.webp', alt: 'Дом с крыльцом и деревянными колоннами',
+  { material: 'ceramic', img: 'assets/l-case-5.webp', m: 'assets/l-case-5-m.webp', mw: 900, ow: 1000, alt: 'Дом с крыльцом и деревянными колоннами',
     place: 'Минское ш., 37 км', short: 'Минское ш.', year: 2023,
     title: 'Дом 248 м²', em: 'с крыльцом и верандой', area: 248, floors: '2 этажа', walls: 'Тёплая керамика', foundation: 'Монолитная плита',
     roof: 'Гибкая черепица', facade: 'Фиброцементные панели', rooms: '4 спальни · 3 санузла', term: '8 месяцев', price: 27790000,
@@ -2265,7 +2269,7 @@ const CASES = [
 const grid = $('#case-grid');
 grid.innerHTML = CASES.map((c, i) => `
   <button class="card reveal" type="button" data-material="${c.material}" data-case="${i}" aria-label="Подробнее: ${c.title} ${c.em}">
-    <div class="media"><img src="${c.img}" alt="${c.alt}" loading="lazy"><span class="card__more">Подробнее →</span></div>
+    <div class="media"><img src="${c.img}" srcset="${c.m} ${c.mw}w, ${c.img} ${c.ow}w" sizes="(max-width:1199px) 300px, 1920px" alt="${c.alt}" loading="lazy"><span class="card__more">Подробнее →</span></div>
     <div class="card__row"><p class="meta">${c.short}</p><p class="meta">${c.year}</p></div>
     <h3>${c.title} <em>${c.em}</em></h3>
     <p class="card__specs">${c.floors} · ${c.rooms}</p>
@@ -2676,7 +2680,7 @@ const caseBody = $('#case-body');
 const caseImg = $('.case__media img', caseModal);
 function openCase(i) {
   const c = CASES[i];
-  caseImg.src = c.img; caseImg.alt = c.alt;
+  caseImg.sizes = '(max-width:1199px) 300px, 1920px'; caseImg.srcset = `${c.m} ${c.mw}w, ${c.img} ${c.ow}w`; caseImg.src = c.img; caseImg.alt = c.alt;
   caseImg.style.animation = 'none'; void caseImg.offsetWidth; caseImg.style.animation = '';
   $('.case__cap', caseModal).textContent = c.place;
   const spec = (k, v, hl) => `<div class="${hl ? 'hl' : ''}"><dt>${k}</dt><dd>${v}</dd></div>`;
