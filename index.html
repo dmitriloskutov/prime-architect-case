@@ -1591,6 +1591,11 @@ html{touch-action:manipulation}
 @keyframes icoNudge{0%,78%,100%{transform:translateX(0)}86%{transform:translateX(10px)}92%{transform:translateX(-2px)}96%{transform:translateX(2px)}}
 @media (prefers-reduced-motion:reduce){ .pill .pill__ico,.pill .pill__ico svg,.case__more svg{animation:none!important} }
 
+
+@media (max-width:1199px){
+  html.cv main > section:not(.hero):not(.band--book){content-visibility:auto;contain-intrinsic-size:auto 1400px}
+}
+
 </style>
 <script>
 /* The page is always laid out at 1920 design px and scaled to the window width (CSS zoom).
@@ -1631,6 +1636,11 @@ html{touch-action:manipulation}
 </head>
 <body>
 <div class="preloader" aria-hidden="true"><div class="preloader__in"><span class="preloader__text"></span><i class="preloader__caret"></i></div><span class="preloader__line"></span></div>
+<script>
+(function () {
+  if (/Chrome\/\d/.test(navigator.userAgent)) document.documentElement.classList.add('cv');
+})();
+</script>
 <script>
 (function () {
   var h = document.documentElement, el = document.querySelector('.preloader'), out = el.querySelector('.preloader__text');
@@ -2302,7 +2312,8 @@ function countUp(el) {
   requestAnimationFrame(tick);
 }
 document.fonts.ready.then(() => {
-  $$('[data-count]').forEach(el => { el.style.minWidth = el.getBoundingClientRect().width + 'px'; if (!reduced) el.textContent = 0; });
+  const cs = $$('[data-count]'), ws = cs.map(el => el.getBoundingClientRect().width);
+  cs.forEach((el, i) => { el.style.minWidth = ws[i] + 'px'; if (!reduced) el.textContent = 0; });
   // counts up as soon as the page shows, whether or not the numbers are in view yet
   const go = () => setTimeout(() => $$('[data-count]').forEach(countUp), reduced ? 0 : 700);
   document.documentElement.classList.contains('is-loading') ? addEventListener('preloader:done', go, { once: true }) : go();
@@ -2332,7 +2343,7 @@ const header = $('.header');
   };
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
   addEventListener('resize', update);
-  update();
+  requestAnimationFrame(update);
 })();
 /* mobile menu */
 (() => {
@@ -2510,7 +2521,7 @@ steps.forEach(st => stepIO.observe(st));
   };
   g.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(upd); }, { passive: true });
   addEventListener('resize', upd);
-  upd();
+  requestAnimationFrame(upd);
 })();
 
 /* ================= links to pages that do not exist yet ================= */
